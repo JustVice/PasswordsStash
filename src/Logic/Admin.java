@@ -30,9 +30,9 @@ public class Admin {
     }
     
     public void StartProgram() {
-        Static.LoadData();
-        Static.setModelsItems();
-        Static.admin.openStart();
+        StaticOld.LoadData();
+        StaticOld.setModelsItems();
+        StaticOld.admin.openStart();
     }
     
     public void openPrintPasswords() {

@@ -12,7 +12,7 @@ import java.util.LinkedList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
-public class Static {
+public class StaticOld {
 
     public static LinkedList<Passwordv2> pw_dir = new LinkedList();
     public static DefaultListModel<Passwordv2> modelo = new DefaultListModel<>();
@@ -95,8 +95,8 @@ public class Static {
         modelo.clear();
         servicesRegistered = new String[pw_dir.size()];
         for (int i = 0; i < pw_dir.size(); i++) {
-            modelo.add(i, Static.pw_dir.get(i));
-            servicesRegistered[i] = Static.pw_dir.get(i).getService();
+            modelo.add(i, StaticOld.pw_dir.get(i));
+            servicesRegistered[i] = StaticOld.pw_dir.get(i).getService();
         }
         try {
             servicesRegistered = whiteListServicesRegistered(servicesRegistered);
@@ -155,9 +155,7 @@ public class Static {
                     if (!password.getDescription().equals("")) {
                         str += "Description: " + password.getDescription() + "\r\n";
                     }
-                    if (!password.getOtherInstrucctions().equals("")) {
-                        str += "Other sign up instrucctions: " + password.getOtherInstrucctions() + "\r\n";
-                    }
+                    
                     str += "\r\n";
                 }
                 System.out.println(str);
@@ -196,9 +194,7 @@ public class Static {
                     if (!password.getDescription().equals("")) {
                         str += "Description: " + password.getDescription() + "\r\n";
                     }
-                    if (!password.getOtherInstrucctions().equals("")) {
-                        str += "Other sign up instrucctions: " + password.getOtherInstrucctions() + "\r\n";
-                    }
+                    
                     str += "\r\n";
                     String fileName = "Passwords\\" + password.getService() + ". ";
                     if (!password.getUser().equals("")) {
@@ -245,9 +241,7 @@ public class Static {
                     if (!password.getDescription().equals("")) {
                         str += "Description: " + password.getDescription() + "\r\n";
                     }
-                    if (!password.getOtherInstrucctions().equals("")) {
-                        str += "Other sign up instrucctions: " + password.getOtherInstrucctions() + "\r\n";
-                    }
+                    
                     str += "\r\n";
                     String fileName = "Passwords\\" + password.getService() + ". ";
                     if (!password.getUser().equals("")) {

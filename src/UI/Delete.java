@@ -1,6 +1,6 @@
 package UI;
 
-import Logic.Static;
+import Logic.StaticOld;
 
 import Logic.Passwordv2;
 import javax.swing.JOptionPane;
@@ -10,8 +10,8 @@ public class Delete extends javax.swing.JFrame {
     public Delete() {
         initComponents();
         setLocationRelativeTo(null);
-        j_list.setModel(Static.modelo);
-        this.setTitle(Static.programTab + Static.currentVersion);
+        j_list.setModel(StaticOld.modelo);
+        this.setTitle(StaticOld.programTab + StaticOld.currentVersion);
     }
 
     @SuppressWarnings("unchecked")
@@ -76,20 +76,20 @@ public class Delete extends javax.swing.JFrame {
     private void DeleteBOTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeleteBOTMouseClicked
         try {
             int SelectedIndex = j_list.getSelectedIndex();
-            Passwordv2 password = Static.modelo.getElementAt(SelectedIndex);
+            Passwordv2 password = StaticOld.modelo.getElementAt(SelectedIndex);
             if (deleteYes(password)) {
                 Boolean found = false;
-                for (int i = 0; i < Static.pw_dir.size(); i++) {
-                    if (Static.pw_dir.get(i).getID() == password.getID()) {
-                        Static.pw_dir.remove(i);
+                for (int i = 0; i < StaticOld.pw_dir.size(); i++) {
+                    if (StaticOld.pw_dir.get(i).getID() == password.getID()) {
+                        StaticOld.pw_dir.remove(i);
                         System.out.println("PASSWORD DELETED");
                         found = true;
                     }
                 }
                 if (found) {
-                    Static.UpdateData();
-                    Static.setModelsItems();
-                    j_list.setModel(Static.modelo);
+                    StaticOld.UpdateData();
+                    StaticOld.setModelsItems();
+                    j_list.setModel(StaticOld.modelo);
                 } else {
                     JOptionPane.showMessageDialog(null, "ITEM HASN'T BEEN FOUND. THERE'S AN UNKNOW ISSUE WITH THE PROGRAM. PLEASE, RESTART THE PROGRAM.");
                 }
@@ -102,7 +102,7 @@ public class Delete extends javax.swing.JFrame {
     }//GEN-LAST:event_DeleteBOTMouseClicked
 
     private void backBotMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBotMouseClicked
-        Static.admin.openStart();
+        StaticOld.admin.openStart();
         this.dispose();
     }//GEN-LAST:event_backBotMouseClicked
 

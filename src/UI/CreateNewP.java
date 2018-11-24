@@ -1,16 +1,15 @@
 package UI;
 
-import Logic.Static;
+import Logic.StaticOld;
 import Logic.Passwordv2;
-import java.awt.event.KeyEvent;
-import javax.swing.JOptionPane;
+import LogicV2.Static;
 
 public class CreateNewP extends javax.swing.JFrame {
 
     public CreateNewP() {
         initComponents();
         setLocationRelativeTo(null);
-        this.setTitle(Static.programTab + Static.currentVersion);
+        this.setTitle(Static.title + " " + Static.version);
     }
 
     @SuppressWarnings("unchecked")
@@ -22,38 +21,34 @@ public class CreateNewP extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         servicetxt = new javax.swing.JTextField();
         mailtxt = new javax.swing.JTextField();
         usertxt = new javax.swing.JTextField();
         passwordtxt = new javax.swing.JTextField();
-        othertxt = new javax.swing.JTextField();
-        descriptiontxt = new javax.swing.JTextField();
         create = new javax.swing.JButton();
         cancel = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         favCombo = new javax.swing.JRadioButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        notesPanel = new javax.swing.JTextArea();
+        helpButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel1.setText("Service");
+        jLabel1.setText("Service --");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel2.setText("Mail");
+        jLabel2.setText("Mail -----");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel3.setText("User");
+        jLabel3.setText("User ----");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setText("Password");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel5.setText("Description");
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel6.setText("Other instructions to sign in");
+        jLabel5.setText("Notes");
 
         servicetxt.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -73,15 +68,15 @@ public class CreateNewP extends javax.swing.JFrame {
             }
         });
 
-        create.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        create.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         create.setText("CREATE");
-        create.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                createMouseClicked(evt);
+        create.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createActionPerformed(evt);
             }
         });
 
-        cancel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        cancel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         cancel.setText("BACK");
         cancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -91,9 +86,19 @@ public class CreateNewP extends javax.swing.JFrame {
 
         jLabel7.setText("*optional");
 
-        jLabel8.setText("*optional");
-
+        favCombo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         favCombo.setText("Add to favorites");
+
+        notesPanel.setColumns(20);
+        notesPanel.setRows(5);
+        jScrollPane1.setViewportView(notesPanel);
+
+        helpButton.setText("Help");
+        helpButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                helpButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -102,37 +107,35 @@ public class CreateNewP extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel7))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(descriptiontxt)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLabel4)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(passwordtxt))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel1)
-                                        .addComponent(jLabel2)
-                                        .addComponent(jLabel3))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(usertxt, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(mailtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(servicetxt, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addComponent(othertxt, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel7)
-                                .addComponent(jLabel8)))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(create, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(28, 28, 28)
+                            .addComponent(create, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 523, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(helpButton)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(18, 18, 18)
+                                .addComponent(passwordtxt))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(servicetxt, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)
+                                    .addComponent(mailtxt)
+                                    .addComponent(usertxt)))))
                     .addComponent(favCombo))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGap(0, 28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,48 +158,30 @@ public class CreateNewP extends javax.swing.JFrame {
                     .addComponent(passwordtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(favCombo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(helpButton)
+                .addGap(4, 4, 4)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(descriptiontxt, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel6)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(othertxt, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(create, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
-                    .addComponent(cancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(40, 40, 40))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(create, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cancel))
+                .addGap(25, 25, 25))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void createMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_createMouseClicked
-        if (verify()) {
-            boolean fav = false;
-            if (favCombo.isSelected()) {
-                fav = true;
-            }
-            Static.pw_dir.add(new Passwordv2(servicetxt.getText().toUpperCase(), usertxt.getText(), mailtxt.getText(), passwordtxt.getText(), descriptiontxt.getText(), othertxt.getText(), fav));
-            Static.NewPassword();
-            Static.LoadData();
-            Static.setModelsItems();
-            JOptionPane.showMessageDialog(null, "SIGN IN INFORMATION RECORDED");
-            clean();
-        } else {
-            JOptionPane.showMessageDialog(null, "YOU HAVE TO PROVIDE THE NAME OF THE SERVICE, PASSWORD AND EITHER USER OR EMAIL INFORMATION.");
-        }
-    }//GEN-LAST:event_createMouseClicked
+    private void notAllowedChar(char c) {
+        Static.run.message("It's not allowed to type " + c + " at this field.\nIf you need to save an information with this character you can on Description field.", "Not allowed char.", 0);
+    }
 
     private void cancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelMouseClicked
-        Static.admin.openStart();
+        StaticOld.admin.openStart();
         this.dispose();
     }//GEN-LAST:event_cancelMouseClicked
 
@@ -204,7 +189,7 @@ public class CreateNewP extends javax.swing.JFrame {
         char c = evt.getKeyChar();
         if (c == '/' || c == ':' || c == '*' || c == '?' || c == '<' || c == '>' || c == '|') {
             evt.consume();
-            JOptionPane.showMessageDialog(null, "It's not allowed to type " + c +" at this field.\nIf you need to save an information with this character you can on Description field.");
+            notAllowedChar(c);
         }
     }//GEN-LAST:event_servicetxtKeyTyped
 
@@ -212,7 +197,7 @@ public class CreateNewP extends javax.swing.JFrame {
         char c = evt.getKeyChar();
         if (c == '/' || c == ':' || c == '*' || c == '?' || c == '<' || c == '>' || c == '|') {
             evt.consume();
-            JOptionPane.showMessageDialog(null, "It's not allowed to type " + c +" at this field.\nIf you need to save an information with this character you can on Description field.");
+            notAllowedChar(c);
         }
     }//GEN-LAST:event_mailtxtKeyTyped
 
@@ -220,9 +205,34 @@ public class CreateNewP extends javax.swing.JFrame {
         char c = evt.getKeyChar();
         if (c == '/' || c == ':' || c == '*' || c == '?' || c == '<' || c == '>' || c == '|') {
             evt.consume();
-            JOptionPane.showMessageDialog(null, "It's not allowed to type " + c +" at this field.\nIf you need to save an information with this character you can on Description field.");
+            notAllowedChar(c);
         }
     }//GEN-LAST:event_usertxtKeyTyped
+
+    private void createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createActionPerformed
+        if (verify()) {
+            boolean fav = false;
+            if (favCombo.isSelected()) {
+                fav = true;
+            }
+            Static.data.getUserData().getPasswordsList().add(new Passwordv2(servicetxt.getText().toUpperCase(), usertxt.getText(), mailtxt.getText(), passwordtxt.getText(), notesPanel.getText(), fav));
+            Static.data.updateInfo();
+            cleanFields();
+        } else {
+            Static.run.message("YOU HAVE TO PROVIDE THE NAME OF THE SERVICE, PASSWORD AND EITHER USER OR EMAIL INFORMATION TO CREATE A PASSWORD INFO.", "Missing info", 2);
+        }
+    }//GEN-LAST:event_createActionPerformed
+
+    private void helpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpButtonActionPerformed
+        Static.run.message(
+                "Service: Service carrier associated to the password, example: Facebook or fb (refering Facebook).\n"
+                + "Mail: Field to type your mail. You can type it as \"null\" if you know your mail and want to keep it hidden.\n"
+                        + "User: Field to type you user. Example: \"anon01\" if it is your Twitter username."
+                        + "Password: Field to type the password. Keep in mind that it will be shown as you type it.\n"
+                        + "Notes: Field to type notes. It can stash any other information whether you want to."
+                , "Help"
+                , 1);
+    }//GEN-LAST:event_helpButtonActionPerformed
 
     /**
      * Makes sure that you provide all the neccesary information to make a new
@@ -241,31 +251,29 @@ public class CreateNewP extends javax.swing.JFrame {
     /**
      * Clean all that the user typed and did in the frame.
      */
-    private void clean() {
+    private void cleanFields() {
         servicetxt.setText("");
         mailtxt.setText("");
         usertxt.setText("");
         passwordtxt.setText("");
-        descriptiontxt.setText("");
-        othertxt.setText("");
+        notesPanel.setText("");
         favCombo.setSelected(false);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancel;
     private javax.swing.JButton create;
-    private javax.swing.JTextField descriptiontxt;
     private javax.swing.JRadioButton favCombo;
+    private javax.swing.JButton helpButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField mailtxt;
-    private javax.swing.JTextField othertxt;
+    private javax.swing.JTextArea notesPanel;
     private javax.swing.JTextField passwordtxt;
     private javax.swing.JTextField servicetxt;
     private javax.swing.JTextField usertxt;

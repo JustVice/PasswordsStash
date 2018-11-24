@@ -1,6 +1,6 @@
 package UI;
 
-import Logic.Static;
+import Logic.StaticOld;
 import Logic.Passwordv2;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
@@ -11,17 +11,23 @@ import javax.swing.JOptionPane;
 
 public class SeePasswords extends javax.swing.JFrame {
 
-    private Passwordv2 passwordv2;
+    private Passwordv2 generalPassword;
 
     public SeePasswords() {
         initComponents();
         setLocationRelativeTo(null);
-        RESETVIEWBUTTON.setVisible(false);
-        j_list.setModel(Static.modelo);
+    }
+
+    private void settings() {
+        j_list.setModel(StaticOld.modelo);
         SearchEnganched = false;
         setComboBox();
-        this.setTitle(Static.programTab + Static.currentVersion);
+        this.setTitle(StaticOld.programTab + StaticOld.currentVersion);
         saveFavB.setEnabled(false);
+    }
+
+    private void setPasswordsToJlist() {
+        
     }
 
     private boolean SearchEnganched;
@@ -32,7 +38,7 @@ public class SeePasswords extends javax.swing.JFrame {
      * Fills the combobox for seek passwords with the services that exist.
      */
     private void setComboBox() {
-        serviceCombo.setModel(new javax.swing.DefaultComboBoxModel<>(Static.servicesRegistered));
+        serviceCombo.setModel(new javax.swing.DefaultComboBoxModel<>(StaticOld.servicesRegistered));
     }
 
     @SuppressWarnings("unchecked")
@@ -47,7 +53,6 @@ public class SeePasswords extends javax.swing.JFrame {
         User = new javax.swing.JButton();
         PASSWORD = new javax.swing.JButton();
         backAndReset = new javax.swing.JPanel();
-        RESETVIEWBUTTON = new javax.swing.JButton();
         back = new javax.swing.JButton();
         searchFeatures = new javax.swing.JPanel();
         SEARCHBUTTON = new javax.swing.JButton();
@@ -55,7 +60,6 @@ public class SeePasswords extends javax.swing.JFrame {
         serviceTxt = new javax.swing.JTextField();
         serviceCombo = new javax.swing.JComboBox<>();
         FavPasswordsPanel = new javax.swing.JPanel();
-        FavRadio = new javax.swing.JRadioButton();
         showFavButton = new javax.swing.JButton();
         saveFavB = new javax.swing.JButton();
 
@@ -127,13 +131,6 @@ public class SeePasswords extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        RESETVIEWBUTTON.setText("RESET VIEW");
-        RESETVIEWBUTTON.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                RESETVIEWBUTTONMouseClicked(evt);
-            }
-        });
-
         back.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         back.setText("Back");
         back.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -147,16 +144,13 @@ public class SeePasswords extends javax.swing.JFrame {
         backAndResetLayout.setHorizontalGroup(
             backAndResetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backAndResetLayout.createSequentialGroup()
-                .addGroup(backAndResetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(RESETVIEWBUTTON, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         backAndResetLayout.setVerticalGroup(
             backAndResetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backAndResetLayout.createSequentialGroup()
-                .addComponent(RESETVIEWBUTTON, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(50, 50, 50)
                 .addComponent(back)
                 .addGap(0, 1, Short.MAX_VALUE))
         );
@@ -186,13 +180,6 @@ public class SeePasswords extends javax.swing.JFrame {
             }
         });
 
-        FavRadio.setText("Add selected password to favorites");
-        FavRadio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FavRadioActionPerformed(evt);
-            }
-        });
-
         showFavButton.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         showFavButton.setText("Show favorite passwords");
         showFavButton.addActionListener(new java.awt.event.ActionListener() {
@@ -201,7 +188,8 @@ public class SeePasswords extends javax.swing.JFrame {
             }
         });
 
-        saveFavB.setText("SAVE");
+        saveFavB.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        saveFavB.setText("Add selected password to favorite");
         saveFavB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 saveFavBActionPerformed(evt);
@@ -216,20 +204,13 @@ public class SeePasswords extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(FavPasswordsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(showFavButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(FavPasswordsPanelLayout.createSequentialGroup()
-                        .addComponent(FavRadio)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(saveFavB)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(saveFavB, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE))
                 .addContainerGap())
         );
         FavPasswordsPanelLayout.setVerticalGroup(
             FavPasswordsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(FavPasswordsPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(FavPasswordsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(FavRadio)
-                    .addComponent(saveFavB))
+                .addComponent(saveFavB, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(showFavButton))
         );
@@ -250,8 +231,7 @@ public class SeePasswords extends javax.swing.JFrame {
                             .addComponent(serviceCombo, 0, 254, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(FavPasswordsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
+                .addComponent(FavPasswordsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         searchFeaturesLayout.setVerticalGroup(
             searchFeaturesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -307,10 +287,10 @@ public class SeePasswords extends javax.swing.JFrame {
 
     private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
         if (SearchEnganched) {
-            Static.LoadData();
-            Static.setModelsItems();
+            StaticOld.LoadData();
+            StaticOld.setModelsItems();
         }
-        Static.admin.openStart();
+        StaticOld.admin.openStart();
         this.dispose();
     }//GEN-LAST:event_backMouseClicked
 
@@ -371,16 +351,15 @@ public class SeePasswords extends javax.swing.JFrame {
                 serviceTxt.setText(txt);
                 DefaultListModel<Passwordv2> tempModel = new DefaultListModel<>();
                 int cont = 0;
-                for (int i = 0; i < Static.pw_dir.size(); i++) {
-                    if (Static.pw_dir.get(i).getService().equals(txt)) {
-                        tempModel.add(cont, Static.pw_dir.get(i));
+                for (int i = 0; i < StaticOld.pw_dir.size(); i++) {
+                    if (StaticOld.pw_dir.get(i).getService().equals(txt)) {
+                        tempModel.add(cont, StaticOld.pw_dir.get(i));
                         cont++;
                     }
                 }
                 if (!tempModel.isEmpty()) {
                     j_list.setModel(tempModel);
                     serviceTxt.setText("");
-                    RESETVIEWBUTTON.setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(null, "Password(s) with service called " + txt + " no found.");
                 }
@@ -393,12 +372,6 @@ public class SeePasswords extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_SEARCHBUTTONMouseClicked
 
-    private void RESETVIEWBUTTONMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RESETVIEWBUTTONMouseClicked
-        saveFavB.setEnabled(false);
-        j_list.setModel(Static.modelo);
-        RESETVIEWBUTTON.setVisible(false);
-    }//GEN-LAST:event_RESETVIEWBUTTONMouseClicked
-
     private void serviceComboItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_serviceComboItemStateChanged
         saveFavB.setEnabled(false);
         serviceTxt.setText(serviceCombo.getSelectedItem().toString());
@@ -407,66 +380,15 @@ public class SeePasswords extends javax.swing.JFrame {
     private void showFavButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showFavButtonActionPerformed
 //        JOptionPane.showMessageDialog(null, "Not Working yet");
         saveFavB.setEnabled(false);
-        j_list.setModel(Static.getFavPasswordsToShow());
-        RESETVIEWBUTTON.setVisible(true);
+        j_list.setModel(StaticOld.getFavPasswordsToShow());
     }//GEN-LAST:event_showFavButtonActionPerformed
 
     private void j_listValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_j_listValueChanged
-        saveFavB.setEnabled(false);
-        try {
-            passwordv2 = j_list.getSelectedValue();
-            if (passwordv2.isFavorite()) {
-                FavRadio.setSelected(true);
-            } else {
-                FavRadio.setSelected(false);
-            }
-        } catch (Exception e) {
-            FavRadio.setSelected(false);
-        }
+
     }//GEN-LAST:event_j_listValueChanged
 
-    private void FavRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FavRadioActionPerformed
-        if(!j_list.isSelectionEmpty()){
-        saveFavB.setEnabled(true);
-        }
-    }//GEN-LAST:event_FavRadioActionPerformed
-
     private void saveFavBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveFavBActionPerformed
-        if (!j_list.isSelectionEmpty()) {
-            if (saveFavB.isEnabled()) {
-                boolean favStatus;
-                if (FavRadio.isSelected()) {
-                    favStatus = true;
-                } else {
-                    favStatus = false;
-                }
-                int cont = 0;
-                passwordv2 = j_list.getSelectedValue();
-                if (passwordv2.isFavorite() != favStatus) {
-                    while (true) {
-                        if (Static.pw_dir.get(cont).getID() == passwordv2.getID()) {
-                            System.out.println("favStatus status: " + favStatus);
-                            Static.pw_dir.get(cont).setFavorite(favStatus);
-                            Static.UpdateData();
-                            Static.LoadData();
-                            Static.setModelsItems();
-                            System.out.println("ITEM SUCCESSFULLY UPDATE.");
-                            System.out.println(Static.pw_dir.get(cont).getService());
-                            saveFavB.setEnabled(false);
-                            break;
-                        }
-                        if (cont > Static.pw_dir.size()) {
-                            System.out.println("PASSWORD NOT FOUND. ERROR 000033 AT EDITPASSWORD FRAME.");
-                            break;
-                        }
-                        cont++;
-                    }
-                } else {
-                    System.out.println("Already has that status. ");
-                    saveFavB.setEnabled(false);
-                }
-            }
-        }
+
     }//GEN-LAST:event_saveFavBActionPerformed
 
     /**
@@ -483,10 +405,8 @@ public class SeePasswords extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Copy;
     private javax.swing.JPanel FavPasswordsPanel;
-    private javax.swing.JRadioButton FavRadio;
     public static javax.swing.JButton MAIL;
     private javax.swing.JButton PASSWORD;
-    private javax.swing.JButton RESETVIEWBUTTON;
     private javax.swing.JButton SEARCHBUTTON;
     private javax.swing.JButton SEEPASSWORD;
     public static javax.swing.JButton User;

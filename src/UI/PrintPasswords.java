@@ -1,6 +1,6 @@
 package UI;
 
-import Logic.Static;
+import Logic.StaticOld;
 import Logic.Passwordv2;
 import javax.swing.JOptionPane;
 
@@ -9,9 +9,9 @@ public class PrintPasswords extends javax.swing.JFrame {
     public PrintPasswords() {
         initComponents();
         setLocationRelativeTo(null);
-        j_list.setModel(Static.modelo);
+        j_list.setModel(StaticOld.modelo);
         PrintSelected.setEnabled(false);
-        this.setTitle(Static.programTab + Static.currentVersion);
+        this.setTitle(StaticOld.programTab + StaticOld.currentVersion);
     }
 
     @SuppressWarnings("unchecked")
@@ -111,13 +111,13 @@ public class PrintPasswords extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BackMouseClicked
-        Static.admin.openStart();
+        StaticOld.admin.openStart();
         this.dispose();
     }//GEN-LAST:event_BackMouseClicked
 
     private void PrintAllMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PrintAllMouseClicked
-        if (!Static.pw_dir.isEmpty()) {
-            Static.printAllPasswords();
+        if (!StaticOld.pw_dir.isEmpty()) {
+            StaticOld.printAllPasswords();
             JOptionPane.showMessageDialog(null, "PASSWORD(S) PRINTED.");
         } else {
             JOptionPane.showMessageDialog(null, "THERE ARE NO PASSWORDS YET");
@@ -126,9 +126,9 @@ public class PrintPasswords extends javax.swing.JFrame {
 
     private void PrintSelectedMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PrintSelectedMouseClicked
         try {
-            if (!Static.pw_dir.isEmpty() && !j_list.isSelectionEmpty()) {
+            if (!StaticOld.pw_dir.isEmpty() && !j_list.isSelectionEmpty()) {
                 int indices[] = j_list.getSelectedIndices();
-                Static.printSelectedPasswords(indices);
+                StaticOld.printSelectedPasswords(indices);
                 JOptionPane.showMessageDialog(null, "PASSWORD(S) PRINTED.");
             } else {
             }
@@ -137,8 +137,8 @@ public class PrintPasswords extends javax.swing.JFrame {
     }//GEN-LAST:event_PrintSelectedMouseClicked
 
     private void printOnTheirOwnTxtFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_printOnTheirOwnTxtFileMouseClicked
-        if (!Static.pw_dir.isEmpty()) {
-            Static.printAllPasswordsOnHisOwnTxtFile();
+        if (!StaticOld.pw_dir.isEmpty()) {
+            StaticOld.printAllPasswordsOnHisOwnTxtFile();
             JOptionPane.showMessageDialog(null, "PASSWORD(S) PRINTED.");
         } else {
             JOptionPane.showMessageDialog(null, "THERE ARE NO PASSWORDS YET");

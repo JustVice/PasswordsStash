@@ -1,6 +1,6 @@
 package UI;
 
-import Logic.Static;
+import Logic.StaticOld;
 import Logic.Passwordv2;
 import javax.swing.JOptionPane;
 
@@ -9,8 +9,8 @@ public class EditPassword extends javax.swing.JFrame {
     public EditPassword() {
         initComponents();
         setLocationRelativeTo(null);
-        j_list.setModel(Static.modelo);
-        this.setTitle(Static.programTab + Static.currentVersion);
+        j_list.setModel(StaticOld.modelo);
+        this.setTitle(StaticOld.programTab + StaticOld.currentVersion);
     }
 
     private int SelectedIndex;
@@ -206,23 +206,23 @@ public class EditPassword extends javax.swing.JFrame {
     private void UPDATEPASSWORDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UPDATEPASSWORDMouseClicked
         try {
             SelectedIndex = j_list.getSelectedIndex();
-            password = Static.modelo.getElementAt(SelectedIndex);
+            password = StaticOld.modelo.getElementAt(SelectedIndex);
             if (verify()) {
                 if (UptadeYes(password)) {
                     int cont = 0;
                     while (true) {
-                        if (Static.pw_dir.get(cont).getID() == password.getID()) {
+                        if (StaticOld.pw_dir.get(cont).getID() == password.getID()) {
                             setNewInformation();
-                            Static.pw_dir.set(cont, password);
-                            Static.UpdateData();
-                            Static.LoadData();
-                            Static.setModelsItems();
+                            StaticOld.pw_dir.set(cont, password);
+                            StaticOld.UpdateData();
+                            StaticOld.LoadData();
+                            StaticOld.setModelsItems();
                             clean();
                             System.out.println("ITEM SUCCESSFULLY UPDATE.");
-                            System.out.println(Static.pw_dir.get(cont).getService());
+                            System.out.println(StaticOld.pw_dir.get(cont).getService());
                             break;
                         }
-                        if (cont > Static.pw_dir.size()) {
+                        if (cont > StaticOld.pw_dir.size()) {
                             System.out.println("PASSWORD NOT FOUND. ERROR 000033 AT EDITPASSWORD FRAME.");
                             break;
                         }
@@ -239,13 +239,13 @@ public class EditPassword extends javax.swing.JFrame {
     }//GEN-LAST:event_UPDATEPASSWORDMouseClicked
 
     private void cancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelMouseClicked
-        Static.admin.openStart();
+        StaticOld.admin.openStart();
         this.dispose();
     }//GEN-LAST:event_cancelMouseClicked
 
     private void j_listMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_j_listMouseClicked
         SelectedIndex = j_list.getSelectedIndex();
-        password = Static.modelo.getElementAt(SelectedIndex);
+        password = StaticOld.modelo.getElementAt(SelectedIndex);
         fillTextBoxes(password);
     }//GEN-LAST:event_j_listMouseClicked
 

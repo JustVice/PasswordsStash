@@ -1,6 +1,8 @@
 package UI;
 
-import Logic.Static;
+import Logic.StaticOld;
+import LogicV2.Static;
+import LogicV2.TextKeeper;
 import javax.swing.JOptionPane;
 
 public class Start extends javax.swing.JFrame {
@@ -8,34 +10,21 @@ public class Start extends javax.swing.JFrame {
     public Start() {
         initComponents();
         setLocationRelativeTo(null);
-        if (Static.pw_dir.isEmpty()) {
-            totalPw.setText("There are no passwords registered.");
-            buttonsAvaibles();
+        settings();
+    }
+
+    private void settings() {
+        this.setTitle(Static.title + " " + Static.version);
+        versionLabel.setText(Static.version);
+        if (!Static.data.getUserData().getPasswordsList().isEmpty()) {
+            totalPw.setText("There are a total of " + Static.data.getUserData().getPasswordsList().size() + " password(s) recorded.");
         } else {
-            totalPw.setText("There are a total of " + Static.pw_dir.size() + " password(s) recorded.");
+            totalPw.setText("There are no passwords registered.");
+            seePasswords.setEnabled(false);
+            DeletePasswords.setEnabled(false);
+            EDITPasswords.setEnabled(false);
+            printPasswords.setEnabled(false);
         }
-        this.setTitle(Static.programTab + Static.currentVersion);
-        versionLabel.setText(Static.currentVersion);
-    }
-
-    /**
-     * Sets some of the buttons to administer passwords grey meaning that they
-     * are not available to use.
-     */
-    private void buttonsAvaibles() {
-        seePasswords.setEnabled(false);
-        DeletePasswords.setEnabled(false);
-        EDITPasswords.setEnabled(false);
-        printPasswords.setEnabled(false);
-    }
-
-    /**
-     * Returns true if there are no passwords, else false.
-     *
-     * @return
-     */
-    private boolean pw_dirEmpty() {
-        return Static.pw_dir.isEmpty();
     }
 
     @SuppressWarnings("unchecked")
@@ -52,7 +41,7 @@ public class Start extends javax.swing.JFrame {
         printPasswords = new javax.swing.JButton();
         totalPw = new javax.swing.JLabel();
         aboutButton = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        changeLog = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -103,16 +92,16 @@ public class Start extends javax.swing.JFrame {
         totalPw.setText("Total passwords label");
 
         aboutButton.setText("About");
-        aboutButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                aboutButtonMouseClicked(evt);
+        aboutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aboutButtonActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Change log");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        changeLog.setText("Change log");
+        changeLog.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                changeLogMouseClicked(evt);
             }
         });
 
@@ -123,7 +112,7 @@ public class Start extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(changeLog, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(aboutButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -165,7 +154,7 @@ public class Start extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(printPasswords)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(changeLog)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(aboutButton)
                 .addContainerGap())
@@ -175,83 +164,57 @@ public class Start extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void createNewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_createNewMouseClicked
-        Static.admin.openCreate();
+        Static.run.openCreate();
         this.dispose();
     }//GEN-LAST:event_createNewMouseClicked
 
     private void seePasswordsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seePasswordsMouseClicked
-        if (!pw_dirEmpty()) {
-            Static.admin.openSeeP();
+        if (!Static.data.getUserData().getPasswordsList().isEmpty()) {
+            Static.run.openSeeP();
             this.dispose();
         }
     }//GEN-LAST:event_seePasswordsMouseClicked
 
     private void DeletePasswordsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeletePasswordsMouseClicked
-        if (!pw_dirEmpty()) {
-            Static.admin.openDelete();
+        if (!Static.data.getUserData().getPasswordsList().isEmpty()) {
+            Static.run.openDelete();
             this.dispose();
         }
     }//GEN-LAST:event_DeletePasswordsMouseClicked
 
     private void EDITPasswordsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EDITPasswordsMouseClicked
-        if (!pw_dirEmpty()) {
-            Static.admin.openEdit();
+        if (!Static.data.getUserData().getPasswordsList().isEmpty()) {
+            Static.run.openEdit();
             this.dispose();
         }
     }//GEN-LAST:event_EDITPasswordsMouseClicked
 
     private void printPasswordsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_printPasswordsMouseClicked
-        if (!pw_dirEmpty()) {
-            Static.admin.openPrintPasswords();
+        if (!Static.data.getUserData().getPasswordsList().isEmpty()) {
+            Static.run.openPrintPasswords();
             this.dispose();
         }
     }//GEN-LAST:event_printPasswordsMouseClicked
 
-    private void aboutButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aboutButtonMouseClicked
-        JOptionPane.showMessageDialog(null, "NOT WORKING YET.");
-    }//GEN-LAST:event_aboutButtonMouseClicked
+    private void changeLogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changeLogMouseClicked
+        TextKeeper textKeeper = new TextKeeper();
+        String changeLog = textKeeper.getChangelog();
+        System.out.println(changeLog);
+        JOptionPane.showMessageDialog(null, changeLog);
+    }//GEN-LAST:event_changeLogMouseClicked
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-       String changeLog = "-1.6.1\n" +
-"Bug related to print passwords fixed.\n" +
-"\n" +
-"- 1.6.0\n" +
-"Now you can add items to a favorite list,\n" +
-"only at the \"See Passwords\" panel for now.\n" +
-"\n" +
-"- 1.5.2\n" +
-"Added more features to print passwords.\n" +
-"Change log button added at the start of the program.\n" +
-"\"beta\" has been removed.\n" +
-"Bug fixes at the moment of seek for a password.\n" +
-"Added a list box to seek your passwords.\n" +
-"\n" +
-"- v 1.3\n" +
-"Posibility to change variables at password class.\n" +
-"Also, password class has renamed as password v2.\n" +
-"\n" +
-"- v 1.2.1:\n" +
-"Posibility to print passwords in a txt file.\n" +
-"\n" +
-"- v 1.1.1:\n" +
-"Bug related to password's ID fixed.\n" +
-"\n" +
-"- v 1.1: \n" +
-"Added function to search services.\n" +
-"Optimisation fixes.\n" +
-"ID password issue optimised.";
-       System.out.println(changeLog);
-       JOptionPane.showMessageDialog(null, changeLog);
-        
-    }//GEN-LAST:event_jButton1MouseClicked
+    private void aboutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutButtonActionPerformed
+        Static.run.openAbout();
+        this.dispose();
+    }//GEN-LAST:event_aboutButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton DeletePasswords;
     private javax.swing.JButton EDITPasswords;
     private javax.swing.JButton aboutButton;
+    private javax.swing.JButton changeLog;
     private javax.swing.JButton createNew;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JButton printPasswords;
