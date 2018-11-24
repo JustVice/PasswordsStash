@@ -5,7 +5,9 @@ import Logic.Passwordv2;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import Logic.ThreadClass;
+import LogicV2.Static;
 import java.awt.HeadlessException;
+import java.util.LinkedList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
@@ -16,30 +18,43 @@ public class SeePasswords extends javax.swing.JFrame {
     public SeePasswords() {
         initComponents();
         setLocationRelativeTo(null);
+        settings();
     }
 
     private void settings() {
-        j_list.setModel(StaticOld.modelo);
-        SearchEnganched = false;
+        setPasswordsToJlist();
         setComboBox();
+        SearchEnganched = false;
         this.setTitle(StaticOld.programTab + StaticOld.currentVersion);
         saveFavB.setEnabled(false);
     }
 
     private void setPasswordsToJlist() {
-        
+        j_list.setModel(Static.run.setModelAndGet());
+    }
+
+    private void setComboBox() {
+        LinkedList<String> items = new LinkedList<String>();
+        for (Passwordv2 password : Static.data.getUserData().getPasswordsList()) {
+            boolean repeated = false;
+            for (String str : items) {
+                if (str.equals(password.getService())) {
+                    repeated = true;
+                    break;
+                }
+            }
+            if (!repeated) {
+                items.add(password.getService());
+            }
+        }
+        for (String str : items) {
+            serviceCombo.addItem(str);
+        }
     }
 
     private boolean SearchEnganched;
     private int timeThread = 1200;
     private byte password = 0, mail = 1, user = 2;
-
-    /**
-     * Fills the combobox for seek passwords with the services that exist.
-     */
-    private void setComboBox() {
-        serviceCombo.setModel(new javax.swing.DefaultComboBoxModel<>(StaticOld.servicesRegistered));
-    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -173,7 +188,6 @@ public class SeePasswords extends javax.swing.JFrame {
 
         serviceTxt.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-        serviceCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Not supported yet", "a", "b", "c", "d" }));
         serviceCombo.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 serviceComboItemStateChanged(evt);
@@ -372,11 +386,6 @@ public class SeePasswords extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_SEARCHBUTTONMouseClicked
 
-    private void serviceComboItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_serviceComboItemStateChanged
-        saveFavB.setEnabled(false);
-        serviceTxt.setText(serviceCombo.getSelectedItem().toString());
-    }//GEN-LAST:event_serviceComboItemStateChanged
-
     private void showFavButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showFavButtonActionPerformed
 //        JOptionPane.showMessageDialog(null, "Not Working yet");
         saveFavB.setEnabled(false);
@@ -390,6 +399,11 @@ public class SeePasswords extends javax.swing.JFrame {
     private void saveFavBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveFavBActionPerformed
 
     }//GEN-LAST:event_saveFavBActionPerformed
+
+    private void serviceComboItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_serviceComboItemStateChanged
+        saveFavB.setEnabled(false);
+        serviceTxt.setText(serviceCombo.getSelectedItem().toString());
+    }//GEN-LAST:event_serviceComboItemStateChanged
 
     /**
      * Method that makes sure you typed something

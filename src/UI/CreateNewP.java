@@ -217,6 +217,7 @@ public class CreateNewP extends javax.swing.JFrame {
             }
             Static.data.getUserData().getPasswordsList().add(new Passwordv2(servicetxt.getText().toUpperCase(), usertxt.getText(), mailtxt.getText(), passwordtxt.getText(), notesPanel.getText(), fav));
             Static.data.updateInfo();
+            Static.run.message("Password " + servicetxt.getText() + " recorded..", "Recorded", 1);
             cleanFields();
         } else {
             Static.run.message("YOU HAVE TO PROVIDE THE NAME OF THE SERVICE, PASSWORD AND EITHER USER OR EMAIL INFORMATION TO CREATE A PASSWORD INFO.", "Missing info", 2);

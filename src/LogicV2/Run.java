@@ -1,55 +1,57 @@
 package LogicV2;
 
+import Logic.Passwordv2;
 import UI.*;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 public class Run {
-    
+
     public Run() {
         Static.data.LoadData();
         openStartMenu();
     }
-    
+
     public void openStartMenu() {
         Start start = new Start();
         start.setVisible(true);
     }
-    
+
     public void openCreate() {
         CreateNewP c = new CreateNewP();
         c.setVisible(true);
     }
-    
+
     public void openSeeP() {
         SeePasswords c = new SeePasswords();
         c.setVisible(true);
     }
-    
+
     public void openStart() {
         Start c = new Start();
         c.setVisible(true);
     }
-    
+
     public void openDelete() {
         Delete c = new Delete();
         c.setVisible(true);
     }
-    
+
     public void openEdit() {
         EditPassword c = new EditPassword();
         c.setVisible(true);
     }
-    
+
     public void openPrintPasswords() {
         PrintPasswords pp = new PrintPasswords();
         pp.setVisible(true);
     }
-    
+
     public void openAbout() {
         AboutFrame abf = new AboutFrame();
         abf.setVisible(true);
     }
-    
+
     /**
      * 0=Error 1=Message 2=Alert 3=What
      *
@@ -76,5 +78,18 @@ public class Run {
                 throw new AssertionError();
         }
     }
-    
+
+    public DefaultListModel setModelAndGet() {
+        for (Passwordv2 item : Static.data.getUserData().getPasswordsList()) {
+            Static.modeloPasswords.addElement(item);
+        }
+        return Static.modeloPasswords;
+    }
+
+    public void setModel() {
+        for (Passwordv2 item : Static.data.getUserData().getPasswordsList()) {
+            Static.modeloPasswords.addElement(item);
+        }
+    }
+
 }
