@@ -80,6 +80,7 @@ public class Run {
     }
 
     public DefaultListModel setModelAndGet() {
+        Static.modeloPasswords.clear();
         for (Passwordv2 item : Static.data.getUserData().getPasswordsList()) {
             Static.modeloPasswords.addElement(item);
         }
@@ -87,6 +88,7 @@ public class Run {
     }
 
     public void setModel() {
+        Static.modeloPasswords.clear();
         for (Passwordv2 item : Static.data.getUserData().getPasswordsList()) {
             Static.modeloPasswords.addElement(item);
         }

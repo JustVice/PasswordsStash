@@ -3,6 +3,7 @@ package UI;
 import Logic.StaticOld;
 import Logic.Passwordv2;
 import LogicV2.Static;
+import java.awt.event.KeyEvent;
 
 public class CreateNewP extends javax.swing.JFrame {
 
@@ -65,6 +66,12 @@ public class CreateNewP extends javax.swing.JFrame {
         usertxt.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 usertxtKeyTyped(evt);
+            }
+        });
+
+        passwordtxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                passwordtxtKeyTyped(evt);
             }
         });
 
@@ -191,6 +198,9 @@ public class CreateNewP extends javax.swing.JFrame {
             evt.consume();
             notAllowedChar(c);
         }
+        if (c == KeyEvent.VK_ENTER) {
+            createNewPasswordToDo();
+        }
     }//GEN-LAST:event_servicetxtKeyTyped
 
     private void mailtxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_mailtxtKeyTyped
@@ -198,6 +208,9 @@ public class CreateNewP extends javax.swing.JFrame {
         if (c == '/' || c == ':' || c == '*' || c == '?' || c == '<' || c == '>' || c == '|') {
             evt.consume();
             notAllowedChar(c);
+        }
+        if (c == KeyEvent.VK_ENTER) {
+            createNewPasswordToDo();
         }
     }//GEN-LAST:event_mailtxtKeyTyped
 
@@ -207,9 +220,15 @@ public class CreateNewP extends javax.swing.JFrame {
             evt.consume();
             notAllowedChar(c);
         }
+        if (c == KeyEvent.VK_ENTER) {
+            createNewPasswordToDo();
+        }
     }//GEN-LAST:event_usertxtKeyTyped
 
     private void createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createActionPerformed
+        createNewPasswordToDo();
+    }//GEN-LAST:event_createActionPerformed
+    private void createNewPasswordToDo() {
         if (verify()) {
             boolean fav = false;
             if (favCombo.isSelected()) {
@@ -217,23 +236,29 @@ public class CreateNewP extends javax.swing.JFrame {
             }
             Static.data.getUserData().getPasswordsList().add(new Passwordv2(servicetxt.getText().toUpperCase(), usertxt.getText(), mailtxt.getText(), passwordtxt.getText(), notesPanel.getText(), fav));
             Static.data.updateInfo();
-            Static.run.message("Password " + servicetxt.getText() + " recorded..", "Recorded", 1);
+            Static.run.message("Password " + servicetxt.getText() + " recorded", "Recorded", 1);
             cleanFields();
         } else {
             Static.run.message("YOU HAVE TO PROVIDE THE NAME OF THE SERVICE, PASSWORD AND EITHER USER OR EMAIL INFORMATION TO CREATE A PASSWORD INFO.", "Missing info", 2);
         }
-    }//GEN-LAST:event_createActionPerformed
-
+    }
     private void helpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpButtonActionPerformed
         Static.run.message(
                 "Service: Service carrier associated to the password, example: Facebook or fb (refering Facebook).\n"
                 + "Mail: Field to type your mail. You can type it as \"null\" if you know your mail and want to keep it hidden.\n"
-                        + "User: Field to type you user. Example: \"anon01\" if it is your Twitter username."
-                        + "Password: Field to type the password. Keep in mind that it will be shown as you type it.\n"
-                        + "Notes: Field to type notes. It can stash any other information whether you want to."
-                , "Help"
-                , 1);
+                + "User: Field to type you user. Example: \"anon01\" if it is your Twitter username."
+                + "Password: Field to type the password. Keep in mind that it will be shown as you type it.\n"
+                + "Notes: Field to type notes. It can stash any other information whether you want to.",
+                "Help",
+                1);
     }//GEN-LAST:event_helpButtonActionPerformed
+
+    private void passwordtxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordtxtKeyTyped
+        char c = evt.getKeyChar();
+        if (c == KeyEvent.VK_ENTER) {
+            createNewPasswordToDo();
+        }
+    }//GEN-LAST:event_passwordtxtKeyTyped
 
     /**
      * Makes sure that you provide all the neccesary information to make a new

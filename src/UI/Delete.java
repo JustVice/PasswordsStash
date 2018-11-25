@@ -3,6 +3,7 @@ package UI;
 import Logic.StaticOld;
 
 import Logic.Passwordv2;
+import LogicV2.Static;
 import javax.swing.JOptionPane;
 
 public class Delete extends javax.swing.JFrame {
@@ -10,8 +11,13 @@ public class Delete extends javax.swing.JFrame {
     public Delete() {
         initComponents();
         setLocationRelativeTo(null);
-        j_list.setModel(StaticOld.modelo);
-        this.setTitle(StaticOld.programTab + StaticOld.currentVersion);
+        settings();
+        
+    }
+    
+    private void settings(){
+    this.setTitle(StaticOld.programTab + StaticOld.currentVersion);
+    j_list.setModel(Static.run.setModelAndGet());
     }
 
     @SuppressWarnings("unchecked")
@@ -25,7 +31,7 @@ public class Delete extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        DeleteBOT.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
+        DeleteBOT.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         DeleteBOT.setText("DELETE");
         DeleteBOT.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -33,7 +39,7 @@ public class Delete extends javax.swing.JFrame {
             }
         });
 
-        backBot.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
+        backBot.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         backBot.setText("BACK");
         backBot.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -51,18 +57,18 @@ public class Delete extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 782, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(backBot, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                        .addComponent(DeleteBOT, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(backBot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(DeleteBOT, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(DeleteBOT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -75,34 +81,25 @@ public class Delete extends javax.swing.JFrame {
 
     private void DeleteBOTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeleteBOTMouseClicked
         try {
-            int SelectedIndex = j_list.getSelectedIndex();
-            Passwordv2 password = StaticOld.modelo.getElementAt(SelectedIndex);
+            Passwordv2 password = j_list.getSelectedValue();
             if (deleteYes(password)) {
-                Boolean found = false;
-                for (int i = 0; i < StaticOld.pw_dir.size(); i++) {
-                    if (StaticOld.pw_dir.get(i).getID() == password.getID()) {
-                        StaticOld.pw_dir.remove(i);
-                        System.out.println("PASSWORD DELETED");
-                        found = true;
+                for (int i = 0; i < Static.data.getUserData().getPasswordsList().size(); i++) {
+                    if (Static.data.getUserData().getPasswordsList().get(i).getID() == password.getID()) {
+                        Static.data.getUserData().getPasswordsList().remove(i);
+                        Static.data.updateInfo();
+                        j_list.setModel(Static.run.setModelAndGet());
                     }
-                }
-                if (found) {
-                    StaticOld.UpdateData();
-                    StaticOld.setModelsItems();
-                    j_list.setModel(StaticOld.modelo);
-                } else {
-                    JOptionPane.showMessageDialog(null, "ITEM HASN'T BEEN FOUND. THERE'S AN UNKNOW ISSUE WITH THE PROGRAM. PLEASE, RESTART THE PROGRAM.");
                 }
             } else {
                 System.out.println("Action cancelled");
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "YOU MUST SELECT SOMETHING BEFORE DELETING");
+            System.out.println("User hasnt selected any password.");
         }
     }//GEN-LAST:event_DeleteBOTMouseClicked
 
     private void backBotMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBotMouseClicked
-        StaticOld.admin.openStart();
+        Static.run.openStart();
         this.dispose();
     }//GEN-LAST:event_backBotMouseClicked
 
@@ -113,7 +110,8 @@ public class Delete extends javax.swing.JFrame {
      * @return
      */
     private boolean deleteYes(Passwordv2 password) {
-        int option = JOptionPane.showConfirmDialog(null, "ARE YOU SURE YOU WANT TO DELETE THIS " + password.getService() + " password? THIS CAN'T BE UNDONE", "DELETE", 0);
+        int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this " + password.getService() + " password? \n"
+                + "This action cannot be undone.", "DELETE", 0);
         if (option == 0) {
             return true;
             /*0 = yes*/
@@ -128,6 +126,6 @@ public class Delete extends javax.swing.JFrame {
     private javax.swing.JButton DeleteBOT;
     private javax.swing.JButton backBot;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JList<Passwordv2> j_list;
+    private javax.swing.JList<Logic.Passwordv2> j_list;
     // End of variables declaration//GEN-END:variables
 }
