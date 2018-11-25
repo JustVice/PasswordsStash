@@ -176,7 +176,7 @@ public class SeePasswords extends javax.swing.JFrame {
         });
 
         SEEPASSWORD.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        SEEPASSWORD.setText("SEE ALL INFORMATION");
+        SEEPASSWORD.setText("SEE ALL PASSWORD INFORMATION");
         SEEPASSWORD.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 SEEPASSWORDMouseClicked(evt);
@@ -323,8 +323,11 @@ public class SeePasswords extends javax.swing.JFrame {
         saveFavB.setEnabled(false);
         try {
             Passwordv2 password = j_list.getSelectedValue();
-            FrameSeePasswordText f = new FrameSeePasswordText(password);
-            f.setVisible(true);
+            if (password != null) {
+                FrameSeePasswordText f = new FrameSeePasswordText(password);
+                f.setVisible(true);
+            }
+
         } catch (Exception e) {
         }
     }//GEN-LAST:event_SEEPASSWORDMouseClicked

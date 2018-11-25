@@ -6,6 +6,7 @@ import Logic.StaticOld;
 public class FrameSeePasswordText extends javax.swing.JFrame {
 
     public FrameSeePasswordText(Passwordv2 password) {
+        setUndecorated(rootPaneCheckingEnabled);
         initComponents();
         setLocationRelativeTo(null);
         text.setEditable(false);

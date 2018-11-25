@@ -62,6 +62,9 @@ public class Start extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 seePasswordsMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                seePasswordsMouseEntered(evt);
+            }
         });
 
         DeletePasswords.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -80,7 +83,7 @@ public class Start extends javax.swing.JFrame {
             }
         });
 
-        versionLabel.setText("v 1.6.0");
+        versionLabel.setText("version");
 
         printPasswords.setText("Print passwords");
         printPasswords.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -112,8 +115,14 @@ public class Start extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(changeLog, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jSeparator1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(35, 35, 35)
+                        .addComponent(versionLabel)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(aboutButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(changeLog, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,15 +130,9 @@ public class Start extends javax.swing.JFrame {
                                 .addComponent(createNew, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(seePasswords, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(DeletePasswords, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(EDITPasswords, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jSeparator1)
-                                .addComponent(printPasswords, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(EDITPasswords, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(totalPw)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(35, 35, 35)
-                        .addComponent(versionLabel)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(printPasswords, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -146,18 +149,18 @@ public class Start extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(seePasswords)
                 .addGap(18, 18, 18)
-                .addComponent(DeletePasswords)
-                .addGap(18, 18, 18)
                 .addComponent(EDITPasswords)
+                .addGap(18, 18, 18)
+                .addComponent(DeletePasswords)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(printPasswords)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(changeLog)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(aboutButton)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -207,6 +210,17 @@ public class Start extends javax.swing.JFrame {
         Static.run.openAbout();
         this.dispose();
     }//GEN-LAST:event_aboutButtonActionPerformed
+
+    private void seePasswordsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seePasswordsMouseEntered
+        //You are not supposed to be reading this.
+        if (Static.easterEgg) {
+            int n = (int) (Math.random() * 100000);
+            if (n < 2000) {
+                Inki inki = new Inki();
+                Static.easterEgg = false;
+            }
+        }
+    }//GEN-LAST:event_seePasswordsMouseEntered
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

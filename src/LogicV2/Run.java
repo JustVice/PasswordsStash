@@ -9,6 +9,7 @@ public class Run {
 
     public Run() {
         Static.data.LoadData();
+        Logo logo = new Logo();
         openStartMenu();
     }
 
@@ -92,6 +93,22 @@ public class Run {
         for (Passwordv2 item : Static.data.getUserData().getPasswordsList()) {
             Static.modeloPasswords.addElement(item);
         }
+    }
+    
+    /**
+ * options:
+ * 0: Yes, no. Yes=0. No=1. X=-1.
+ * 1: Yes, no, cancel. Yes=0. No=1. Cancel:2. X=-1.
+ * 2: Accept, cancel. Accept=0. Cancel:2. X=-1.
+ * 
+ * simbol:
+ * 0: Error
+ * 1: Info
+ * 2: Alert
+ * 3: Ask
+ */
+    public int askMessage(String message, String title, int option,int simbol) {
+        return JOptionPane.showConfirmDialog(null, message,title,option,simbol);
     }
 
 }
