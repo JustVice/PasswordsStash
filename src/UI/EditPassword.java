@@ -1,28 +1,29 @@
 package UI;
 
-import Logic.StaticOld;
 import Logic.Passwordv2;
 import LogicV2.Static;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 public class EditPassword extends javax.swing.JFrame {
-
+    
     public EditPassword() {
         initComponents();
         setLocationRelativeTo(null);
-        this.setTitle(StaticOld.programTab + StaticOld.currentVersion);
+        this.setTitle(Static.title + " " + Static.version);
         settings();
     }
-
+    
     private void settings() {
         j_list.setModel(Static.run.setModelAndGet());
         notesTxt.setLineWrap(true);
         notesTxt.setCaretPosition(0);
         notesTxt.setWrapStyleWord(true);
+        this.setResizable(false);
     }
-
+    
     private Passwordv2 tempPassword;
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -234,7 +235,7 @@ public class EditPassword extends javax.swing.JFrame {
             comboControl(tempPassword);
         }
     }//GEN-LAST:event_j_listMouseClicked
-
+    
     private void comboControl(Passwordv2 temp) {
         if (temp.isFavorite()) {
             favRadio.setSelected(true);
@@ -242,7 +243,7 @@ public class EditPassword extends javax.swing.JFrame {
             favRadio.setSelected(false);
         }
     }
-
+    
     private void setSelectedPasswordInfoToDo() {
         servicetxt.setText(tempPassword.getService());
         mailtxt.setText(tempPassword.getMail());
@@ -257,6 +258,9 @@ public class EditPassword extends javax.swing.JFrame {
             evt.consume();
             JOptionPane.showMessageDialog(null, "It's not allowed to type " + c + " at this field.\nIf you need to save an information with this character you can on Description field.");
         }
+        if (c == KeyEvent.VK_ENTER) {
+            updatePassword();
+        }
     }//GEN-LAST:event_servicetxtKeyTyped
 
     private void mailtxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_mailtxtKeyTyped
@@ -264,6 +268,9 @@ public class EditPassword extends javax.swing.JFrame {
         if (c == '/' || c == ':' || c == '*' || c == '?' || c == '<' || c == '>' || c == '|') {
             evt.consume();
             JOptionPane.showMessageDialog(null, "It's not allowed to type " + c + " at this field.\nIf you need to save an information with this character you can on Description field.");
+        }
+        if (c == KeyEvent.VK_ENTER) {
+            updatePassword();
         }
     }//GEN-LAST:event_mailtxtKeyTyped
 
@@ -273,19 +280,27 @@ public class EditPassword extends javax.swing.JFrame {
             evt.consume();
             JOptionPane.showMessageDialog(null, "It's not allowed to type " + c + " at this field.\nIf you need to save an information with this character you can on Description field.");
         }
+        if (c == KeyEvent.VK_ENTER) {
+            updatePassword();
+        }
     }//GEN-LAST:event_usertxtKeyTyped
 
     private void UPDATEPASSWORDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UPDATEPASSWORDActionPerformed
+        updatePassword();
+    }//GEN-LAST:event_UPDATEPASSWORDActionPerformed
+    
+    private void updatePassword() {
         if (tempPassword != null) {
             for (int i = 0; i < Static.data.getUserData().getPasswordsList().size(); i++) {
                 if (Static.data.getUserData().getPasswordsList().get(i).getID() == tempPassword.getID()) {
                     int option = Static.run.askMessage("Are you sure that you want to update this " + Static.data.getUserData().getPasswordsList().get(i).getService() + " info?\nThis action cannot be undone.", "Change password info?", 0, 3);
                     if (option == 0) {
-
-                        Passwordv2 passwordUpdate = new Passwordv2(servicetxt.getText(), usertxt.getText(), mailtxt.getText(), passwordtxt.getText(), notesTxt.getText(), giveFavOrNot());
+                        
+                        Passwordv2 passwordUpdate = new Passwordv2(servicetxt.getText().toUpperCase(), usertxt.getText(), mailtxt.getText(), passwordtxt.getText(), notesTxt.getText(), giveFavOrNot());
                         Static.data.getUserData().getPasswordsList().set(i, passwordUpdate);
                         Static.data.updateInfo();
                         j_list.setModel(Static.run.setModelAndGet());
+                        clearFields();
                     } else {
                         System.out.println("cancelled");
                     }
@@ -295,8 +310,17 @@ public class EditPassword extends javax.swing.JFrame {
         } else {
             System.out.println("User does not selected a password.");
         }
-    }//GEN-LAST:event_UPDATEPASSWORDActionPerformed
-
+    }
+    
+    private void clearFields() {
+        servicetxt.setText("");
+        mailtxt.setText("");
+        usertxt.setText("");
+        passwordtxt.setText("");
+        notesTxt.setText("");        
+        favRadio.setSelected(false);
+    }
+    
     private boolean giveFavOrNot() {
         if (favRadio.isSelected()) {
             return true;
@@ -304,74 +328,6 @@ public class EditPassword extends javax.swing.JFrame {
             return false;
         }
     }
-
-    /**
-     * Fill all the textfields with the information of the password you have
-     * selected
-     */
-    private void fillTextBoxes(Passwordv2 password) {
-        servicetxt.setText(password.getService());
-        passwordtxt.setText(password.getPassword());
-        if (!password.getUser().equals("")) {
-            usertxt.setText(password.getUser());
-        } else {
-            usertxt.setText("");
-        }
-        if (!password.getMail().equals("")) {
-            mailtxt.setText(password.getMail());
-        } else {
-            mailtxt.setText("");
-        }
-        if (!password.getDescription().equals("")) {
-            notesTxt.setText(password.getDescription());
-        } else {
-            notesTxt.setText("");
-        }
-    }
-
-    /**
-     * Makes sure that you provide all the neccesary information to make a new
-     * password
-     */
-    private boolean verify() {
-        if (servicetxt.getText().equals("") || passwordtxt.getText().equals("")) {
-            return false;
-        } else if (usertxt.getText().equals("") && mailtxt.getText().equals("")) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    /**
-     * Clean all the Textboxes text
-     */
-    private void clean() {
-        servicetxt.setText("");
-        mailtxt.setText("");
-        usertxt.setText("");
-        passwordtxt.setText("");
-        notesTxt.setText("");
-
-    }
-
-    /**
-     * Makes sure that the user wants to update the current selected password.
-     *
-     * @return
-     */
-    private boolean UptadeYes(Passwordv2 password) {
-        int option = JOptionPane.showConfirmDialog(null, "ARE YOU SURE YOU WANT TO UPDATE THIS " + password.getService() + " password? THIS CAN'T BE UNDONE", "DELETE", 0);
-        if (option == 0) {
-            return true;
-            /*0 = yes*/
-        } else {
-            return false;
-            /*1 = no*/
-        }
-
-    }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton UPDATEPASSWORD;

@@ -1,5 +1,6 @@
 package UI;
 
+import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -9,9 +10,10 @@ public class Inki extends javax.swing.JFrame implements Runnable {
         setUndecorated(true);
         initComponents();
         setLocationRelativeTo(null);
+        setBackground(new Color(0, 0, 0, 0)); /*Sin colores en el fondo*/
         start();
     }
-
+   
     private void start() {
         Thread t = new Thread(this);
         t.start();

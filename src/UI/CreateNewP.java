@@ -11,6 +11,7 @@ public class CreateNewP extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         this.setTitle(Static.title + " " + Static.version);
+        this.setResizable(false);
     }
 
     @SuppressWarnings("unchecked")

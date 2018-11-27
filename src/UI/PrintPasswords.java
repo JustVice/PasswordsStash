@@ -2,6 +2,8 @@ package UI;
 
 import Logic.StaticOld;
 import Logic.Passwordv2;
+import LogicV2.Static;
+import java.io.File;
 import javax.swing.JOptionPane;
 
 public class PrintPasswords extends javax.swing.JFrame {
@@ -9,9 +11,10 @@ public class PrintPasswords extends javax.swing.JFrame {
     public PrintPasswords() {
         initComponents();
         setLocationRelativeTo(null);
-        j_list.setModel(StaticOld.modelo);
+        j_list.setModel(Static.run.setModelAndGet());
         PrintSelected.setEnabled(false);
-        this.setTitle(StaticOld.programTab + StaticOld.currentVersion);
+        this.setTitle(Static.title + " " + Static.version);
+        this.setResizable(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -25,6 +28,7 @@ public class PrintPasswords extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         j_list = new javax.swing.JList<>();
         printOnTheirOwnTxtFile = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -36,9 +40,9 @@ public class PrintPasswords extends javax.swing.JFrame {
         });
 
         PrintAll.setText("Print all passwords in a single txt file");
-        PrintAll.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                PrintAllMouseClicked(evt);
+        PrintAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PrintAllActionPerformed(evt);
             }
         });
 
@@ -66,6 +70,13 @@ public class PrintPasswords extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("?");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -75,15 +86,17 @@ public class PrintPasswords extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Back, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(Back)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(PrintAll, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
+                                .addComponent(PrintAll, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(PrintSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGap(253, 253, 253)
                                 .addComponent(label1)
                                 .addGap(29, 29, 29)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -96,7 +109,9 @@ public class PrintPasswords extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(label1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(label1)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -115,33 +130,29 @@ public class PrintPasswords extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_BackMouseClicked
 
-    private void PrintAllMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PrintAllMouseClicked
-        if (!StaticOld.pw_dir.isEmpty()) {
-            StaticOld.printAllPasswords();
-            JOptionPane.showMessageDialog(null, "PASSWORD(S) PRINTED.");
-        } else {
-            JOptionPane.showMessageDialog(null, "THERE ARE NO PASSWORDS YET");
-        }
-    }//GEN-LAST:event_PrintAllMouseClicked
-
     private void PrintSelectedMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PrintSelectedMouseClicked
-        try {
-            if (!StaticOld.pw_dir.isEmpty() && !j_list.isSelectionEmpty()) {
-                int indices[] = j_list.getSelectedIndices();
-                StaticOld.printSelectedPasswords(indices);
-                JOptionPane.showMessageDialog(null, "PASSWORD(S) PRINTED.");
-            } else {
-            }
-        } catch (Exception e) {
+        if (!Static.data.getUserData().getPasswordsList().isEmpty()) {
+            System.out.println("hello");
+            int id = (int) (Math.random() * 10000);
+            Passwordv2 password = j_list.getSelectedValue();
+            Static.run.BuildTxtFile("here", password.getService() + " " + password.getID(), ".txt", password.getObjectForSeePasswords());
+            JOptionPane.showMessageDialog(null, "PASSWORD PRINTED AS \"Passwords " + id + "\"" + ".");
+        } else {
+            System.out.println("No password selected");
         }
     }//GEN-LAST:event_PrintSelectedMouseClicked
 
     private void printOnTheirOwnTxtFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_printOnTheirOwnTxtFileMouseClicked
-        if (!StaticOld.pw_dir.isEmpty()) {
-            StaticOld.printAllPasswordsOnHisOwnTxtFile();
+        if (!Static.data.getUserData().getPasswordsList().isEmpty()) {
+            String path = "Passwords " + (int) (Math.random() * 10000);
+            File file = new File(path);
+            file.mkdir();
+            for (Passwordv2 pass : Static.data.getUserData().getPasswordsList()) {
+                Static.run.BuildTxtFile(path, pass.getService() + " " + pass.getID(), ".txt", pass.getObjectForSeePasswords());
+            }
             JOptionPane.showMessageDialog(null, "PASSWORD(S) PRINTED.");
         } else {
-            JOptionPane.showMessageDialog(null, "THERE ARE NO PASSWORDS YET");
+            Static.run.message("There are no passwords yet.", "No passwords", 2);
         }
     }//GEN-LAST:event_printOnTheirOwnTxtFileMouseClicked
 
@@ -151,11 +162,26 @@ public class PrintPasswords extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_j_listMouseClicked
 
+    private void PrintAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrintAllActionPerformed
+        if (!Static.data.getUserData().getPasswordsList().isEmpty()) {
+            int id = (int) (Math.random() * 10000);
+            Static.run.printAllPasswords(id);
+            JOptionPane.showMessageDialog(null, "PASSWORD(S) PRINTED AS \"Passwords " + id + "\"" + ".");
+        } else {
+            Static.run.message("There are no passwords yet.", "No passwords", 2);
+        }
+    }//GEN-LAST:event_PrintAllActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Static.run.message("This buttons will create txt files IN THE SAME FOLDER\nwhere the program is located.", "Print Passwords", 3);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Back;
     private javax.swing.JButton PrintAll;
     private javax.swing.JButton PrintSelected;
+    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<Logic.Passwordv2> j_list;
     private javax.swing.JLabel label1;

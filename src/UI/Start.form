@@ -23,31 +23,24 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="seePasswords" alignment="1" max="32767" attributes="0"/>
+                  <Component id="createNew" alignment="1" max="32767" attributes="0"/>
                   <Component id="jSeparator1" alignment="0" max="32767" attributes="0"/>
-                  <Group type="102" attributes="0">
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                      <Component id="versionLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  </Group>
-                  <Component id="aboutButton" max="32767" attributes="0"/>
-                  <Component id="changeLog" max="32767" attributes="0"/>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="createNew" alignment="0" max="32767" attributes="0"/>
-                              <Component id="seePasswords" alignment="0" max="32767" attributes="0"/>
-                              <Component id="DeletePasswords" alignment="0" max="32767" attributes="0"/>
-                              <Component id="EDITPasswords" alignment="0" max="32767" attributes="0"/>
-                          </Group>
-                          <Component id="totalPw" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
+                  <Component id="aboutButton" alignment="0" max="32767" attributes="0"/>
+                  <Component id="changeLog" alignment="0" max="32767" attributes="0"/>
+                  <Component id="EDITPasswords" alignment="0" max="32767" attributes="0"/>
                   <Component id="printPasswords" alignment="0" max="32767" attributes="0"/>
+                  <Component id="DeletePasswords" alignment="0" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="totalPw" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -57,10 +50,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <Component id="versionLabel" min="-2" max="-2" attributes="0"/>
-              </Group>
+              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="totalPw" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -90,7 +80,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="24" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="PASSWORDS BY JV"/>
+        <Property name="text" type="java.lang.String" value="PASSWORDS STASH"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="createNew">
@@ -137,11 +127,6 @@
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="EDITPasswordsMouseClicked"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JLabel" name="versionLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="version"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator1">
     </Component>

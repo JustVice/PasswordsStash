@@ -1,7 +1,12 @@
 package LogicV2;
 
 import Logic.Passwordv2;
+import static Logic.StaticOld.PathPrintPasswords;
+import static Logic.StaticOld.pw_dir;
 import UI.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
@@ -9,8 +14,16 @@ public class Run {
 
     public Run() {
         Static.data.LoadData();
-        Logo logo = new Logo();
+        loadLogo();
         openStartMenu();
+    }
+
+    private void loadLogo() {
+        if (Static.data.getUserData().isFirstRun()) {
+            Logo logo = new Logo();
+            Static.data.getUserData().setFirstRun(false);
+            Static.data.updateInfo();
+        }
     }
 
     public void openStartMenu() {
@@ -94,21 +107,59 @@ public class Run {
             Static.modeloPasswords.addElement(item);
         }
     }
-    
+
     /**
- * options:
- * 0: Yes, no. Yes=0. No=1. X=-1.
- * 1: Yes, no, cancel. Yes=0. No=1. Cancel:2. X=-1.
- * 2: Accept, cancel. Accept=0. Cancel:2. X=-1.
- * 
- * simbol:
- * 0: Error
- * 1: Info
- * 2: Alert
- * 3: Ask
- */
-    public int askMessage(String message, String title, int option,int simbol) {
-        return JOptionPane.showConfirmDialog(null, message,title,option,simbol);
+     * options: 0: Yes, no. Yes=0. No=1. X=-1. 1: Yes, no, cancel. Yes=0. No=1.
+     * Cancel:2. X=-1. 2: Accept, cancel. Accept=0. Cancel:2. X=-1.
+     *
+     * simbol: 0: Error 1: Info 2: Alert 3: Ask
+     */
+    public int askMessage(String message, String title, int option, int simbol) {
+        return JOptionPane.showConfirmDialog(null, message, title, option, simbol);
+    }
+
+    public void printAllPasswords(int id) {
+        String content = "";
+        for (Passwordv2 password : Static.data.getUserData().getPasswordsList()) {
+            content += password.getService() + "\n";
+            if (!password.getMail().equals("")) {
+                content += password.getMail() + "\n";
+            }
+            if (!password.getUser().equals("")) {
+                content += password.getUser() + "\n";
+            }
+            content += password.getPassword() + "\n";
+            if (!password.getNotes().equals("")) {
+                content += "Notes:{ "+ password.getNotes()+" }" + "\n";
+            }
+            content +="\n";
+        }
+        BuildTxtFile("here", "Passwords " + id, ".txt", content);
+    }
+
+    public void BuildTxtFile(String path, String txtFileName, String extension, String content) {
+        /*"\r\n" to jump between lines*/
+        System.out.print("writing...");
+        File file;
+        if (!path.equals("here")) {
+            file = new File(path + "\\" + txtFileName + extension);
+        } else {
+            file = new File(txtFileName + extension);
+        }
+        try {
+            String frase = content;
+            if (frase.equals("")) {
+                frase = "No content.";
+            }
+            FileWriter escritura = new FileWriter(file.getPath());
+            for (int i = 0; i < frase.length(); i++) {
+                escritura.write(frase.charAt(i));
+            }
+            System.out.print("done");
+            escritura.close();
+        } catch (IOException ex) {
+            System.out.println("Error\n" + ex);
+        }
     }
 
 }

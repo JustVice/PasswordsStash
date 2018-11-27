@@ -16,8 +16,9 @@ public class Delete extends javax.swing.JFrame {
     }
     
     private void settings(){
-    this.setTitle(StaticOld.programTab + StaticOld.currentVersion);
+    this.setTitle(Static.title + " " + Static.version);
     j_list.setModel(Static.run.setModelAndGet());
+    this.setResizable(false);
     }
 
     @SuppressWarnings("unchecked")

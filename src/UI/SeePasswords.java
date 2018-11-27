@@ -28,7 +28,8 @@ public class SeePasswords extends javax.swing.JFrame {
         setPasswordsToJlist();
         setComboBox();
         SearchEnganched = false;
-        this.setTitle(StaticOld.programTab + StaticOld.currentVersion);
+        this.setTitle(Static.title + " " + Static.version);
+        this.setResizable(false);
     }
 
     private void setPasswordsToJlist() {

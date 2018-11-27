@@ -7,6 +7,8 @@ public class AboutFrame extends javax.swing.JFrame {
     public AboutFrame() {
         initComponents();
         setLocationRelativeTo(null);
+        this.setTitle(Static.title + Static.version);
+        this.setResizable(false);
     }
 
     @SuppressWarnings("unchecked")

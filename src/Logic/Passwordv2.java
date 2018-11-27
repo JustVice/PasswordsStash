@@ -20,7 +20,7 @@ public class Passwordv2 implements Serializable {
         this.mail = mail;
         this.password = password;
         this.notes = notes;
-        this.ID = (int)(Math.random()*99999999);
+        this.ID = (int) (Math.random() * 99999999);
         this.favorite = favorite;
     }
 
@@ -33,14 +33,13 @@ public class Passwordv2 implements Serializable {
         if (!mail.equals("")) {
             str += "mail: " + mail + " , ";
         }
+        if (!notes.equals("")) {
+            str += "description: " + notes + " , ";
+        }
         if (favorite) {
             str += "password: *** , FAVORITE";
         } else {
             str += "password: *** , ";
-        }
-
-        if (!notes.equals("")) {
-            str += "description: " + notes + " , ";
         }
         return str;
     }
@@ -110,7 +109,6 @@ public class Passwordv2 implements Serializable {
     }
 
     public String getObjectForSeePasswords() {
-
         String str = "Service: " + service + "\n";
         if (!user.equals("")) {
             str += "User: " + user + "\n";
@@ -120,7 +118,7 @@ public class Passwordv2 implements Serializable {
         }
         str += "Password: " + password + "\n";
         if (!notes.equals("")) {
-            str += "Description: " + notes + "\n";
+            str += "Notes: " + notes + "\n";
         }
         str += "password ID: " + ID;
         return str + "\n";

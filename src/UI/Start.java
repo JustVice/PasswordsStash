@@ -11,11 +11,11 @@ public class Start extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         settings();
+        this.setResizable(false);
     }
 
     private void settings() {
         this.setTitle(Static.title + " " + Static.version);
-        versionLabel.setText(Static.version);
         if (!Static.data.getUserData().getPasswordsList().isEmpty()) {
             totalPw.setText("There are a total of " + Static.data.getUserData().getPasswordsList().size() + " password(s) recorded.");
         } else {
@@ -36,7 +36,6 @@ public class Start extends javax.swing.JFrame {
         seePasswords = new javax.swing.JButton();
         DeletePasswords = new javax.swing.JButton();
         EDITPasswords = new javax.swing.JButton();
-        versionLabel = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         printPasswords = new javax.swing.JButton();
         totalPw = new javax.swing.JLabel();
@@ -46,7 +45,7 @@ public class Start extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setText("PASSWORDS BY JV");
+        jLabel1.setText("PASSWORDS STASH");
 
         createNew.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         createNew.setText("CREATE NEW PASSWORD");
@@ -83,8 +82,6 @@ public class Start extends javax.swing.JFrame {
             }
         });
 
-        versionLabel.setText("version");
-
         printPasswords.setText("Print passwords");
         printPasswords.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -115,33 +112,26 @@ public class Start extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(seePasswords, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(createNew, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSeparator1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(35, 35, 35)
-                        .addComponent(versionLabel)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(aboutButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(changeLog, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(EDITPasswords, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(printPasswords, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(DeletePasswords, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(createNew, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(seePasswords, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(DeletePasswords, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(EDITPasswords, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(totalPw)))
-                    .addComponent(printPasswords, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(totalPw)
+                            .addComponent(jLabel1))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(versionLabel))
+                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(totalPw)
                 .addGap(18, 18, 18)
@@ -203,7 +193,7 @@ public class Start extends javax.swing.JFrame {
         TextKeeper textKeeper = new TextKeeper();
         String changeLog = textKeeper.getChangelog();
         System.out.println(changeLog);
-        JOptionPane.showMessageDialog(null, changeLog);
+        Static.run.message(changeLog, "ChangeLog", 1);
     }//GEN-LAST:event_changeLogMouseClicked
 
     private void aboutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutButtonActionPerformed
@@ -234,6 +224,5 @@ public class Start extends javax.swing.JFrame {
     private javax.swing.JButton printPasswords;
     private javax.swing.JButton seePasswords;
     private javax.swing.JLabel totalPw;
-    private javax.swing.JLabel versionLabel;
     // End of variables declaration//GEN-END:variables
 }

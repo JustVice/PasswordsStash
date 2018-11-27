@@ -9,6 +9,7 @@ public class UserData implements Serializable {
     private static final long serialVersionUID = 2883991000023476147L;
     
     private LinkedList<Passwordv2> passwordsList = new LinkedList<Passwordv2>();
+    private boolean firstRun = true;
     
     public UserData() {
     }
@@ -20,6 +21,16 @@ public class UserData implements Serializable {
     public void setPasswordsList(LinkedList<Passwordv2> passwordsList) {
         this.passwordsList = passwordsList;
     }
+
+    public boolean isFirstRun() {
+        return firstRun;
+    }
+
+    public void setFirstRun(boolean firstRun) {
+        this.firstRun = firstRun;
+    }
+    
+    
     
     
 }
