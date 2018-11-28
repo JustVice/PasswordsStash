@@ -37,6 +37,15 @@ public class Data {
             } catch (ClassNotFoundException e) {
                 System.out.println("Error loading data.");
                 e.printStackTrace();
+            } 
+            catch (ClassCastException e) {
+                File file = new File(Static.DataPath);
+                boolean deleted = file.delete();
+                if (deleted) {
+                    System.out.println("Data file refactor");
+                    Static.run = new Run();
+                }else{
+                }
             }
         }
     }
@@ -82,5 +91,5 @@ public class Data {
     public void setUserData(UserData userData) {
         this.userData = userData;
     }
-    
+
 }
