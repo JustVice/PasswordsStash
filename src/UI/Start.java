@@ -50,11 +50,9 @@ public class Start extends javax.swing.JFrame {
         DELETEALLDATA = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("PASSWORDS STASH");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, -1));
 
         createNew.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         createNew.setText("CREATE NEW PASSWORD");
@@ -63,7 +61,6 @@ public class Start extends javax.swing.JFrame {
                 createNewMouseClicked(evt);
             }
         });
-        getContentPane().add(createNew, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 78, -1, -1));
 
         seePasswords.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         seePasswords.setText("SEE PASSWORDS");
@@ -75,7 +72,6 @@ public class Start extends javax.swing.JFrame {
                 seePasswordsMouseEntered(evt);
             }
         });
-        getContentPane().add(seePasswords, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 133, 339, -1));
 
         DeletePasswords.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         DeletePasswords.setText("DELETE PASSWORDS");
@@ -84,7 +80,6 @@ public class Start extends javax.swing.JFrame {
                 DeletePasswordsMouseClicked(evt);
             }
         });
-        getContentPane().add(DeletePasswords, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 243, 339, -1));
 
         EDITPasswords.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         EDITPasswords.setText("EDIT PASSWORDS");
@@ -93,8 +88,6 @@ public class Start extends javax.swing.JFrame {
                 EDITPasswordsMouseClicked(evt);
             }
         });
-        getContentPane().add(EDITPasswords, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 188, 339, -1));
-        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 298, 339, 10));
 
         printPasswords.setText("Print passwords");
         printPasswords.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -102,10 +95,8 @@ public class Start extends javax.swing.JFrame {
                 printPasswordsMouseClicked(evt);
             }
         });
-        getContentPane().add(printPasswords, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 339, -1));
 
         totalPw.setText("Total passwords label");
-        getContentPane().add(totalPw, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, -1, -1));
 
         aboutButton.setText("About");
         aboutButton.addActionListener(new java.awt.event.ActionListener() {
@@ -113,7 +104,6 @@ public class Start extends javax.swing.JFrame {
                 aboutButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(aboutButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 339, -1));
 
         changeLog.setText("Change log");
         changeLog.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -121,7 +111,6 @@ public class Start extends javax.swing.JFrame {
                 changeLogMouseClicked(evt);
             }
         });
-        getContentPane().add(changeLog, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 150, -1));
 
         howToUse.setText("HOW TO USE / README");
         howToUse.addActionListener(new java.awt.event.ActionListener() {
@@ -129,7 +118,6 @@ public class Start extends javax.swing.JFrame {
                 howToUseActionPerformed(evt);
             }
         });
-        getContentPane().add(howToUse, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 340, 180, -1));
 
         DELETEALLDATA.setText("DELETE ALL DATA");
         DELETEALLDATA.addActionListener(new java.awt.event.ActionListener() {
@@ -137,7 +125,75 @@ public class Start extends javax.swing.JFrame {
                 DELETEALLDATAActionPerformed(evt);
             }
         });
-        getContentPane().add(DELETEALLDATA, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 339, -1));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(jLabel1))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(totalPw))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(createNew))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(seePasswords, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(EDITPasswords, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(DeletePasswords, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(printPasswords, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(changeLog, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(howToUse, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(aboutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(DELETEALLDATA, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jLabel1)
+                .addGap(11, 11, 11)
+                .addComponent(totalPw)
+                .addGap(14, 14, 14)
+                .addComponent(createNew)
+                .addGap(18, 18, 18)
+                .addComponent(seePasswords)
+                .addGap(18, 18, 18)
+                .addComponent(EDITPasswords)
+                .addGap(18, 18, 18)
+                .addComponent(DeletePasswords)
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(printPasswords)
+                .addGap(7, 7, 7)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(changeLog)
+                    .addComponent(howToUse))
+                .addGap(7, 7, 7)
+                .addComponent(aboutButton)
+                .addGap(7, 7, 7)
+                .addComponent(DELETEALLDATA))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
