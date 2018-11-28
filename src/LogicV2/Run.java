@@ -137,18 +137,19 @@ public class Run {
     public void printAllPasswords(int id) {
         String content = "";
         for (Passwordv2 password : Static.data.getUserData().getPasswordsList()) {
-            content += password.getService() + "\n";
+            content += "Service: " + password.getService() + "\n";
             if (!password.getMail().equals("")) {
-                content += password.getMail() + "\n";
+                content += "Mail: " + password.getMail() + "\n";
             }
             if (!password.getUser().equals("")) {
-                content += password.getUser() + "\n";
+                content += "User: " + password.getUser() + "\n";
             }
-            content += password.getPassword() + "\n";
+            content += "Password: " + password.getPassword() + "\n";
             if (!password.getNotes().equals("")) {
-                content += "Notes:{ " + password.getNotes() + " }" + "\n";
+                content += "Notes: \n" + password.getNotes() + "\n";
             }
-            content += "\n";
+            content += "Password ID: " + password.getID();
+            content += "\n\n";
         }
         BuildTxtFile("here", "Passwords " + id, ".txt", content);
     }
