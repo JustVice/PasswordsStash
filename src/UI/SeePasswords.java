@@ -30,6 +30,7 @@ public class SeePasswords extends javax.swing.JFrame {
         SearchEnganched = false;
         this.setTitle(Static.title + " " + Static.version);
         this.setResizable(false);
+        saveFavB.setEnabled(false);
     }
 
     private void setPasswordsToJlist() {
@@ -65,29 +66,36 @@ public class SeePasswords extends javax.swing.JFrame {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         j_list = new javax.swing.JList<>();
-        Copy = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         MAIL = new javax.swing.JButton();
         User = new javax.swing.JButton();
         PASSWORD = new javax.swing.JButton();
-        backAndReset = new javax.swing.JPanel();
-        back = new javax.swing.JButton();
-        searchFeatures = new javax.swing.JPanel();
         SEARCHBUTTON = new javax.swing.JButton();
         SEEPASSWORD = new javax.swing.JButton();
-        serviceTxt = new javax.swing.JTextField();
         serviceCombo = new javax.swing.JComboBox<>();
-        FavPasswordsPanel = new javax.swing.JPanel();
-        showFavButton = new javax.swing.JButton();
+        serviceTxt = new javax.swing.JTextField();
         saveFavB = new javax.swing.JButton();
+        showFavButton = new javax.swing.JButton();
+        back = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         j_list.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        j_list.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                j_listMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(j_list);
 
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 830, 450));
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel1.setText("Copy to clipboard");
+        jLabel1.setText("Search:");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 480, -1, -1));
 
         MAIL.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         MAIL.setText("MAIL");
@@ -96,6 +104,7 @@ public class SeePasswords extends javax.swing.JFrame {
                 MAILMouseClicked(evt);
             }
         });
+        getContentPane().add(MAIL, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 540, 110, -1));
 
         User.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         User.setText("USER");
@@ -104,6 +113,7 @@ public class SeePasswords extends javax.swing.JFrame {
                 UserMouseClicked(evt);
             }
         });
+        getContentPane().add(User, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 540, 110, -1));
 
         PASSWORD.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         PASSWORD.setText("PASSWORD");
@@ -112,61 +122,7 @@ public class SeePasswords extends javax.swing.JFrame {
                 PASSWORDMouseClicked(evt);
             }
         });
-
-        javax.swing.GroupLayout CopyLayout = new javax.swing.GroupLayout(Copy);
-        Copy.setLayout(CopyLayout);
-        CopyLayout.setHorizontalGroup(
-            CopyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(CopyLayout.createSequentialGroup()
-                .addGroup(CopyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(CopyLayout.createSequentialGroup()
-                        .addComponent(MAIL, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(User, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(CopyLayout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(PASSWORD))
-                    .addGroup(CopyLayout.createSequentialGroup()
-                        .addGap(51, 51, 51)
-                        .addComponent(jLabel1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        CopyLayout.setVerticalGroup(
-            CopyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(CopyLayout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(CopyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(MAIL)
-                    .addComponent(User))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(PASSWORD)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        back.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        back.setText("Back");
-        back.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                backMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout backAndResetLayout = new javax.swing.GroupLayout(backAndReset);
-        backAndReset.setLayout(backAndResetLayout);
-        backAndResetLayout.setHorizontalGroup(
-            backAndResetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(backAndResetLayout.createSequentialGroup()
-                .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        backAndResetLayout.setVerticalGroup(
-            backAndResetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(backAndResetLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(back)
-                .addGap(0, 1, Short.MAX_VALUE))
-        );
+        getContentPane().add(PASSWORD, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 500, 220, -1));
 
         SEARCHBUTTON.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         SEARCHBUTTON.setText("SEARCH SERVICE");
@@ -175,22 +131,36 @@ public class SeePasswords extends javax.swing.JFrame {
                 SEARCHBUTTONActionPerformed(evt);
             }
         });
+        getContentPane().add(SEARCHBUTTON, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 570, 200, 40));
 
         SEEPASSWORD.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        SEEPASSWORD.setText("SEE ALL PASSWORD INFORMATION");
+        SEEPASSWORD.setText("SEE ALL INFORMATION");
         SEEPASSWORD.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 SEEPASSWORDMouseClicked(evt);
             }
         });
+        getContentPane().add(SEEPASSWORD, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 580, 220, 30));
 
-        serviceTxt.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-
+        serviceCombo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         serviceCombo.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 serviceComboItemStateChanged(evt);
             }
         });
+        getContentPane().add(serviceCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 500, 200, 30));
+
+        serviceTxt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        getContentPane().add(serviceTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 528, 200, 30));
+
+        saveFavB.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        saveFavB.setText("Add/remove favorite");
+        saveFavB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveFavBActionPerformed(evt);
+            }
+        });
+        getContentPane().add(saveFavB, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 540, 260, 70));
 
         showFavButton.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         showFavButton.setText("Show favorite passwords");
@@ -199,101 +169,24 @@ public class SeePasswords extends javax.swing.JFrame {
                 showFavButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(showFavButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 500, -1, -1));
 
-        saveFavB.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        saveFavB.setText("Add/remove favorite tag to password");
-        saveFavB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveFavBActionPerformed(evt);
+        back.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        back.setText("Back");
+        back.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backMouseClicked(evt);
             }
         });
+        getContentPane().add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 500, 109, 110));
 
-        javax.swing.GroupLayout FavPasswordsPanelLayout = new javax.swing.GroupLayout(FavPasswordsPanel);
-        FavPasswordsPanel.setLayout(FavPasswordsPanelLayout);
-        FavPasswordsPanelLayout.setHorizontalGroup(
-            FavPasswordsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(FavPasswordsPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(FavPasswordsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(showFavButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(saveFavB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        FavPasswordsPanelLayout.setVerticalGroup(
-            FavPasswordsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(FavPasswordsPanelLayout.createSequentialGroup()
-                .addComponent(saveFavB, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(showFavButton))
-        );
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel2.setText("Favorites");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 480, -1, -1));
 
-        javax.swing.GroupLayout searchFeaturesLayout = new javax.swing.GroupLayout(searchFeatures);
-        searchFeatures.setLayout(searchFeaturesLayout);
-        searchFeaturesLayout.setHorizontalGroup(
-            searchFeaturesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(searchFeaturesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(searchFeaturesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(SEEPASSWORD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(searchFeaturesLayout.createSequentialGroup()
-                        .addComponent(SEARCHBUTTON)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(searchFeaturesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(serviceTxt)
-                            .addComponent(serviceCombo, 0, 254, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(FavPasswordsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        searchFeaturesLayout.setVerticalGroup(
-            searchFeaturesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(searchFeaturesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(searchFeaturesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(searchFeaturesLayout.createSequentialGroup()
-                        .addGroup(searchFeaturesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(SEARCHBUTTON, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(searchFeaturesLayout.createSequentialGroup()
-                                .addComponent(serviceTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(serviceCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(SEEPASSWORD))
-                    .addGroup(searchFeaturesLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(FavPasswordsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(backAndReset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Copy, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-                        .addComponent(searchFeatures, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(backAndReset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Copy, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(4, 4, 4))
-                    .addComponent(searchFeatures, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel3.setText("Copy to clipboard:");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 480, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -321,14 +214,12 @@ public class SeePasswords extends javax.swing.JFrame {
     }//GEN-LAST:event_PASSWORDMouseClicked
 
     private void SEEPASSWORDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SEEPASSWORDMouseClicked
-        saveFavB.setEnabled(false);
         try {
             Passwordv2 password = j_list.getSelectedValue();
             if (password != null) {
                 FrameSeePasswordText f = new FrameSeePasswordText(password);
                 f.setVisible(true);
             }
-
         } catch (Exception e) {
         }
     }//GEN-LAST:event_SEEPASSWORDMouseClicked
@@ -361,9 +252,11 @@ public class SeePasswords extends javax.swing.JFrame {
 
     private void showFavButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showFavButtonActionPerformed
         if (!showFavoritesPerformed) {
-            showFavorites();
-            showFavButton.setText("RESET VIEW");
-            showFavoritesPerformed = true;
+            Boolean thereAreFavPasswords = showFavorites();
+            if (thereAreFavPasswords) {
+                showFavButton.setText("RESET VIEW");
+                showFavoritesPerformed = true;
+            }
         } else {
             j_list.setModel(Static.modeloPasswords);
             showFavButton.setText("Show favorite passwords");
@@ -371,7 +264,8 @@ public class SeePasswords extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_showFavButtonActionPerformed
 
-    private void showFavorites() {
+    private boolean showFavorites() {
+        boolean thereAreFavPasswords = true;
         DefaultListModel<Passwordv2> tempModel = new DefaultListModel();
         for (Passwordv2 password : Static.data.getUserData().getPasswordsList()) {
             if (password.isFavorite()) {
@@ -382,7 +276,9 @@ public class SeePasswords extends javax.swing.JFrame {
             j_list.setModel(tempModel);
         } else {
             Static.run.message("There are not any password setted as favorite", "No fav passwords", 1);
+            thereAreFavPasswords = false;
         }
+        return thereAreFavPasswords;
     }
 
     private void saveFavBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveFavBActionPerformed
@@ -430,6 +326,13 @@ public class SeePasswords extends javax.swing.JFrame {
         serviceTxt.setText(serviceCombo.getSelectedItem().toString());
     }//GEN-LAST:event_serviceComboItemStateChanged
 
+    private void j_listMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_j_listMouseClicked
+        Passwordv2 pass = j_list.getSelectedValue();
+        if (pass != null) {
+            saveFavB.setEnabled(true);
+        }
+    }//GEN-LAST:event_j_listMouseClicked
+
     private void searchService() {
         if (!serviceTxt.getText().equals("")) {
             DefaultListModel<Passwordv2> tempModel = new DefaultListModel();
@@ -451,20 +354,18 @@ public class SeePasswords extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel Copy;
-    private javax.swing.JPanel FavPasswordsPanel;
     public static javax.swing.JButton MAIL;
     private javax.swing.JButton PASSWORD;
     private javax.swing.JButton SEARCHBUTTON;
     private javax.swing.JButton SEEPASSWORD;
     public static javax.swing.JButton User;
     private javax.swing.JButton back;
-    private javax.swing.JPanel backAndReset;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JList<Logic.Passwordv2> j_list;
     private javax.swing.JButton saveFavB;
-    private javax.swing.JPanel searchFeatures;
     private javax.swing.JComboBox<String> serviceCombo;
     private javax.swing.JTextField serviceTxt;
     private javax.swing.JButton showFavButton;

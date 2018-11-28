@@ -1,8 +1,12 @@
 package UI;
 
+import Logic.ItemCopied;
 import Logic.StaticOld;
+import Logic.ThreadClass;
 import LogicV2.Static;
 import LogicV2.TextKeeper;
+import LogicV2.UserData;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class Start extends javax.swing.JFrame {
@@ -24,6 +28,7 @@ public class Start extends javax.swing.JFrame {
             DeletePasswords.setEnabled(false);
             EDITPasswords.setEnabled(false);
             printPasswords.setEnabled(false);
+            DELETEALLDATA.setEnabled(false);
         }
     }
 
@@ -41,11 +46,15 @@ public class Start extends javax.swing.JFrame {
         totalPw = new javax.swing.JLabel();
         aboutButton = new javax.swing.JButton();
         changeLog = new javax.swing.JButton();
+        howToUse = new javax.swing.JButton();
+        DELETEALLDATA = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("PASSWORDS STASH");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, -1));
 
         createNew.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         createNew.setText("CREATE NEW PASSWORD");
@@ -54,6 +63,7 @@ public class Start extends javax.swing.JFrame {
                 createNewMouseClicked(evt);
             }
         });
+        getContentPane().add(createNew, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 78, -1, -1));
 
         seePasswords.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         seePasswords.setText("SEE PASSWORDS");
@@ -65,6 +75,7 @@ public class Start extends javax.swing.JFrame {
                 seePasswordsMouseEntered(evt);
             }
         });
+        getContentPane().add(seePasswords, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 133, 339, -1));
 
         DeletePasswords.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         DeletePasswords.setText("DELETE PASSWORDS");
@@ -73,6 +84,7 @@ public class Start extends javax.swing.JFrame {
                 DeletePasswordsMouseClicked(evt);
             }
         });
+        getContentPane().add(DeletePasswords, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 243, 339, -1));
 
         EDITPasswords.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         EDITPasswords.setText("EDIT PASSWORDS");
@@ -81,6 +93,8 @@ public class Start extends javax.swing.JFrame {
                 EDITPasswordsMouseClicked(evt);
             }
         });
+        getContentPane().add(EDITPasswords, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 188, 339, -1));
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 298, 339, 10));
 
         printPasswords.setText("Print passwords");
         printPasswords.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -88,8 +102,10 @@ public class Start extends javax.swing.JFrame {
                 printPasswordsMouseClicked(evt);
             }
         });
+        getContentPane().add(printPasswords, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 339, -1));
 
         totalPw.setText("Total passwords label");
+        getContentPane().add(totalPw, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, -1, -1));
 
         aboutButton.setText("About");
         aboutButton.addActionListener(new java.awt.event.ActionListener() {
@@ -97,6 +113,7 @@ public class Start extends javax.swing.JFrame {
                 aboutButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(aboutButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 339, -1));
 
         changeLog.setText("Change log");
         changeLog.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -104,54 +121,23 @@ public class Start extends javax.swing.JFrame {
                 changeLogMouseClicked(evt);
             }
         });
+        getContentPane().add(changeLog, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 150, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(seePasswords, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(createNew, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jSeparator1)
-                    .addComponent(aboutButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(changeLog, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(EDITPasswords, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(printPasswords, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(DeletePasswords, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(totalPw)
-                            .addComponent(jLabel1))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(totalPw)
-                .addGap(18, 18, 18)
-                .addComponent(createNew)
-                .addGap(18, 18, 18)
-                .addComponent(seePasswords)
-                .addGap(18, 18, 18)
-                .addComponent(EDITPasswords)
-                .addGap(18, 18, 18)
-                .addComponent(DeletePasswords)
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(printPasswords)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(changeLog)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(aboutButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        howToUse.setText("HOW TO USE / README");
+        howToUse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                howToUseActionPerformed(evt);
+            }
+        });
+        getContentPane().add(howToUse, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 340, 180, -1));
+
+        DELETEALLDATA.setText("DELETE ALL DATA");
+        DELETEALLDATA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DELETEALLDATAActionPerformed(evt);
+            }
+        });
+        getContentPane().add(DELETEALLDATA, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 339, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -212,17 +198,48 @@ public class Start extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_seePasswordsMouseEntered
 
+    private void howToUseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_howToUseActionPerformed
+        Static.run.openUseGuideLines();
+        this.dispose();
+    }//GEN-LAST:event_howToUseActionPerformed
+
+    private void DELETEALLDATAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DELETEALLDATAActionPerformed
+        String option = JOptionPane.showInputDialog(null, "Type \"Delete\" and accept to confirm all passwords deletion.", "Delete all data", 2);
+        if (option != null) {
+            option = option.toLowerCase();
+            if (option.equals("delete")) {
+                Static.data.setUserData(new UserData());
+                Static.data.getUserData().setFirstRun(false);
+                Static.data.updateInfo();
+                Static.run.openStart();
+                this.dispose();
+            } else {
+                ThreadClass threadClass = new ThreadClass(800, (byte) 4);
+                threadClass.start();
+            }
+            if (option.toLowerCase().equals("inki")) {
+                Inki inki = new Inki();
+            }
+        } else {
+            ThreadClass threadClass = new ThreadClass(800, (byte) 4);
+            threadClass.start();
+        }
+    }//GEN-LAST:event_DELETEALLDATAActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton DELETEALLDATA;
     private javax.swing.JButton DeletePasswords;
     private javax.swing.JButton EDITPasswords;
     private javax.swing.JButton aboutButton;
     private javax.swing.JButton changeLog;
     private javax.swing.JButton createNew;
+    private javax.swing.JButton howToUse;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JButton printPasswords;
     private javax.swing.JButton seePasswords;
     private javax.swing.JLabel totalPw;
     // End of variables declaration//GEN-END:variables
+
 }

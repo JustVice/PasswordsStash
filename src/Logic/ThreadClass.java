@@ -47,6 +47,12 @@ public class ThreadClass extends Thread {
                     Thread.sleep(time);
                     NotFound.dispose();
                     break;
+                    case 4:
+                    ItemCopied Cancelled = new ItemCopied("Cancelled");
+                    Cancelled.setVisible(true);
+                    Thread.sleep(time);
+                    Cancelled.dispose();
+                    break;
             }
 
         } catch (InterruptedException ex) {

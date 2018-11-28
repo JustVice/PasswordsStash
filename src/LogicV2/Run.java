@@ -1,8 +1,6 @@
 package LogicV2;
 
 import Logic.Passwordv2;
-import static Logic.StaticOld.PathPrintPasswords;
-import static Logic.StaticOld.pw_dir;
 import UI.*;
 import java.io.File;
 import java.io.FileWriter;
@@ -13,9 +11,27 @@ import javax.swing.JOptionPane;
 public class Run {
 
     public Run() {
+//        readMeStartVersion();
+        normalRun();
+    }
+
+    private void normalRun() {
         Static.data.LoadData();
         loadLogo();
-        openStartMenu();
+        openStart();
+    }
+
+    private void readMeStartVersion() {
+        Static.data.LoadData();
+        if (Static.data.getUserData().isFirstRun()) {
+            Logo logo = new Logo();
+            Static.data.getUserData().setFirstRun(false);
+            Static.data.updateInfo();
+            ProgramUseGuideLines e = new ProgramUseGuideLines();
+            e.setVisible(true);
+        } else {
+            openStart();
+        }
     }
 
     private void loadLogo() {
@@ -24,11 +40,6 @@ public class Run {
             Static.data.getUserData().setFirstRun(false);
             Static.data.updateInfo();
         }
-    }
-
-    public void openStartMenu() {
-        Start start = new Start();
-        start.setVisible(true);
     }
 
     public void openCreate() {
@@ -64,6 +75,11 @@ public class Run {
     public void openAbout() {
         AboutFrame abf = new AboutFrame();
         abf.setVisible(true);
+    }
+
+    public void openUseGuideLines() {
+        ProgramUseGuideLines f = new ProgramUseGuideLines();
+        f.setVisible(true);
     }
 
     /**
@@ -130,9 +146,9 @@ public class Run {
             }
             content += password.getPassword() + "\n";
             if (!password.getNotes().equals("")) {
-                content += "Notes:{ "+ password.getNotes()+" }" + "\n";
+                content += "Notes:{ " + password.getNotes() + " }" + "\n";
             }
-            content +="\n";
+            content += "\n";
         }
         BuildTxtFile("here", "Passwords " + id, ".txt", content);
     }

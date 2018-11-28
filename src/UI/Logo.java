@@ -1,5 +1,6 @@
 package UI;
 
+import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -9,6 +10,7 @@ public class Logo extends javax.swing.JFrame implements Runnable {
         setUndecorated(true);
         initComponents();
         setLocationRelativeTo(null);
+        setBackground(new Color(0, 0, 0, 0));
         Start();
     }
 
@@ -26,7 +28,7 @@ public class Logo extends javax.swing.JFrame implements Runnable {
     public void run() {
         this.setVisible(true);
         try {
-            Thread.sleep(700);
+            Thread.sleep(2700);
         } catch (InterruptedException ex) {
             Logger.getLogger(Logo.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -41,23 +43,21 @@ public class Logo extends javax.swing.JFrame implements Runnable {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/jv0.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/StartLogo.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
                 .addComponent(jLabel1)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGap(0, 9, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addGap(0, 8, Short.MAX_VALUE))
         );
 
         pack();

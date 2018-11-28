@@ -12,6 +12,13 @@ public class CreateNewP extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         this.setTitle(Static.title + " " + Static.version);
         this.setResizable(false);
+        panelSettings();
+    }
+
+    private void panelSettings() {
+        notesPanel.setLineWrap(true);
+        notesPanel.setCaretPosition(0);
+        notesPanel.setWrapStyleWord(true);
     }
 
     @SuppressWarnings("unchecked")
@@ -34,47 +41,59 @@ public class CreateNewP extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         notesPanel = new javax.swing.JTextArea();
         helpButton = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Service --");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("Mail -----");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setText("User ----");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setText("Password");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel5.setText("Notes");
+        jLabel5.setText("Notes/Comments/Additional info");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, -1));
 
         servicetxt.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 servicetxtKeyTyped(evt);
             }
         });
+        getContentPane().add(servicetxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 60, 440, -1));
 
         mailtxt.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 mailtxtKeyTyped(evt);
             }
         });
+        getContentPane().add(mailtxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 440, -1));
 
         usertxt.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 usertxtKeyTyped(evt);
             }
         });
+        getContentPane().add(usertxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 440, -1));
 
         passwordtxt.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 passwordtxtKeyTyped(evt);
             }
         });
+        getContentPane().add(passwordtxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 440, -1));
 
         create.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         create.setText("CREATE");
@@ -83,6 +102,7 @@ public class CreateNewP extends javax.swing.JFrame {
                 createActionPerformed(evt);
             }
         });
+        getContentPane().add(create, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 540, 371, -1));
 
         cancel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         cancel.setText("BACK");
@@ -91,15 +111,20 @@ public class CreateNewP extends javax.swing.JFrame {
                 cancelMouseClicked(evt);
             }
         });
+        getContentPane().add(cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 540, 124, -1));
 
         jLabel7.setText("*optional");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 250, -1, -1));
 
-        favCombo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        favCombo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         favCombo.setText("Add to favorites");
+        getContentPane().add(favCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, -1));
 
         notesPanel.setColumns(20);
         notesPanel.setRows(5);
         jScrollPane1.setViewportView(notesPanel);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 523, 240));
 
         helpButton.setText("Help");
         helpButton.addActionListener(new java.awt.event.ActionListener() {
@@ -107,79 +132,14 @@ public class CreateNewP extends javax.swing.JFrame {
                 helpButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(helpButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 10, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel7))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(28, 28, 28)
-                            .addComponent(create, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 523, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(helpButton)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(18, 18, 18)
-                                .addComponent(passwordtxt))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(servicetxt, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)
-                                    .addComponent(mailtxt)
-                                    .addComponent(usertxt)))))
-                    .addComponent(favCombo))
-                .addGap(0, 28, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(servicetxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(mailtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(usertxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(passwordtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(favCombo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(helpButton)
-                .addGap(4, 4, 4)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(create, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cancel))
-                .addGap(25, 25, 25))
-        );
+        jLabel6.setText("*You can also press \"Enter\" to create the password");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 570, -1, -1));
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel8.setText("Create new Password");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -189,7 +149,7 @@ public class CreateNewP extends javax.swing.JFrame {
     }
 
     private void cancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelMouseClicked
-        StaticOld.admin.openStart();
+        Static.run.openStart();
         this.dispose();
     }//GEN-LAST:event_cancelMouseClicked
 
@@ -240,7 +200,7 @@ public class CreateNewP extends javax.swing.JFrame {
             Static.run.message("Password " + servicetxt.getText() + " recorded", "Recorded", 1);
             cleanFields();
         } else {
-            Static.run.message("YOU HAVE TO PROVIDE THE NAME OF THE SERVICE, PASSWORD AND EITHER USER OR EMAIL INFORMATION TO CREATE A PASSWORD INFO.", "Missing info", 2);
+            Static.run.message("YOU HAVE TO PROVIDE AT LEAST THE NAME OF THE SERVICE, PASSWORD AND EITHER USER OR EMAIL INFORMATION TO CREATE A NEW PASSWORD INFO", "Missing info", 2);
         }
     }
     private void helpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpButtonActionPerformed
@@ -297,7 +257,9 @@ public class CreateNewP extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField mailtxt;
     private javax.swing.JTextArea notesPanel;

@@ -11,7 +11,7 @@ public class PrintPasswords extends javax.swing.JFrame {
     public PrintPasswords() {
         initComponents();
         setLocationRelativeTo(null);
-        j_list.setModel(Static.run.setModelAndGet());
+//        j_list.setModel(Static.run.setModelAndGet());
         PrintSelected.setEnabled(false);
         this.setTitle(Static.title + " " + Static.version);
         this.setResizable(false);
@@ -31,29 +31,37 @@ public class PrintPasswords extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        Back.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         Back.setText("Back");
         Back.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 BackMouseClicked(evt);
             }
         });
+        getContentPane().add(Back, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 299, 80, 100));
 
+        PrintAll.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         PrintAll.setText("Print all passwords in a single txt file");
         PrintAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PrintAllActionPerformed(evt);
             }
         });
+        getContentPane().add(PrintAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 300, 340, -1));
 
+        PrintSelected.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         PrintSelected.setText("Print selected items");
         PrintSelected.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 PrintSelectedMouseClicked(evt);
             }
         });
+        getContentPane().add(PrintSelected, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 300, 220, -1));
 
-        label1.setText("CTRL + click on the items");
+        label1.setText("CTRL + click on the items to select multiple password");
+        getContentPane().add(label1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 280, -1, -1));
 
         j_list.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         j_list.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -63,64 +71,24 @@ public class PrintPasswords extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(j_list);
 
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, 670, 248));
+
+        printOnTheirOwnTxtFile.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         printOnTheirOwnTxtFile.setText("PRINT EVERY PASSWORD ON HIS OWN TXT FILE");
         printOnTheirOwnTxtFile.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 printOnTheirOwnTxtFileMouseClicked(evt);
             }
         });
+        getContentPane().add(printOnTheirOwnTxtFile, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 350, -1, -1));
 
-        jButton1.setText("?");
+        jButton1.setText("Help");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Back, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(PrintAll, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(PrintSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(253, 253, 253)
-                                .addComponent(label1)
-                                .addGap(29, 29, 29)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(printOnTheirOwnTxtFile)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label1)
-                    .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(Back)
-                        .addComponent(PrintAll)
-                        .addComponent(PrintSelected))
-                    .addComponent(printOnTheirOwnTxtFile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 80, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

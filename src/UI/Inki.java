@@ -10,7 +10,7 @@ public class Inki extends javax.swing.JFrame implements Runnable {
         setUndecorated(true);
         initComponents();
         setLocationRelativeTo(null);
-        setBackground(new Color(0, 0, 0, 0)); /*Sin colores en el fondo*/
+        setBackground(new Color(0, 0, 0, 0));
         start();
     }
    

@@ -79,4 +79,8 @@ public class Data {
         System.exit(0);
     }
 
+    public void setUserData(UserData userData) {
+        this.userData = userData;
+    }
+    
 }
