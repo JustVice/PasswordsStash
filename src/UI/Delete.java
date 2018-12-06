@@ -12,7 +12,7 @@ public class Delete extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         settings();
-        
+        setIconImage(Static.getIconImage());
     }
     
     private void settings(){

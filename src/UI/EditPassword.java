@@ -20,6 +20,7 @@ public class EditPassword extends javax.swing.JFrame {
         notesTxt.setCaretPosition(0);
         notesTxt.setWrapStyleWord(true);
         this.setResizable(false);
+        setIconImage(Static.getIconImage());
     }
     
     private Passwordv2 tempPassword;

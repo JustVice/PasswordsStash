@@ -15,7 +15,8 @@ public class AboutFrame extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         this.setTitle(Static.title + " " + Static.version);
-        this.setResizable(false);
+//        this.setResizable(false);
+        setIconImage(Static.getIconImage());
     }
 
     @SuppressWarnings("unchecked")
@@ -39,7 +40,9 @@ public class AboutFrame extends javax.swing.JFrame {
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/jvMask.png"))); // NOI18N
 
+        back.setBackground(new java.awt.Color(255, 224, 255));
         back.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        back.setForeground(new java.awt.Color(204, 0, 204));
         back.setText("Back");
         back.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -14,6 +14,7 @@ public class FrameSeePasswordText extends javax.swing.JFrame {
         text.setText(password.getObjectForSeePasswords());
         this.setTitle(Static.title + " " + Static.version);
         this.setResizable(false);
+        setIconImage(Static.getIconImage());
     }
 
     @SuppressWarnings("unchecked")

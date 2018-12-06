@@ -8,6 +8,7 @@ public class ProgramUseGuideLines extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         this.setResizable(false);
+        setIconImage(Static.getIconImage());
     }
 
     @SuppressWarnings("unchecked")

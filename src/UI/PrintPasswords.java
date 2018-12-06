@@ -15,6 +15,7 @@ public class PrintPasswords extends javax.swing.JFrame {
         PrintSelected.setEnabled(false);
         this.setTitle(Static.title + " " + Static.version);
         this.setResizable(false);
+        setIconImage(Static.getIconImage());
     }
 
     @SuppressWarnings("unchecked")

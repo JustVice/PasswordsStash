@@ -31,6 +31,7 @@ public class SeePasswords extends javax.swing.JFrame {
         this.setTitle(Static.title + " " + Static.version);
         this.setResizable(false);
         saveFavB.setEnabled(false);
+        setIconImage(Static.getIconImage());
     }
 
     private void setPasswordsToJlist() {

@@ -13,6 +13,7 @@ public class CreateNewP extends javax.swing.JFrame {
         this.setTitle(Static.title + " " + Static.version);
         this.setResizable(false);
         panelSettings();
+        setIconImage(Static.getIconImage());
     }
 
     private void panelSettings() {
