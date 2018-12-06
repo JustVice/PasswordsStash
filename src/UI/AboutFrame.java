@@ -15,7 +15,7 @@ public class AboutFrame extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         this.setTitle(Static.title + " " + Static.version);
-//        this.setResizable(false);
+        this.setResizable(false);
         setIconImage(Static.getIconImage());
     }
 
