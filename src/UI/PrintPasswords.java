@@ -68,7 +68,7 @@ public class PrintPasswords extends javax.swing.JFrame {
         jScrollPane1.setViewportView(j_list);
 
         printOnTheirOwnTxtFile.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        printOnTheirOwnTxtFile.setText("PRINT EVERY PASSWORD ON HIS OWN TXT FILE");
+        printOnTheirOwnTxtFile.setText("PRINT EVERY PASSWORD ON ITS OWN TXT FILE");
         printOnTheirOwnTxtFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 printOnTheirOwnTxtFileActionPerformed(evt);

@@ -256,6 +256,10 @@ public class SeePasswords extends javax.swing.JFrame {
     }//GEN-LAST:event_backMouseClicked
 
     private void PASSWORDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PASSWORDMouseClicked
+        passwordCopyToDo();
+    }//GEN-LAST:event_PASSWORDMouseClicked
+
+    private void passwordCopyToDo() {
         saveFavB.setEnabled(false);
         try {
             Clipboard clip = getToolkit().getSystemClipboard();
@@ -265,8 +269,9 @@ public class SeePasswords extends javax.swing.JFrame {
             ThreadClass threadClass = new ThreadClass(timeThread, password);/*action 0 to change button text*/
             threadClass.start();
         } catch (Exception e) {
+            e.printStackTrace();
         }
-    }//GEN-LAST:event_PASSWORDMouseClicked
+    }
 
     private void SEEPASSWORDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SEEPASSWORDMouseClicked
         try {
@@ -385,6 +390,9 @@ public class SeePasswords extends javax.swing.JFrame {
         Passwordv2 pass = j_list.getSelectedValue();
         if (pass != null) {
             saveFavB.setEnabled(true);
+            if (evt.getClickCount() == 2) {
+                passwordCopyToDo();
+            }
         }
     }//GEN-LAST:event_j_listMouseClicked
 

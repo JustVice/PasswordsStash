@@ -14,11 +14,11 @@ public class Delete extends javax.swing.JFrame {
         settings();
         setIconImage(Static.getIconImage());
     }
-    
-    private void settings(){
-    this.setTitle(Static.title + " " + Static.version);
-    j_list.setModel(Static.run.setModelAndGet());
-    this.setResizable(false);
+
+    private void settings() {
+        this.setTitle(Static.title + " " + Static.version);
+        j_list.setModel(Static.run.setModelAndGet());
+        this.setResizable(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -49,6 +49,11 @@ public class Delete extends javax.swing.JFrame {
         });
 
         j_list.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        j_list.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                j_listMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(j_list);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -81,6 +86,10 @@ public class Delete extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void DeleteBOTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeleteBOTMouseClicked
+        deleteToDo();
+    }//GEN-LAST:event_DeleteBOTMouseClicked
+
+    private void deleteToDo() {
         try {
             Passwordv2 password = j_list.getSelectedValue();
             if (deleteYes(password)) {
@@ -97,12 +106,18 @@ public class Delete extends javax.swing.JFrame {
         } catch (Exception e) {
             System.out.println("User hasnt selected any password.");
         }
-    }//GEN-LAST:event_DeleteBOTMouseClicked
+    }
 
     private void backBotMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBotMouseClicked
         Static.run.openStart();
         this.dispose();
     }//GEN-LAST:event_backBotMouseClicked
+
+    private void j_listMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_j_listMouseClicked
+        if (evt.getClickCount() == 2) {
+            deleteToDo();
+        }
+    }//GEN-LAST:event_j_listMouseClicked
 
     /**
      * Makes the user confirm his selection of deleting the selected password
