@@ -9,6 +9,7 @@ public class ProgramUseGuideLines extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         this.setResizable(false);
         setIconImage(Static.getIconImage());
+        this.setTitle(Static.title + " " + Static.version);
     }
 
     @SuppressWarnings("unchecked")
@@ -28,7 +29,7 @@ public class ProgramUseGuideLines extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("<html>\n<head>\n\n<style>\n\nh3{\ntext-align:center;\n}\n\n</style>\n\n\n</head>\n\n<h1 style=\"text-align:center;\">How this program is meant to be used:</h1>\n\n<h3>Sometimes you need to log in into 1, 2, 3, etc.. accounts on a </h3> \n<h3>foreign computer and be as quick as possible. This program helps to do so.</h3>\n<h3> It is meant to store your passwords and give them to you by a click on</h3>\n<h3>a button to copy it into the clipboard. At the end of the day it is supposed </h3>\n<h3>that you will delete the \"datav2PS\" file. Quick password giver and disposable</h3>\n<h3>sensitive data is the slogan of this program. You can store all your</h3>\n<h3>passwords and use the program as a password keeper, but it is not </h3>\n<h3>recomended because the \"datav2PS\" file can be readed easily with </h3>\n<h3>any txt editor. So be aware of the \"datav2PS\"; delete it or hide the </h3>\n<h3>program into a safety and discrete place as you need it.</h3>\n<h3>Responsibility disclaimer: I am not responsable for any password</h3>\n<h3>or sensitive data stolen. It's up to you to protect this program.</h3>\n<h3>Note: No, I am not using computer magic tricks to steal your</h3>\n<h3>passwords, you can be completely calm with that.</h3>\n\n</html>");
+        jLabel1.setText("<html>\n<head>\n\n<style>\n\nh3{\ntext-align:center;\n}\n\n</style>\n\n\n</head>\n\n<h1 style=\"text-align:center;\">How this program is meant to be used:</h1>\n\n<h3>Sometimes you need to log in into 1, 2, 3, etc.. accounts on a </h3> \n<h3>foreign computer and be as quick as possible. This program helps to do so.</h3>\n<h3> It is meant to store your passwords and give them to you by a click on</h3>\n<h3>a button to copy it into the clipboard. At the end of the day it is supposed </h3>\n<h3>that you will delete the \"datav2PS\" file. Quick password giver and disposable</h3>\n<h3>sensitive data is the slogan of this program. You can store all your</h3>\n<h3>passwords and use the program as a password keeper, but it is not </h3>\n<h3>recomended because the \"datav2PS\" file can be readed easily with </h3>\n<h3>any txt editor. So be aware of the \"datav2PS\"; delete it or hide the </h3>\n<h3>program into a safe and discrete place as you need it.</h3>\n<h3>Responsibility disclaimer: I am not responsable for any password</h3>\n<h3>or sensitive data stolen. It's up to you to protect this program and its data.</h3>\n<h3>PS: No, I am not using any computer magic tricks to steal your</h3>\n<h3>passwords.</h3>\n\n</html>");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

@@ -261,7 +261,7 @@ public class Start extends javax.swing.JFrame {
     }//GEN-LAST:event_howToUseActionPerformed
 
     private void DELETEALLDATAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DELETEALLDATAActionPerformed
-        String option = JOptionPane.showInputDialog(null, "Type \"delete\" and accept to confirm all passwords deletion.", "Delete all data", 2);
+        String option = JOptionPane.showInputDialog(null, "Type \"delete\" and accept to confirm all data deletion.", "Delete all data", 2);
         if (option != null) {
             option = option.toLowerCase();
             if (option.equals("delete")) {

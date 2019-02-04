@@ -24,16 +24,6 @@ public class SeePasswords extends javax.swing.JFrame {
         settings();
     }
 
-    private void settings() {
-        setPasswordsToJlist();
-        setComboBox();
-        SearchEnganched = false;
-        this.setTitle(Static.title + " " + Static.version);
-        this.setResizable(false);
-        saveFavB.setEnabled(false);
-        setIconImage(Static.getIconImage());
-    }
-
     private void setPasswordsToJlist() {
         j_list.setModel(Static.run.setModelAndGet());
     }
@@ -72,7 +62,7 @@ public class SeePasswords extends javax.swing.JFrame {
         User = new javax.swing.JButton();
         PASSWORD = new javax.swing.JButton();
         SEARCHBUTTON = new javax.swing.JButton();
-        SEEPASSWORD = new javax.swing.JButton();
+        seePasswordInfo = new javax.swing.JButton();
         serviceCombo = new javax.swing.JComboBox<>();
         serviceTxt = new javax.swing.JTextField();
         saveFavB = new javax.swing.JButton();
@@ -96,25 +86,25 @@ public class SeePasswords extends javax.swing.JFrame {
 
         MAIL.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         MAIL.setText("MAIL");
-        MAIL.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                MAILMouseClicked(evt);
+        MAIL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MAILActionPerformed(evt);
             }
         });
 
         User.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         User.setText("USER");
-        User.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                UserMouseClicked(evt);
+        User.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UserActionPerformed(evt);
             }
         });
 
         PASSWORD.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         PASSWORD.setText("PASSWORD");
-        PASSWORD.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                PASSWORDMouseClicked(evt);
+        PASSWORD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PASSWORDActionPerformed(evt);
             }
         });
 
@@ -126,11 +116,11 @@ public class SeePasswords extends javax.swing.JFrame {
             }
         });
 
-        SEEPASSWORD.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        SEEPASSWORD.setText("SEE ALL INFORMATION");
-        SEEPASSWORD.addMouseListener(new java.awt.event.MouseAdapter() {
+        seePasswordInfo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        seePasswordInfo.setText("SEE ALL INFORMATION");
+        seePasswordInfo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                SEEPASSWORDMouseClicked(evt);
+                seePasswordInfoMouseClicked(evt);
             }
         });
 
@@ -197,7 +187,7 @@ public class SeePasswords extends javax.swing.JFrame {
                         .addComponent(MAIL, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
                         .addComponent(User, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(SEEPASSWORD, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(seePasswordInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(showFavButton)
@@ -228,7 +218,7 @@ public class SeePasswords extends javax.swing.JFrame {
                             .addComponent(MAIL)
                             .addComponent(User))
                         .addGap(3, 3, 3)
-                        .addComponent(SEEPASSWORD, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(seePasswordInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(showFavButton)
                         .addGap(9, 9, 9)
@@ -255,10 +245,6 @@ public class SeePasswords extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_backMouseClicked
 
-    private void PASSWORDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PASSWORDMouseClicked
-        passwordCopyToDo();
-    }//GEN-LAST:event_PASSWORDMouseClicked
-
     private void passwordCopyToDo() {
         saveFavB.setEnabled(false);
         try {
@@ -273,7 +259,7 @@ public class SeePasswords extends javax.swing.JFrame {
         }
     }
 
-    private void SEEPASSWORDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SEEPASSWORDMouseClicked
+    private void seePasswordInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seePasswordInfoMouseClicked
         try {
             Passwordv2 password = j_list.getSelectedValue();
             if (password != null) {
@@ -282,33 +268,7 @@ public class SeePasswords extends javax.swing.JFrame {
             }
         } catch (Exception e) {
         }
-    }//GEN-LAST:event_SEEPASSWORDMouseClicked
-
-    private void UserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UserMouseClicked
-        saveFavB.setEnabled(false);
-        try {
-            Clipboard clip = getToolkit().getSystemClipboard();
-            Passwordv2 toClipBoardPassword = j_list.getSelectedValue();
-            StringSelection stringClip = new StringSelection(toClipBoardPassword.getUser());
-            clip.setContents(stringClip, stringClip);
-            ThreadClass t = new ThreadClass(timeThread, user);
-            t.start();
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_UserMouseClicked
-
-    private void MAILMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MAILMouseClicked
-        saveFavB.setEnabled(false);
-        try {
-            Clipboard clip = getToolkit().getSystemClipboard();
-            Passwordv2 toClipBoardPassword = j_list.getSelectedValue();
-            StringSelection stringClip = new StringSelection(toClipBoardPassword.getMail());
-            clip.setContents(stringClip, stringClip);
-            ThreadClass t = new ThreadClass(timeThread, mail);
-            t.start();
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_MAILMouseClicked
+    }//GEN-LAST:event_seePasswordInfoMouseClicked
 
     private void showFavButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showFavButtonActionPerformed
         if (!showFavoritesPerformed) {
@@ -389,12 +349,54 @@ public class SeePasswords extends javax.swing.JFrame {
     private void j_listMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_j_listMouseClicked
         Passwordv2 pass = j_list.getSelectedValue();
         if (pass != null) {
+            PASSWORD.setEnabled(true);
             saveFavB.setEnabled(true);
+            seePasswordInfo.setEnabled(true);
+            if (!pass.getMail().equals("")) {
+                MAIL.setEnabled(true);
+            } else {
+                MAIL.setEnabled(false);
+            }
+            if (!pass.getUser().equals("")) {
+                User.setEnabled(true);
+            } else {
+                User.setEnabled(false);
+            }
             if (evt.getClickCount() == 2) {
                 passwordCopyToDo();
             }
         }
     }//GEN-LAST:event_j_listMouseClicked
+
+    private void PASSWORDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PASSWORDActionPerformed
+        passwordCopyToDo();
+    }//GEN-LAST:event_PASSWORDActionPerformed
+
+    private void MAILActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MAILActionPerformed
+        saveFavB.setEnabled(false);
+        try {
+            Clipboard clip = getToolkit().getSystemClipboard();
+            Passwordv2 toClipBoardPassword = j_list.getSelectedValue();
+            StringSelection stringClip = new StringSelection(toClipBoardPassword.getMail());
+            clip.setContents(stringClip, stringClip);
+            ThreadClass t = new ThreadClass(timeThread, mail);
+            t.start();
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_MAILActionPerformed
+
+    private void UserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserActionPerformed
+        saveFavB.setEnabled(false);
+        try {
+            Clipboard clip = getToolkit().getSystemClipboard();
+            Passwordv2 toClipBoardPassword = j_list.getSelectedValue();
+            StringSelection stringClip = new StringSelection(toClipBoardPassword.getUser());
+            clip.setContents(stringClip, stringClip);
+            ThreadClass t = new ThreadClass(timeThread, user);
+            t.start();
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_UserActionPerformed
 
     private void searchService() {
         if (!serviceTxt.getText().equals("")) {
@@ -420,7 +422,6 @@ public class SeePasswords extends javax.swing.JFrame {
     public static javax.swing.JButton MAIL;
     private javax.swing.JButton PASSWORD;
     private javax.swing.JButton SEARCHBUTTON;
-    private javax.swing.JButton SEEPASSWORD;
     public static javax.swing.JButton User;
     private javax.swing.JButton back;
     private javax.swing.JLabel jLabel1;
@@ -429,9 +430,24 @@ public class SeePasswords extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JList<Logic.Passwordv2> j_list;
     private javax.swing.JButton saveFavB;
+    private javax.swing.JButton seePasswordInfo;
     private javax.swing.JComboBox<String> serviceCombo;
     private javax.swing.JTextField serviceTxt;
     private javax.swing.JButton showFavButton;
     // End of variables declaration//GEN-END:variables
+
+    private void settings() {
+        setPasswordsToJlist();
+        setComboBox();
+        SearchEnganched = false;
+        this.setTitle(Static.title + " " + Static.version);
+        this.setResizable(false);
+        saveFavB.setEnabled(false);
+        setIconImage(Static.getIconImage());
+        PASSWORD.setEnabled(false);
+        User.setEnabled(false);
+        MAIL.setEnabled(false);
+        seePasswordInfo.setEnabled(false);
+    }
 
 }
