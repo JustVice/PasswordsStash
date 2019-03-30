@@ -12,8 +12,8 @@ public class Encode {
 //            System.out.println("Base64: " + encodeBytes);
             return encodeBytes;
         } catch (Exception e) {
-            System.out.println("Error Encode base64");
-            return null;
+            //System.out.println("Error Encode base64");
+            return string;
         }
     }
 
@@ -23,8 +23,8 @@ public class Encode {
 //            System.out.println("Encode: " + new String(decodedBytes));
             return new String(decodedBytes);
         } catch (Exception e) {
-            System.out.println("Error decode_base64");
-            return null;
+            //System.out.println("Error decode_base64");
+            return string;
         }
     }
 //</editor-fold>

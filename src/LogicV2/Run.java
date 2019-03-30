@@ -138,16 +138,16 @@ public class Run {
     public void printAllPasswords(int id) {
         String content = "";
         for (Passwordv2 password : Static.data.getUserData().getPasswordsList()) {
-            content += "Service: " + password.getService() + "\n";
-            if (!password.getMail().equals("")) {
-                content += "Mail: " + password.getMail() + "\n";
+            content += "Service: " + password.getService(Static.return_encoded) + "\n";
+            if (!password.getMail(Static.return_encoded).equals("")) {
+                content += "Mail: " + password.getMail(Static.return_encoded) + "\n";
             }
-            if (!password.getUser().equals("")) {
-                content += "User: " + password.getUser() + "\n";
+            if (!password.getUser(Static.return_encoded).equals("")) {
+                content += "User: " + password.getUser(Static.return_encoded) + "\n";
             }
-            content += "Password: " + password.getPassword() + "\n";
-            if (!password.getNotes().equals("")) {
-                content += "Notes: \n" + password.getNotes() + "\n";
+            content += "Password: " + password.getPassword(Static.return_encoded) + "\n";
+            if (!password.getNotes(Static.return_encoded).equals("")) {
+                content += "Notes: \n" + password.getNotes(Static.return_encoded) + "\n";
             }
             content += "Password ID: " + password.getID();
             content += "\n\n";

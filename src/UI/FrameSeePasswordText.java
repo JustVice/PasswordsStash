@@ -1,7 +1,6 @@
 package UI;
 
 import Logic.Passwordv2;
-import Logic.StaticOld;
 import LogicV2.Static;
 
 public class FrameSeePasswordText extends javax.swing.JFrame {
@@ -11,7 +10,7 @@ public class FrameSeePasswordText extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         text.setEditable(false);
-        text.setText(password.getObjectForSeePasswords());
+        text.setText(password.getObjectForSeePasswords(Static.return_encoded));
         this.setTitle(Static.title + " " + Static.version);
         this.setResizable(false);
         setIconImage(Static.getIconImage());

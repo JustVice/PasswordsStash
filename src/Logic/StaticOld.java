@@ -92,17 +92,16 @@ public class StaticOld {
      * data file.
      */
     public static void setModelsItems() {
-        modelo.clear();
-        servicesRegistered = new String[pw_dir.size()];
-        for (int i = 0; i < pw_dir.size(); i++) {
-            modelo.add(i, StaticOld.pw_dir.get(i));
-            servicesRegistered[i] = StaticOld.pw_dir.get(i).getService();
-        }
-        try {
-            servicesRegistered = whiteListServicesRegistered(servicesRegistered);
-        } catch (Exception e) {
-        }
-
+//        modelo.clear();
+//        servicesRegistered = new String[pw_dir.size()];
+//        for (int i = 0; i < pw_dir.size(); i++) {
+//            modelo.add(i, StaticOld.pw_dir.get(i));
+//            servicesRegistered[i] = StaticOld.pw_dir.get(i).getService();
+//        }
+//        try {
+//            servicesRegistered = whiteListServicesRegistered(servicesRegistered);
+//        } catch (Exception e) {
+//        }
     }
 
     /**
@@ -138,36 +137,36 @@ public class StaticOld {
      * is.
      */
     public static void printAllPasswords() {
-        if (!pw_dir.isEmpty()) {
-            try {
-                String str = "";
-                Passwordv2 password;
-                for (int i = 0; i < pw_dir.size(); i++) {
-                    password = pw_dir.get(i);
-                    str += password.getService() + "\r\n";
-                    if (!password.getUser().equals("")) {
-                        str += "User: " + password.getUser() + "\r\n";
-                    }
-                    if (!password.getMail().equals("")) {
-                        str += "Mail: " + password.getMail() + "\r\n";
-                    }
-                    str += "Password: " + password.getPassword() + "\r\n";
-                    if (!password.getDescription().equals("")) {
-                        str += "Description: " + password.getDescription() + "\r\n";
-                    }
-                    
-                    str += "\r\n";
-                }
-                System.out.println(str);
-                FileWriter escritura = new FileWriter(PathPrintPasswords);
-                for (int i = 0; i < str.length(); i++) {
-                    escritura.write(str.charAt(i));
-                }
-                escritura.close();
-            } catch (Exception e) {
-                System.out.println("Error at printAllPasswords method in Data Class.");
-            }
-        }
+//        if (!pw_dir.isEmpty()) {
+//            try {
+//                String str = "";
+//                Passwordv2 password;
+//                for (int i = 0; i < pw_dir.size(); i++) {
+//                    password = pw_dir.get(i);
+//                    str += password.getService() + "\r\n";
+//                    if (!password.getUser().equals("")) {
+//                        str += "User: " + password.getUser() + "\r\n";
+//                    }
+//                    if (!password.getMail().equals("")) {
+//                        str += "Mail: " + password.getMail() + "\r\n";
+//                    }
+//                    str += "Password: " + password.getPassword() + "\r\n";
+//                    if (!password.getDescription().equals("")) {
+//                        str += "Description: " + password.getDescription() + "\r\n";
+//                    }
+//                    
+//                    str += "\r\n";
+//                }
+//                System.out.println(str);
+//                FileWriter escritura = new FileWriter(PathPrintPasswords);
+//                for (int i = 0; i < str.length(); i++) {
+//                    escritura.write(str.charAt(i));
+//                }
+//                escritura.close();
+//            } catch (Exception e) {
+//                System.out.println("Error at printAllPasswords method in Data Class.");
+//            }
+//        }
     }
 
     /**
@@ -175,46 +174,46 @@ public class StaticOld {
      * and either user or mail provided.
      */
     public static void printAllPasswordsOnHisOwnTxtFile() {
-        if (!pw_dir.isEmpty()) {
-            try {
-                File file = new File("Passwords");
-                file.mkdir();
-                String str = "";
-                Passwordv2 password;
-                for (int i = 0; i < pw_dir.size(); i++) {
-                    password = pw_dir.get(i);
-                    str += password.getService() + "\r\n";
-                    if (!password.getUser().equals("")) {
-                        str += "User: " + password.getUser() + "\r\n";
-                    }
-                    if (!password.getMail().equals("")) {
-                        str += "Mail: " + password.getMail() + "\r\n";
-                    }
-                    str += "Password: " + password.getPassword() + "\r\n";
-                    if (!password.getDescription().equals("")) {
-                        str += "Description: " + password.getDescription() + "\r\n";
-                    }
-                    
-                    str += "\r\n";
-                    String fileName = "Passwords\\" + password.getService() + ". ";
-                    if (!password.getUser().equals("")) {
-                        fileName += password.getUser();
-                    } else {
-                        fileName += password.getMail();
-                    }
-                    fileName += ".txt";
-                    FileWriter escritura = new FileWriter(fileName);
-                    for (int j = 0; j < str.length(); j++) {
-                        escritura.write(str.charAt(j));
-                    }
-                    str = "";
-                    escritura.close();
-                }
-                System.out.println(str);
-            } catch (Exception e) {
-                System.out.println("Error at printAllPasswordsOnHisOwnTxtFile method on Static Class.\n"+e);
-            }
-        }
+//        if (!pw_dir.isEmpty()) {
+//            try {
+//                File file = new File("Passwords");
+//                file.mkdir();
+//                String str = "";
+//                Passwordv2 password;
+//                for (int i = 0; i < pw_dir.size(); i++) {
+//                    password = pw_dir.get(i);
+//                    str += password.getService() + "\r\n";
+//                    if (!password.getUser().equals("")) {
+//                        str += "User: " + password.getUser() + "\r\n";
+//                    }
+//                    if (!password.getMail().equals("")) {
+//                        str += "Mail: " + password.getMail() + "\r\n";
+//                    }
+//                    str += "Password: " + password.getPassword() + "\r\n";
+//                    if (!password.getDescription().equals("")) {
+//                        str += "Description: " + password.getDescription() + "\r\n";
+//                    }
+//                    
+//                    str += "\r\n";
+//                    String fileName = "Passwords\\" + password.getService() + ". ";
+//                    if (!password.getUser().equals("")) {
+//                        fileName += password.getUser();
+//                    } else {
+//                        fileName += password.getMail();
+//                    }
+//                    fileName += ".txt";
+//                    FileWriter escritura = new FileWriter(fileName);
+//                    for (int j = 0; j < str.length(); j++) {
+//                        escritura.write(str.charAt(j));
+//                    }
+//                    str = "";
+//                    escritura.close();
+//                }
+//                System.out.println(str);
+//            } catch (Exception e) {
+//                System.out.println("Error at printAllPasswordsOnHisOwnTxtFile method on Static Class.\n"+e);
+//            }
+//        }
     }
 
     /**
@@ -222,46 +221,46 @@ public class StaticOld {
      * with the name of the service and either user or mail provided.
      */
     public static void printSelectedPasswords(int[] indices) {
-        if (!pw_dir.isEmpty()) {
-            try {
-                String str = "";
-                Passwordv2 password;
-                File file = new File("Passwords");
-                file.mkdir();
-                for (int i = 0; i < indices.length; i++) {
-                    password = modelo.get(indices[i]);
-                    str += password.getService() + "\r\n";
-                    if (!password.getUser().equals("")) {
-                        str += "User: " + password.getUser() + "\r\n";
-                    }
-                    if (!password.getMail().equals("")) {
-                        str += "Mail: " + password.getMail() + "\r\n";
-                    }
-                    str += "Password: " + password.getPassword() + "\r\n";
-                    if (!password.getDescription().equals("")) {
-                        str += "Description: " + password.getDescription() + "\r\n";
-                    }
-                    
-                    str += "\r\n";
-                    String fileName = "Passwords\\" + password.getService() + ". ";
-                    if (!password.getUser().equals("")) {
-                        fileName += password.getUser();
-                    } else {
-                        fileName += password.getMail();
-                    }
-                    fileName += ".txt";
-                    FileWriter escritura = new FileWriter(fileName);
-                    for (int j = 0; j < str.length(); j++) {
-                        escritura.write(str.charAt(j));
-                    }
-                    str = "";
-                    escritura.close();
-                }
-                System.out.println(str);
-            } catch (Exception e) {
-                System.out.println("Error at printAllPasswordsOnHisOwnTxtFile method in Data Class.");
-            }
-        }
+//        if (!pw_dir.isEmpty()) {
+//            try {
+//                String str = "";
+//                Passwordv2 password;
+//                File file = new File("Passwords");
+//                file.mkdir();
+//                for (int i = 0; i < indices.length; i++) {
+//                    password = modelo.get(indices[i]);
+//                    str += password.getService() + "\r\n";
+//                    if (!password.getUser().equals("")) {
+//                        str += "User: " + password.getUser() + "\r\n";
+//                    }
+//                    if (!password.getMail().equals("")) {
+//                        str += "Mail: " + password.getMail() + "\r\n";
+//                    }
+//                    str += "Password: " + password.getPassword() + "\r\n";
+//                    if (!password.getDescription().equals("")) {
+//                        str += "Description: " + password.getDescription() + "\r\n";
+//                    }
+//                    
+//                    str += "\r\n";
+//                    String fileName = "Passwords\\" + password.getService() + ". ";
+//                    if (!password.getUser().equals("")) {
+//                        fileName += password.getUser();
+//                    } else {
+//                        fileName += password.getMail();
+//                    }
+//                    fileName += ".txt";
+//                    FileWriter escritura = new FileWriter(fileName);
+//                    for (int j = 0; j < str.length(); j++) {
+//                        escritura.write(str.charAt(j));
+//                    }
+//                    str = "";
+//                    escritura.close();
+//                }
+//                System.out.println(str);
+//            } catch (Exception e) {
+//                System.out.println("Error at printAllPasswordsOnHisOwnTxtFile method in Data Class.");
+//            }
+//        }
     }
 
     public static DefaultListModel getFavPasswordsToShow() {
