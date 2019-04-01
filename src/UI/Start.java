@@ -248,7 +248,7 @@ public class Start extends javax.swing.JFrame {
         //You are not supposed to be reading this.
         if (Static.easterEgg) {
             int n = (int) (Math.random() * 100000);
-            if (n < 2000) {
+            if (n < 1000) {
                 Inki inki = new Inki();
                 Static.easterEgg = false;
             }

@@ -278,7 +278,6 @@ public class EditPassword extends javax.swing.JFrame {
                 if (Static.data.getUserData().getPasswordsList().get(i).getID() == tempPassword.getID()) {
                     int option = Static.run.askMessage("Are you sure that you want to update this " + Static.data.getUserData().getPasswordsList().get(i).getService(Static.return_encoded) + " info?\nThis action cannot be undone.", "Change password info?", 0, 3);
                     if (option == 0) {
-                        
                         Passwordv2 passwordUpdate = new Passwordv2(Encode.Encode_Base64(servicetxt.getText().toUpperCase()), Encode.Encode_Base64(usertxt.getText()), Encode.Encode_Base64(mailtxt.getText()), Encode.Encode_Base64(passwordtxt.getText()), Encode.Encode_Base64(notesTxt.getText()), giveFavOrNot());
                         Static.data.getUserData().getPasswordsList().set(i, passwordUpdate);
                         Static.data.updateInfo();

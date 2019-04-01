@@ -13,7 +13,6 @@ public class Run {
     public Run() {
 //        readMeStartVersion();
         normalRun();
-//        openAbout();
     }
 
     private void normalRun() {
