@@ -11,6 +11,8 @@ public class Main {
 //        StaticOld.admin.StartProgram();
         Static.run = new Run();
 //        Static.data.LoadData();
+//                SetMP setMP = new SetMP();
+//        MPSettings m = new MPSettings();
 //       String mp = Static.data.getUserData().getMp();
 //        for (int i = 0; i < 12; i++) {
 //            mp = Encode.Decode_Base64(mp);
@@ -18,7 +20,7 @@ public class Main {
 //        System.out.println(mp);
 //        String mpa = Static.data.getUserData().getMpa();
 //        System.out.println("mpa: " + mpa);
-//        SetMP setMP = new SetMP();
+
 //        MPSettings mpSettings = new //        MPSettings();
 //        System.out.println("MP: " + Static.data.getUserData().getMp());
 //        System.out.println("MPA: " + Static.data.getUserData().getMpa());
