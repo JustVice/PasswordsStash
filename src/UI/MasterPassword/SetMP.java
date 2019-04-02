@@ -3,12 +3,13 @@ package UI.MasterPassword;
 import LogicV2.Encode;
 import LogicV2.Static;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
 
 public class SetMP extends javax.swing.JFrame implements Runnable {
 
     public SetMP() {
+        setIconImage(Static.getIconImage());
         initComponents();
         settings();
     }
@@ -22,7 +23,15 @@ public class SetMP extends javax.swing.JFrame implements Runnable {
         String m2 = jTextField2_master2.getText();
         if (!m1.equals("") && !m2.equals("")) {
             if (m1.equals(m2)) {
-                PROCEED();
+                if (!jTextField1_master1.getText().equals("null")) {
+                    PROCEED_MP();
+                    PROCEED_MPA();
+                    Static.data.updateInfo();
+                    Static.run.openStart_newMasterPassword();
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "The world \"null\" is not allowed as a Master Password.", "NOT ALLOWED WORD", 0);
+                }
             } else {
                 this.label_status_set("Passwords do not match", "red");
             }
@@ -31,21 +40,16 @@ public class SetMP extends javax.swing.JFrame implements Runnable {
         }
     }
 
-    //REQUIERE VALIDACION DE NUMERO DE INTENTOS. SI TIENE O NO INTENTOS. ACTUALMENTE
-    //EL CODIGO ES NULL EN USERDATA SI NO SE HA ESTABLECIDO NADA.
-    //AQUI AHORA MISMO SI NO SE HA ESTABLECIDO INTENTOS ESTA IGUAL GUARDANDO UN VALOR
-    //NUMERAL.
-    private void PROCEED() {
-        String mp = jTextField1_master1.getText();
-        String mpa = "" + ((int) jSpinner1.getValue());
-        for (int i = 0; i < 12; i++) {
-            mp = Encode.Encode_Base64(mp);
-            mpa = Encode.Encode_Base64(mpa);
+    private void PROCEED_MP() {
+        Static.data.getUserData().setMp(jTextField1_master1.getText());
+    }
+
+    private void PROCEED_MPA() {
+        if (jRadioButton1_limit_attempts.isSelected()) {
+            Static.data.getUserData().setMpa(("" + ((int) jSpinner1.getValue())));
+        } else {
+            Static.data.getUserData().setMpa("null");
         }
-        Static.data.getUserData().setMp(mp);
-        Static.data.getUserData().setMpa(mpa);
-        Static.data.updateInfo();
-        MPMessages m = new MPMessages("MASTER PASSWORD SAVED!");
     }
 
     private void settings() {
@@ -91,6 +95,7 @@ public class SetMP extends javax.swing.JFrame implements Runnable {
         jRadioButton1_limit_attempts = new javax.swing.JRadioButton();
         jLabel5_attempts = new javax.swing.JLabel();
         jSpinner1 = new javax.swing.JSpinner();
+        jButton1_back = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -142,6 +147,14 @@ public class SetMP extends javax.swing.JFrame implements Runnable {
 
         jSpinner1.setModel(new javax.swing.SpinnerNumberModel(1, 1, 10, 1));
 
+        jButton1_back.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton1_back.setText("Back");
+        jButton1_back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1_backActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -149,24 +162,30 @@ public class SetMP extends javax.swing.JFrame implements Runnable {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5_status)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jButton1_enable_master_password)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1_enable_master_password)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1_back))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1_master1, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
-                            .addComponent(jTextField2_master2)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jRadioButton1_limit_attempts)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel5_attempts)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel5_status)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTextField1_master1, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
+                                    .addComponent(jTextField2_master2)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jRadioButton1_limit_attempts)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel5_attempts)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -192,7 +211,9 @@ public class SetMP extends javax.swing.JFrame implements Runnable {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
                 .addComponent(jLabel5_status)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1_enable_master_password)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1_enable_master_password)
+                    .addComponent(jButton1_back))
                 .addContainerGap())
         );
 
@@ -201,7 +222,7 @@ public class SetMP extends javax.swing.JFrame implements Runnable {
 
     private void jTextField1_master1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1_master1KeyTyped
         label_status_set("", "black");
-        Enter_action_performed(evt);
+        type_action(evt);
     }//GEN-LAST:event_jTextField1_master1KeyTyped
 
     private void jButton1_enable_master_passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1_enable_master_passwordActionPerformed
@@ -210,7 +231,7 @@ public class SetMP extends javax.swing.JFrame implements Runnable {
 
     private void jTextField2_master2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2_master2KeyTyped
         label_status_set("", "black");
-        Enter_action_performed(evt);
+        type_action(evt);
     }//GEN-LAST:event_jTextField2_master2KeyTyped
 
     private void jRadioButton1_limit_attemptsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1_limit_attemptsActionPerformed
@@ -225,14 +246,26 @@ public class SetMP extends javax.swing.JFrame implements Runnable {
         }
     }//GEN-LAST:event_jRadioButton1_limit_attemptsActionPerformed
 
-    private void Enter_action_performed(java.awt.event.KeyEvent evt) {
+    private void jButton1_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1_backActionPerformed
+        Static.run.openStart();
+        this.dispose();
+    }//GEN-LAST:event_jButton1_backActionPerformed
+
+    private void type_action(java.awt.event.KeyEvent evt) {
         char c = evt.getKeyChar();
         if (c == KeyEvent.VK_ENTER) {
             ENABLE();
         }
+        if (jTextField1_master1.getText().equals("nul")) {
+            jTextField1_master1.setText("");
+        }
+        if (jTextField2_master2.getText().equals("nul")) {
+            jTextField2_master2.setText("");
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1_back;
     private javax.swing.JButton jButton1_enable_master_password;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

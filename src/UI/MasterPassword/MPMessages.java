@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 public class MPMessages extends javax.swing.JFrame implements Runnable {
 
+
     public MPMessages(String message) {
         this.setUndecorated(true);
         initComponents();
@@ -16,13 +17,13 @@ public class MPMessages extends javax.swing.JFrame implements Runnable {
 
     @Override
     public void run() {
-        try {
             this.setVisible(true);
-            Thread.sleep(1400);
+            try {
+                Thread.sleep(1150);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(MPMessages.class.getName()).log(Level.SEVERE, null, ex);
+            }
             this.dispose();
-        } catch (InterruptedException ex) {
-            Logger.getLogger(MPMessages.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     @SuppressWarnings("unchecked")

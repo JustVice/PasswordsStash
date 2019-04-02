@@ -1,6 +1,0 @@
-Service: NORMAL SERVICE
-User: normal user
-Mail: normal mail
-Password: normal password
-Notes: normal comments notes text etc
-password ID: 14769460

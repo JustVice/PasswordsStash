@@ -14,6 +14,7 @@ public class Static {
     public static DefaultListModel<Passwordv2> modeloPasswords = new DefaultListModel();
     public static boolean easterEgg = true;
     public static boolean return_encoded = true;
+    public static int mpr = 12;
     
     public static Image getIconImage() {
         return Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("IMG/iconLogo.png"));

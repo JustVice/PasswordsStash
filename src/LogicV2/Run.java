@@ -2,6 +2,7 @@ package LogicV2;
 
 import Logic.Passwordv2;
 import UI.*;
+import UI.MasterPassword.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -17,7 +18,7 @@ public class Run {
 
     private void normalRun() {
         Static.data.LoadData();
-        loadLogo();
+//        loadLogo();
         openStart();
     }
 
@@ -42,6 +43,10 @@ public class Run {
         }
     }
 
+    public void openMasterPasswordSet(){
+        SetMP s = new SetMP();
+    }
+    
     public void openCreate() {
         CreateNewP c = new CreateNewP();
         c.setVisible(true);
@@ -55,6 +60,12 @@ public class Run {
     public void openStart() {
         Start c = new Start();
         c.setVisible(true);
+    }
+    
+    public void openStart_newMasterPassword() {
+        Start c = new Start();
+        c.setVisible(true);
+        MPMessages m = new MPMessages("MASTER PASSWORD SAVED!");
     }
 
     public void openDelete() {
@@ -177,6 +188,10 @@ public class Run {
         } catch (IOException ex) {
             System.out.println("Error\n" + ex);
         }
+    }
+
+    public void openEditMasterPassword() {
+        MPSettings m = new MPSettings();
     }
 
 }

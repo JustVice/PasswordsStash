@@ -10,8 +10,8 @@ public class UserData implements Serializable {
 
     private LinkedList<Passwordv2> passwordsList = new LinkedList<Passwordv2>();
     private boolean firstRun = true;
-    private String mp = null;
-    private String mpa = null;
+    private String mp = TextKeeper.nullB64();
+    private String mpa = TextKeeper.nullB64();
 
     public UserData() {
     }
@@ -33,19 +33,35 @@ public class UserData implements Serializable {
     }
 
     public String getMp() {
-        return mp;
+        String mp_temp = this.mp;
+        for (int i = 0; i < Static.mpr; i++) {
+            mp_temp = Encode.Decode_Base64(mp_temp);
+        }
+        return mp_temp;
     }
 
     public void setMp(String mp) {
-        this.mp = mp;
+        String mp_temp = mp;
+        for (int i = 0; i < Static.mpr; i++) {
+            mp_temp = Encode.Encode_Base64(mp_temp);
+        }
+        this.mp = mp_temp;
     }
 
     public String getMpa() {
-        return mpa;
+        String mpa_temp = this.mpa;
+        for (int i = 0; i < Static.mpr; i++) {
+            mpa_temp = Encode.Decode_Base64(mpa_temp);
+        }
+        return mpa_temp;
     }
 
     public void setMpa(String mpa) {
-        this.mpa = mpa;
+        String mpa_temp = mpa;
+        for (int i = 0; i < Static.mpr; i++) {
+            mpa_temp = Encode.Encode_Base64(mpa_temp);
+        }
+        this.mpa = mpa_temp;
     }
 
 }

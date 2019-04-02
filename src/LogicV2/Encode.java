@@ -7,7 +7,6 @@ public class Encode {
     //<editor-fold desc="Base 64">
     public static String Encode_Base64(String string) {
         try {
-            String result = string;
             String encodeBytes = Base64.getEncoder().encodeToString((string).getBytes());
 //            System.out.println("Base64: " + encodeBytes);
             return encodeBytes;
