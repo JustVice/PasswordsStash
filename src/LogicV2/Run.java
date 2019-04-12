@@ -18,7 +18,7 @@ public class Run {
     
     private void normalRun() {
         Static.data.LoadData();
-//        loadLogo();
+        loadLogo();
         if (Static.data.getUserData().getMp().equals("null")) {
             openStart();
         } else {
