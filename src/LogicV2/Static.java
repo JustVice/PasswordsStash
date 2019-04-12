@@ -12,7 +12,6 @@ public class Static {
     public static String DataPath = "datav2PS.dat",title="Passwords Stash",version="2.3";
     public static Data data = new Data();
     public static DefaultListModel<Passwordv2> modeloPasswords = new DefaultListModel();
-    public static boolean easterEgg = true;
     public static boolean return_encoded = true;
     public static int mpr = 12;
     

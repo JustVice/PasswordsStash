@@ -4,7 +4,7 @@ import Logic.StaticOld;
 import Logic.Passwordv2;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
-import Logic.ThreadClass;
+import Logic.ThreadClass_Message;
 import LogicV2.Static;
 import java.util.LinkedList;
 import javax.swing.DefaultListModel;
@@ -249,7 +249,7 @@ public class SeePasswords extends javax.swing.JFrame {
             Passwordv2 toClipBoardPassword = j_list.getSelectedValue();
             StringSelection stringClip = new StringSelection(toClipBoardPassword.getPassword(Static.return_encoded));
             clip.setContents(stringClip, stringClip);
-            ThreadClass threadClass = new ThreadClass(timeThread, password);/*action 0 to change button text*/
+            ThreadClass_Message threadClass = new ThreadClass_Message(timeThread, password);/*action 0 to change button text*/
             threadClass.start();
         } catch (Exception e) {
             e.printStackTrace();
@@ -376,7 +376,7 @@ public class SeePasswords extends javax.swing.JFrame {
             Passwordv2 toClipBoardPassword = j_list.getSelectedValue();
             StringSelection stringClip = new StringSelection(toClipBoardPassword.getMail(Static.return_encoded));
             clip.setContents(stringClip, stringClip);
-            ThreadClass t = new ThreadClass(timeThread, mail);
+            ThreadClass_Message t = new ThreadClass_Message(timeThread, mail);
             t.start();
         } catch (Exception e) {
         }
@@ -389,7 +389,7 @@ public class SeePasswords extends javax.swing.JFrame {
             Passwordv2 toClipBoardPassword = j_list.getSelectedValue();
             StringSelection stringClip = new StringSelection(toClipBoardPassword.getUser(Static.return_encoded));
             clip.setContents(stringClip, stringClip);
-            ThreadClass t = new ThreadClass(timeThread, user);
+            ThreadClass_Message t = new ThreadClass_Message(timeThread, user);
             t.start();
         } catch (Exception e) {
         }

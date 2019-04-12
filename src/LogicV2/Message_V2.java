@@ -1,12 +1,12 @@
-package UI.MasterPassword;
+package LogicV2;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class MPMessages extends javax.swing.JFrame implements Runnable {
+public class Message_V2 extends javax.swing.JFrame implements Runnable {
 
 
-    public MPMessages(String message) {
+    public Message_V2(String message) {
         this.setUndecorated(true);
         initComponents();
         this.setLocationRelativeTo(null);
@@ -21,7 +21,7 @@ public class MPMessages extends javax.swing.JFrame implements Runnable {
             try {
                 Thread.sleep(1150);
             } catch (InterruptedException ex) {
-                Logger.getLogger(MPMessages.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Message_V2.class.getName()).log(Level.SEVERE, null, ex);
             }
             this.dispose();
     }

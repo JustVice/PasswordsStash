@@ -12,6 +12,8 @@ public class UserData implements Serializable {
     private boolean firstRun = true;
     private String mp = TextKeeper.nullB64();
     private String mpa = TextKeeper.nullB64();
+    private String mpa_original = TextKeeper.nullB64();
+    private boolean inki = true;
 
     public UserData() {
     }
@@ -63,5 +65,31 @@ public class UserData implements Serializable {
         }
         this.mpa = mpa_temp;
     }
+
+    public boolean isInki() {
+        return inki;
+    }
+
+    public void setInki(boolean inki) {
+        this.inki = inki;
+    }
+
+    public String getMpa_original() {
+        String mpa_o_temp = mpa_original;
+        for (int i = 0; i < Static.mpr; i++) {
+            mpa_o_temp = Encode.Decode_Base64(mpa_o_temp);
+        }
+        return mpa_o_temp;
+    }
+
+    public void setMpa_original(String mpa_original) {
+        String mpa_temp = mpa_original;
+        for (int i = 0; i < Static.mpr; i++) {
+            mpa_temp = Encode.Encode_Base64(mpa_temp);
+        }
+        this.mpa_original = mpa_temp;
+    }
+    
+    
 
 }

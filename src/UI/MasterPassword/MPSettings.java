@@ -45,6 +45,7 @@ public class MPSettings extends javax.swing.JFrame {
         String mpa = Static.data.getUserData().getMpa();
         if (!mpa.equals("null")) {
             jRadioButton1_change_mpa.setSelected(true);
+            jSpinner1_attempts.setValue(Integer.parseInt(Static.data.getUserData().getMpa()));
         } else {
             jRadioButton1_change_mpa.setSelected(false);
             jLabel8_attempts_label.setVisible(false);
@@ -311,6 +312,7 @@ public class MPSettings extends javax.swing.JFrame {
             if (option == 0) {
                 Static.data.getUserData().setMp("null");
                 Static.data.getUserData().setMpa("null");
+                Static.data.getUserData().setMpa_original("null");
                 Static.data.updateInfo();
                 Static.run.openStart();
                 this.dispose();
@@ -321,13 +323,31 @@ public class MPSettings extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1_delete_master_passwordActionPerformed
 
     private void jButton1_save_changesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1_save_changesActionPerformed
+        save_settings_to_do();
+    }//GEN-LAST:event_jButton1_save_changesActionPerformed
+
+    private void save_settings_to_do(){
         if (jTextField1_curret_mp.getText().equals("")) {
             labelmps_status_set("You must type the current Master Password to save changes!", "red");
 //            Static.run.message("You must type the current Master Password to save changes!", "Enter Current Master Password", 2);
         } else {
             if (jTextField1_curret_mp.getText().equals(Static.data.getUserData().getMp())) {
                 if (jTextField1_new_mp.getText().equals(jTextField1_repeat_new_mp.getText())) {
-                    System.out.println("save changes");
+                    //Static.data.getUserData().setMp(jTextField1_new_mp.getText());
+                    if(jRadioButton1_change_mp.isSelected()){
+                        Static.data.getUserData().setMp(jTextField1_new_mp.getText());
+                    }
+                    if(jRadioButton1_change_mpa.isSelected()){
+                        Static.data.getUserData().setMpa(("" + ((int) jSpinner1_attempts.getValue())));
+                        Static.data.getUserData().setMpa_original(("" + ((int) jSpinner1_attempts.getValue())));
+                    }else{
+                        Static.data.getUserData().setMpa("null");
+                        Static.data.getUserData().setMpa_original("null");
+                    }
+                    Static.data.updateInfo();
+                    Static.run.openStart_and_show_message("MASTER PASSWORD EDITED");
+                    this.dispose();
+                    //System.out.println("save changes");
                 } else {
                     labelmps_status_set("New password fields don't match!", "red");
                 }
@@ -335,8 +355,8 @@ public class MPSettings extends javax.swing.JFrame {
                 labelmps_status_set("Incorrect master password!", "red");
             }
         }
-    }//GEN-LAST:event_jButton1_save_changesActionPerformed
-
+    }
+    
     private void jButton1_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1_backActionPerformed
         Static.run.openStart();
         this.dispose();
@@ -390,7 +410,16 @@ public class MPSettings extends javax.swing.JFrame {
     private void type_action(java.awt.event.KeyEvent evt) {
         char c = evt.getKeyChar();
         if (c == KeyEvent.VK_ENTER) {
-            //code
+            save_settings_to_do();
+        }
+        if (jTextField1_curret_mp.getText().equals("nul")) {
+            jTextField1_curret_mp.setText("");
+        }
+        if (jTextField1_new_mp.getText().equals("nul")) {
+            jTextField1_new_mp.setText("");
+        }
+        if (jTextField1_repeat_new_mp.getText().equals("nul")) {
+            jTextField1_repeat_new_mp.setText("");
         }
         labelmps_status_set("", "black");
     }
@@ -398,7 +427,7 @@ public class MPSettings extends javax.swing.JFrame {
     private void type_action_new_mp(java.awt.event.KeyEvent evt) {
         char c = evt.getKeyChar();
         if (c == KeyEvent.VK_ENTER) {
-            //code
+            save_settings_to_do();
         }
         if (!jTextField1_new_mp.getText().equals("") || !jTextField1_repeat_new_mp.getText().equals("")) {
 

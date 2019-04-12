@@ -1,6 +1,5 @@
 package UI.MasterPassword;
 
-import LogicV2.Encode;
 import LogicV2.Static;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
@@ -27,7 +26,7 @@ public class SetMP extends javax.swing.JFrame implements Runnable {
                     PROCEED_MP();
                     PROCEED_MPA();
                     Static.data.updateInfo();
-                    Static.run.openStart_newMasterPassword();
+                    Static.run.openStart_and_show_message("MASTER PASSWORD SAVED!");
                     this.dispose();
                 } else {
                     JOptionPane.showMessageDialog(null, "The world \"null\" is not allowed as a Master Password.", "NOT ALLOWED WORD", 0);
@@ -47,8 +46,10 @@ public class SetMP extends javax.swing.JFrame implements Runnable {
     private void PROCEED_MPA() {
         if (jRadioButton1_limit_attempts.isSelected()) {
             Static.data.getUserData().setMpa(("" + ((int) jSpinner1.getValue())));
+            Static.data.getUserData().setMpa_original(("" + ((int) jSpinner1.getValue())));
         } else {
             Static.data.getUserData().setMpa("null");
+            Static.data.getUserData().setMpa_original("null");
         }
     }
 
