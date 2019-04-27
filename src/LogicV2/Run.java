@@ -10,22 +10,28 @@ import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 public class Run {
-    
+
     public Run() {
 //        readMeStartVersion();
         normalRun();
     }
-    
+
     private void normalRun() {
         Static.data.LoadData();
         loadLogo();
-        if (Static.data.getUserData().getMp().equals("null")) {
+        //Master Password Update
+        try {
+            if (Static.data.getUserData().getMp().equals("null")) {
+                openStart();
+            } else {
+                EnterMP e = new EnterMP();
+            }
+        } catch (Exception e) {
             openStart();
-        } else {
-            EnterMP e = new EnterMP();
         }
+        //Master Password Update
     }
-    
+
     private void readMeStartVersion() {
         Static.data.LoadData();
         if (Static.data.getUserData().isFirstRun()) {
@@ -38,7 +44,7 @@ public class Run {
             openStart();
         }
     }
-    
+
     private void loadLogo() {
         if (Static.data.getUserData().isFirstRun()) {
             Logo logo = new Logo();
@@ -46,52 +52,52 @@ public class Run {
             Static.data.updateInfo();
         }
     }
-    
+
     public void openMasterPasswordSet() {
         SetMP s = new SetMP();
     }
-    
+
     public void openCreate() {
         CreateNewP c = new CreateNewP();
         c.setVisible(true);
     }
-    
+
     public void openSeeP() {
         SeePasswords c = new SeePasswords();
         c.setVisible(true);
     }
-    
+
     public void openStart() {
         Start c = new Start();
         c.setVisible(true);
     }
-    
+
     public void openStart_and_show_message(String message) {
         Start c = new Start();
         c.setVisible(true);
         Message_V2 message_V2 = new Message_V2(message);
     }
-    
+
     public void openDelete() {
         Delete c = new Delete();
         c.setVisible(true);
     }
-    
+
     public void openEdit() {
         EditPassword c = new EditPassword();
         c.setVisible(true);
     }
-    
+
     public void openPrintPasswords() {
         PrintPasswords pp = new PrintPasswords();
         pp.setVisible(true);
     }
-    
+
     public void openAbout() {
         AboutFrame abf = new AboutFrame();
         abf.setVisible(true);
     }
-    
+
     public void openUseGuideLines() {
         ProgramUseGuideLines f = new ProgramUseGuideLines();
         f.setVisible(true);
@@ -118,12 +124,12 @@ public class Run {
             case 3:/*Alert*/
                 JOptionPane.showMessageDialog(null, message, title, 3);
                 break;
-            
+
             default:
                 throw new AssertionError();
         }
     }
-    
+
     public DefaultListModel setModelAndGet() {
         Static.modeloPasswords.clear();
         for (Passwordv2 item : Static.data.getUserData().getPasswordsList()) {
@@ -131,7 +137,7 @@ public class Run {
         }
         return Static.modeloPasswords;
     }
-    
+
     public void setModel() {
         Static.modeloPasswords.clear();
         for (Passwordv2 item : Static.data.getUserData().getPasswordsList()) {
@@ -148,7 +154,7 @@ public class Run {
     public int askMessage(String message, String title, int option, int simbol) {
         return JOptionPane.showConfirmDialog(null, message, title, option, simbol);
     }
-    
+
     public void printAllPasswords(int id) {
         String content = "";
         for (Passwordv2 password : Static.data.getUserData().getPasswordsList()) {
@@ -168,7 +174,7 @@ public class Run {
         }
         BuildTxtFile("here", "Passwords " + id, ".txt", content);
     }
-    
+
     public void BuildTxtFile(String path, String txtFileName, String extension, String content) {
         /*"\r\n" to jump between lines*/
         System.out.print("writing...");
@@ -193,9 +199,9 @@ public class Run {
             System.out.println("Error\n" + ex);
         }
     }
-    
+
     public void openEditMasterPassword() {
         MPSettings m = new MPSettings();
     }
-    
+
 }

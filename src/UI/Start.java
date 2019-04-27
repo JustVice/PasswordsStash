@@ -31,11 +31,17 @@ public class Start extends javax.swing.JFrame {
             printPasswords.setEnabled(false);
             DELETEALLDATA.setEnabled(false);
         }
-        if (Static.data.getUserData().getMp().equals("null")) {
+        //Master Password Update
+        try {
+            if (Static.data.getUserData().getMp().equals("null")) {
+                MASTER_PASSWORD_BUTTON.setText("ENABLE MASTER PASSWORD");
+            } else {
+                MASTER_PASSWORD_BUTTON.setText("Edit Master Password");
+            }
+        } catch (Exception e) {
             MASTER_PASSWORD_BUTTON.setText("ENABLE MASTER PASSWORD");
-        } else {
-            MASTER_PASSWORD_BUTTON.setText("Edit Master Password");
         }
+        //Master Password Update
     }
 
     @SuppressWarnings("unchecked")
