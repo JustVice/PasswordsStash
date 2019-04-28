@@ -63,6 +63,10 @@
           </Group>
           <Group type="102" attributes="0">
               <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+              <Component id="MASTER_PASSWORD_BUTTON" min="-2" pref="339" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" attributes="0">
+              <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
               <Component id="aboutButton" min="-2" pref="339" max="-2" attributes="0"/>
           </Group>
           <Group type="102" attributes="0">
@@ -95,7 +99,9 @@
                   <Component id="changeLog" min="-2" max="-2" attributes="0"/>
                   <Component id="howToUse" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="7" pref="7" max="-2" attributes="0"/>
+              <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+              <Component id="MASTER_PASSWORD_BUTTON" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
               <Component id="aboutButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="7" pref="7" max="-2" attributes="0"/>
               <Component id="DELETEALLDATA" min="-2" max="-2" attributes="0"/>
@@ -202,6 +208,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="DELETEALLDATAActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="MASTER_PASSWORD_BUTTON">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="MASTER PASSWORD"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MASTER_PASSWORD_BUTTONActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

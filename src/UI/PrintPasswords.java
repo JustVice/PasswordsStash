@@ -164,7 +164,7 @@ public class PrintPasswords extends javax.swing.JFrame {
             File file = new File(path);
             file.mkdir();
             for (Passwordv2 pass : Static.data.getUserData().getPasswordsList()) {
-                Static.run.BuildTxtFile(path, pass.getService() + " " + pass.getID(), ".txt", pass.getObjectForSeePasswords());
+                Static.run.BuildTxtFile(path, pass.getService(Static.return_encoded) + " " + pass.getID(), ".txt", pass.getObjectForSeePasswords(Static.return_encoded));
             }
             JOptionPane.showMessageDialog(null, "PASSWORD(S) PRINTED INSIDE THE FOLDER: \"Passwords "+ID+"\".");
         } else {
@@ -182,20 +182,20 @@ public class PrintPasswords extends javax.swing.JFrame {
             String str = "";
             for (int i : indices) {
                 password = Static.modeloPasswords.get(i);
-                str += "Service: " + password.getService() + "\r\n";
-                if (!password.getUser().equals("")) {
-                    str += "User: " + password.getUser() + "\r\n";
+                str += "Service: " + password.getService(Static.return_encoded) + "\r\n";
+                if (!password.getUser(Static.return_encoded).equals("")) {
+                    str += "User: " + password.getUser(Static.return_encoded) + "\r\n";
                 }
-                if (!password.getMail().equals("")) {
-                    str += "Mail: " + password.getMail() + "\r\n";
+                if (!password.getMail(Static.return_encoded).equals("")) {
+                    str += "Mail: " + password.getMail(Static.return_encoded) + "\r\n";
                 }
-                str += "Password: " + password.getPassword() + "\r\n";
-                if (!password.getNotes().equals("")) {
-                    str += "Notes:\n" + password.getNotes() + "\r\n";
+                str += "Password: " + password.getPassword(Static.return_encoded) + "\r\n";
+                if (!password.getNotes(Static.return_encoded).equals("")) {
+                    str += "Notes:\n" + password.getNotes(Static.return_encoded) + "\r\n";
                 }
                 str+= "Password ID: " + password.getID() + "\r\n";
                 str += "\r\n";
-                Static.run.BuildTxtFile("Passwords " + id, password.getService() + " " + password.getID(), ".txt", str);
+                Static.run.BuildTxtFile("Passwords " + id, password.getService(Static.return_encoded) + " " + password.getID(), ".txt", str);
                 str = "";
             }
             JOptionPane.showMessageDialog(null, "PASSWORD PRINTED AS \"Passwords " + id + "\"" + ".");

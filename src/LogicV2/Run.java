@@ -2,6 +2,7 @@ package LogicV2;
 
 import Logic.Passwordv2;
 import UI.*;
+import UI.MasterPassword.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,13 +14,22 @@ public class Run {
     public Run() {
 //        readMeStartVersion();
         normalRun();
-//        openAbout();
     }
 
     private void normalRun() {
         Static.data.LoadData();
         loadLogo();
-        openStart();
+        //Master Password Update
+        try {
+            if (Static.data.getUserData().getMp().equals("null")) {
+                openStart();
+            } else {
+                EnterMP e = new EnterMP();
+            }
+        } catch (Exception e) {
+            openStart();
+        }
+        //Master Password Update
     }
 
     private void readMeStartVersion() {
@@ -43,6 +53,10 @@ public class Run {
         }
     }
 
+    public void openMasterPasswordSet() {
+        SetMP s = new SetMP();
+    }
+
     public void openCreate() {
         CreateNewP c = new CreateNewP();
         c.setVisible(true);
@@ -56,6 +70,12 @@ public class Run {
     public void openStart() {
         Start c = new Start();
         c.setVisible(true);
+    }
+
+    public void openStart_and_show_message(String message) {
+        Start c = new Start();
+        c.setVisible(true);
+        Message_V2 message_V2 = new Message_V2(message);
     }
 
     public void openDelete() {
@@ -138,16 +158,16 @@ public class Run {
     public void printAllPasswords(int id) {
         String content = "";
         for (Passwordv2 password : Static.data.getUserData().getPasswordsList()) {
-            content += "Service: " + password.getService() + "\n";
-            if (!password.getMail().equals("")) {
-                content += "Mail: " + password.getMail() + "\n";
+            content += "Service: " + password.getService(Static.return_encoded) + "\n";
+            if (!password.getMail(Static.return_encoded).equals("")) {
+                content += "Mail: " + password.getMail(Static.return_encoded) + "\n";
             }
-            if (!password.getUser().equals("")) {
-                content += "User: " + password.getUser() + "\n";
+            if (!password.getUser(Static.return_encoded).equals("")) {
+                content += "User: " + password.getUser(Static.return_encoded) + "\n";
             }
-            content += "Password: " + password.getPassword() + "\n";
-            if (!password.getNotes().equals("")) {
-                content += "Notes: \n" + password.getNotes() + "\n";
+            content += "Password: " + password.getPassword(Static.return_encoded) + "\n";
+            if (!password.getNotes(Static.return_encoded).equals("")) {
+                content += "Notes: \n" + password.getNotes(Static.return_encoded) + "\n";
             }
             content += "Password ID: " + password.getID();
             content += "\n\n";
@@ -178,6 +198,10 @@ public class Run {
         } catch (IOException ex) {
             System.out.println("Error\n" + ex);
         }
+    }
+
+    public void openEditMasterPassword() {
+        MPSettings m = new MPSettings();
     }
 
 }

@@ -1,8 +1,8 @@
 package Logic;
 
-public class ItemCopied extends javax.swing.JFrame {
+public class Message extends javax.swing.JFrame {
 
-    public ItemCopied(String item) {
+    public Message(String item) {
         setUndecorated(true);
         initComponents();
         setLocationRelativeTo(null);

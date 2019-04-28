@@ -4,13 +4,10 @@ import Logic.StaticOld;
 import Logic.Passwordv2;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
-import Logic.ThreadClass;
+import Logic.ThreadClass_Message;
 import LogicV2.Static;
-import java.awt.HeadlessException;
-import java.awt.event.ItemEvent;
 import java.util.LinkedList;
 import javax.swing.DefaultListModel;
-import javax.swing.JOptionPane;
 
 public class SeePasswords extends javax.swing.JFrame {
 
@@ -33,13 +30,13 @@ public class SeePasswords extends javax.swing.JFrame {
         for (Passwordv2 password : Static.data.getUserData().getPasswordsList()) {
             boolean repeated = false;
             for (String str : items) {
-                if (str.equals(password.getService())) {
+                if (str.equals(password.getService(Static.return_encoded))) {
                     repeated = true;
                     break;
                 }
             }
             if (!repeated) {
-                items.add(password.getService());
+                items.add(password.getService(Static.return_encoded));
             }
         }
         for (String str : items) {
@@ -250,9 +247,9 @@ public class SeePasswords extends javax.swing.JFrame {
         try {
             Clipboard clip = getToolkit().getSystemClipboard();
             Passwordv2 toClipBoardPassword = j_list.getSelectedValue();
-            StringSelection stringClip = new StringSelection(toClipBoardPassword.getPassword());
+            StringSelection stringClip = new StringSelection(toClipBoardPassword.getPassword(Static.return_encoded));
             clip.setContents(stringClip, stringClip);
-            ThreadClass threadClass = new ThreadClass(timeThread, password);/*action 0 to change button text*/
+            ThreadClass_Message threadClass = new ThreadClass_Message(timeThread, password);/*action 0 to change button text*/
             threadClass.start();
         } catch (Exception e) {
             e.printStackTrace();
@@ -352,12 +349,12 @@ public class SeePasswords extends javax.swing.JFrame {
             PASSWORD.setEnabled(true);
             saveFavB.setEnabled(true);
             seePasswordInfo.setEnabled(true);
-            if (!pass.getMail().equals("")) {
+            if (!pass.getMail(Static.return_encoded).equals("")) {
                 MAIL.setEnabled(true);
             } else {
                 MAIL.setEnabled(false);
             }
-            if (!pass.getUser().equals("")) {
+            if (!pass.getUser(Static.return_encoded).equals("")) {
                 User.setEnabled(true);
             } else {
                 User.setEnabled(false);
@@ -377,9 +374,9 @@ public class SeePasswords extends javax.swing.JFrame {
         try {
             Clipboard clip = getToolkit().getSystemClipboard();
             Passwordv2 toClipBoardPassword = j_list.getSelectedValue();
-            StringSelection stringClip = new StringSelection(toClipBoardPassword.getMail());
+            StringSelection stringClip = new StringSelection(toClipBoardPassword.getMail(Static.return_encoded));
             clip.setContents(stringClip, stringClip);
-            ThreadClass t = new ThreadClass(timeThread, mail);
+            ThreadClass_Message t = new ThreadClass_Message(timeThread, mail);
             t.start();
         } catch (Exception e) {
         }
@@ -390,9 +387,9 @@ public class SeePasswords extends javax.swing.JFrame {
         try {
             Clipboard clip = getToolkit().getSystemClipboard();
             Passwordv2 toClipBoardPassword = j_list.getSelectedValue();
-            StringSelection stringClip = new StringSelection(toClipBoardPassword.getUser());
+            StringSelection stringClip = new StringSelection(toClipBoardPassword.getUser(Static.return_encoded));
             clip.setContents(stringClip, stringClip);
-            ThreadClass t = new ThreadClass(timeThread, user);
+            ThreadClass_Message t = new ThreadClass_Message(timeThread, user);
             t.start();
         } catch (Exception e) {
         }
@@ -402,7 +399,7 @@ public class SeePasswords extends javax.swing.JFrame {
         if (!serviceTxt.getText().equals("")) {
             DefaultListModel<Passwordv2> tempModel = new DefaultListModel();
             for (Passwordv2 password : Static.data.getUserData().getPasswordsList()) {
-                if (password.getService().equals(serviceTxt.getText())) {
+                if (password.getService(Static.return_encoded).equals(serviceTxt.getText())) {
                     tempModel.addElement(password);
                 }
             }

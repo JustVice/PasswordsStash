@@ -2,6 +2,7 @@ package UI;
 
 import Logic.StaticOld;
 import Logic.Passwordv2;
+import LogicV2.Encode;
 import LogicV2.Static;
 import java.awt.event.KeyEvent;
 
@@ -271,7 +272,8 @@ public class CreateNewP extends javax.swing.JFrame {
             if (favCombo.isSelected()) {
                 fav = true;
             }
-            Static.data.getUserData().getPasswordsList().add(new Passwordv2(servicetxt.getText().toUpperCase(), usertxt.getText(), mailtxt.getText(), passwordtxt.getText(), notesPanel.getText(), fav));
+            Passwordv2 new_password = new Passwordv2(Encode.Encode_Base64(servicetxt.getText().toUpperCase()), Encode.Encode_Base64(usertxt.getText()), Encode.Encode_Base64(mailtxt.getText()), Encode.Encode_Base64(passwordtxt.getText()), Encode.Encode_Base64(notesPanel.getText()), fav);
+            Static.data.getUserData().getPasswordsList().add(new_password);
             Static.data.updateInfo();
             Static.run.message("Password " + servicetxt.getText() + " recorded", "Recorded", 1);
             cleanFields();

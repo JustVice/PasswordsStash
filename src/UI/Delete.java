@@ -126,7 +126,7 @@ public class Delete extends javax.swing.JFrame {
      * @return
      */
     private boolean deleteYes(Passwordv2 password) {
-        int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this " + password.getService() + " password? \n"
+        int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this " + password.getService(Static.return_encoded) + " password? \n"
                 + "This action cannot be undone.", "DELETE", 0);
         if (option == 0) {
             return true;

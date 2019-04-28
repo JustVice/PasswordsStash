@@ -1,6 +1,7 @@
 package UI;
 
 import Logic.Passwordv2;
+import LogicV2.Encode;
 import LogicV2.Static;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
@@ -227,11 +228,11 @@ public class EditPassword extends javax.swing.JFrame {
     }
     
     private void setSelectedPasswordInfoToDo() {
-        servicetxt.setText(tempPassword.getService());
-        mailtxt.setText(tempPassword.getMail());
-        usertxt.setText(tempPassword.getUser());
-        passwordtxt.setText(tempPassword.getPassword());
-        notesTxt.setText(tempPassword.getNotes());
+        servicetxt.setText(tempPassword.getService(Static.return_encoded));
+        mailtxt.setText(tempPassword.getMail(Static.return_encoded));
+        usertxt.setText(tempPassword.getUser(Static.return_encoded));
+        passwordtxt.setText(tempPassword.getPassword(Static.return_encoded));
+        notesTxt.setText(tempPassword.getNotes(Static.return_encoded));
     }
 
     private void servicetxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_servicetxtKeyTyped
@@ -275,10 +276,9 @@ public class EditPassword extends javax.swing.JFrame {
         if (tempPassword != null) {
             for (int i = 0; i < Static.data.getUserData().getPasswordsList().size(); i++) {
                 if (Static.data.getUserData().getPasswordsList().get(i).getID() == tempPassword.getID()) {
-                    int option = Static.run.askMessage("Are you sure that you want to update this " + Static.data.getUserData().getPasswordsList().get(i).getService() + " info?\nThis action cannot be undone.", "Change password info?", 0, 3);
+                    int option = Static.run.askMessage("Are you sure that you want to update this " + Static.data.getUserData().getPasswordsList().get(i).getService(Static.return_encoded) + " info?\nThis action cannot be undone.", "Change password info?", 0, 3);
                     if (option == 0) {
-                        
-                        Passwordv2 passwordUpdate = new Passwordv2(servicetxt.getText().toUpperCase(), usertxt.getText(), mailtxt.getText(), passwordtxt.getText(), notesTxt.getText(), giveFavOrNot());
+                        Passwordv2 passwordUpdate = new Passwordv2(Encode.Encode_Base64(servicetxt.getText().toUpperCase()), Encode.Encode_Base64(usertxt.getText()), Encode.Encode_Base64(mailtxt.getText()), Encode.Encode_Base64(passwordtxt.getText()), Encode.Encode_Base64(notesTxt.getText()), giveFavOrNot());
                         Static.data.getUserData().getPasswordsList().set(i, passwordUpdate);
                         Static.data.updateInfo();
                         j_list.setModel(Static.run.setModelAndGet());

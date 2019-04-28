@@ -1,8 +1,8 @@
 package UI;
 
-import Logic.ItemCopied;
+import Logic.Message;
 import Logic.StaticOld;
-import Logic.ThreadClass;
+import Logic.ThreadClass_Message;
 import LogicV2.Static;
 import LogicV2.TextKeeper;
 import LogicV2.UserData;
@@ -31,6 +31,17 @@ public class Start extends javax.swing.JFrame {
             printPasswords.setEnabled(false);
             DELETEALLDATA.setEnabled(false);
         }
+        //Master Password Update
+        try {
+            if (Static.data.getUserData().getMp().equals("null")) {
+                MASTER_PASSWORD_BUTTON.setText("ENABLE MASTER PASSWORD");
+            } else {
+                MASTER_PASSWORD_BUTTON.setText("Edit Master Password");
+            }
+        } catch (Exception e) {
+            MASTER_PASSWORD_BUTTON.setText("ENABLE MASTER PASSWORD");
+        }
+        //Master Password Update
     }
 
     @SuppressWarnings("unchecked")
@@ -49,6 +60,7 @@ public class Start extends javax.swing.JFrame {
         changeLog = new javax.swing.JButton();
         howToUse = new javax.swing.JButton();
         DELETEALLDATA = new javax.swing.JButton();
+        MASTER_PASSWORD_BUTTON = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -127,6 +139,13 @@ public class Start extends javax.swing.JFrame {
             }
         });
 
+        MASTER_PASSWORD_BUTTON.setText("MASTER PASSWORD");
+        MASTER_PASSWORD_BUTTON.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MASTER_PASSWORD_BUTTONActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -162,6 +181,9 @@ public class Start extends javax.swing.JFrame {
                 .addComponent(howToUse, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
+                .addComponent(MASTER_PASSWORD_BUTTON, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
                 .addComponent(aboutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
@@ -190,7 +212,9 @@ public class Start extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(changeLog)
                     .addComponent(howToUse))
-                .addGap(7, 7, 7)
+                .addGap(6, 6, 6)
+                .addComponent(MASTER_PASSWORD_BUTTON)
+                .addGap(6, 6, 6)
                 .addComponent(aboutButton)
                 .addGap(7, 7, 7)
                 .addComponent(DELETEALLDATA))
@@ -246,11 +270,12 @@ public class Start extends javax.swing.JFrame {
 
     private void seePasswordsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seePasswordsMouseEntered
         //You are not supposed to be reading this.
-        if (Static.easterEgg) {
+        if (Static.data.getUserData().isInki()) {
             int n = (int) (Math.random() * 100000);
-            if (n < 2000) {
+            if (n < 1000) {
                 Inki inki = new Inki();
-                Static.easterEgg = false;
+                Static.data.getUserData().setInki(false);
+                Static.data.updateInfo();
             }
         }
     }//GEN-LAST:event_seePasswordsMouseEntered
@@ -271,23 +296,34 @@ public class Start extends javax.swing.JFrame {
                 Static.run.openStart();
                 this.dispose();
             } else {
-                ThreadClass threadClass = new ThreadClass(800, (byte) 4);
+                ThreadClass_Message threadClass = new ThreadClass_Message(800, (byte) 4);
                 threadClass.start();
             }
             if (option.toLowerCase().equals("inki")) {
                 Inki inki = new Inki();
             }
         } else {
-            ThreadClass threadClass = new ThreadClass(800, (byte) 4);
+            ThreadClass_Message threadClass = new ThreadClass_Message(800, (byte) 4);
             threadClass.start();
         }
     }//GEN-LAST:event_DELETEALLDATAActionPerformed
+
+    private void MASTER_PASSWORD_BUTTONActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MASTER_PASSWORD_BUTTONActionPerformed
+        if (Static.data.getUserData().getMp().equals("null")) {
+            Static.run.openMasterPasswordSet();
+            this.dispose();
+        } else {
+            Static.run.openEditMasterPassword();
+            this.dispose();
+        }
+    }//GEN-LAST:event_MASTER_PASSWORD_BUTTONActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton DELETEALLDATA;
     private javax.swing.JButton DeletePasswords;
     private javax.swing.JButton EDITPasswords;
+    private javax.swing.JButton MASTER_PASSWORD_BUTTON;
     private javax.swing.JButton aboutButton;
     private javax.swing.JButton changeLog;
     private javax.swing.JButton createNew;
