@@ -22,7 +22,7 @@ public class Start extends javax.swing.JFrame {
     private void settings() {
         this.setTitle(Static.title + " " + Static.version);
         if (!Static.data.getUserData().getPasswordsList().isEmpty()) {
-            totalPw.setText("There are a total of " + Static.data.getUserData().getPasswordsList().size() + " password(s) recorded.");
+            totalPw.setText("There is/are a total of " + Static.data.getUserData().getPasswordsList().size() + " password/s recorded.");
         } else {
             totalPw.setText("There are no passwords registered.");
             seePasswords.setEnabled(false);
@@ -270,13 +270,9 @@ public class Start extends javax.swing.JFrame {
 
     private void seePasswordsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seePasswordsMouseEntered
         //You are not supposed to be reading this.
-        if (Static.data.getUserData().isInki()) {
-            int n = (int) (Math.random() * 100000);
-            if (n < 1000) {
-                Inki inki = new Inki();
-                Static.data.getUserData().setInki(false);
-                Static.data.updateInfo();
-            }
+        int n = (int) (Math.random() * 100000);
+        if (n < 1500) {
+            Inki inki = new Inki();
         }
     }//GEN-LAST:event_seePasswordsMouseEntered
 

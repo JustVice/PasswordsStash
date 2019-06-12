@@ -3,7 +3,7 @@ package LogicV2;
 public class TextKeeper {
 
     public String getChangelog() {
-        return "2.3\nCoding passwords on Base 64 to 'hide' it.\n";
+        return "2.3\nMaster Password added.\n";
     }
 
     public static String nullB64() {
