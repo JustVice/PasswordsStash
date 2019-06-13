@@ -1,6 +1,7 @@
 package LogicV2;
 
 import Logic.Passwordv2;
+import LogicV3.SQLiteController;
 import UI.*;
 import UI.MasterPassword.*;
 import java.io.File;
@@ -13,7 +14,12 @@ public class Run {
 
     public Run() {
 //        readMeStartVersion();
-        normalRun();
+//        normalRun();
+        v3Run();
+    }
+
+    private void v3Run() {
+        createCompleteDataBase();
     }
 
     private void normalRun() {
@@ -202,6 +208,32 @@ public class Run {
 
     public void openEditMasterPassword() {
         MPSettings m = new MPSettings();
+    }
+
+    private void createCompleteDataBase() {
+        SQLiteController sqlitec = new SQLiteController(Static.SQLiteDBName);
+        sqlitec.createNewDatabase();
+        sqlitec.createNewTable("CREATE TABLE `MP` (\n"
+                + "	`MPID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,\n"
+                + "	`Mp`	TEXT,\n"
+                + "	`Mpa`	TEXT,\n"
+                + "	`MpaOriginal`	TEXT\n"
+                + ");");
+        sqlitec.createNewTable("CREATE TABLE `PASSS` (\n"
+                + "	`PasssID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,\n"
+                + "	`Service`	TEXT,\n"
+                + "	`User`	TEXT,\n"
+                + "	`Mail`	TEXT,\n"
+                + "	`Password`	TEXT,\n"
+                + "	`Notes`	TEXT,\n"
+                + "	`ID`	TEXT,\n"
+                + "	`Favorite`	INTEGER\n"
+                + ");");
+        sqlitec.createNewTable("CREATE TABLE `PROGRAMDATA` (\n"
+                + "	`ProgramDataID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,\n"
+                + "	`FirstRun`	INTEGER,\n"
+                + "	`EE1`	INTEGER\n"
+                + ");");
     }
 
 }
