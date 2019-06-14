@@ -181,7 +181,7 @@ public class PrintPasswords extends javax.swing.JFrame {
             Passwordv2 password;
             String str = "";
             for (int i : indices) {
-                password = Static.modeloPasswords.get(i);
+                password = Static.passwords_model.get(i);
                 str += "Service: " + password.getService(Static.return_encoded) + "\r\n";
                 if (!password.getUser(Static.return_encoded).equals("")) {
                     str += "User: " + password.getUser(Static.return_encoded) + "\r\n";

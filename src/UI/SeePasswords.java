@@ -275,7 +275,7 @@ public class SeePasswords extends javax.swing.JFrame {
                 showFavoritesPerformed = true;
             }
         } else {
-            j_list.setModel(Static.modeloPasswords);
+            j_list.setModel(Static.passwords_model);
             showFavButton.setText("Show favorite passwords");
             showFavoritesPerformed = false;
         }
@@ -331,7 +331,7 @@ public class SeePasswords extends javax.swing.JFrame {
             SEARCHBUTTON.setText("RESET VIEW");
             searchPerformed = true;
         } else {
-            j_list.setModel(Static.modeloPasswords);
+            j_list.setModel(Static.passwords_model);
             SEARCHBUTTON.setText("SEARCH SERVICE");
             searchPerformed = false;
         }

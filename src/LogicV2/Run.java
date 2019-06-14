@@ -1,6 +1,8 @@
 package LogicV2;
 
 import Logic.Passwordv2;
+import LogicV3.AES;
+import LogicV3.SQLite;
 import LogicV3.SQLiteController;
 import UI.*;
 import UI.MasterPassword.*;
@@ -20,6 +22,8 @@ public class Run {
 
     private void v3Run() {
         createCompleteDataBase();
+        Static.dataVSQL.loadData();
+//        loadLogo();
     }
 
     private void normalRun() {
@@ -52,7 +56,7 @@ public class Run {
     }
 
     private void loadLogo() {
-        if (Static.data.getUserData().isFirstRun()) {
+        if (Static.dataVSQL.getUserData().isFirstRun()) {
             Logo logo = new Logo();
             Static.data.getUserData().setFirstRun(false);
             Static.data.updateInfo();
@@ -137,17 +141,17 @@ public class Run {
     }
 
     public DefaultListModel setModelAndGet() {
-        Static.modeloPasswords.clear();
+        Static.passwords_model.clear();
         for (Passwordv2 item : Static.data.getUserData().getPasswordsList()) {
-            Static.modeloPasswords.addElement(item);
+            Static.passwords_model.addElement(item);
         }
-        return Static.modeloPasswords;
+        return Static.passwords_model;
     }
 
     public void setModel() {
-        Static.modeloPasswords.clear();
+        Static.passwords_model.clear();
         for (Passwordv2 item : Static.data.getUserData().getPasswordsList()) {
-            Static.modeloPasswords.addElement(item);
+            Static.passwords_model.addElement(item);
         }
     }
 
@@ -213,27 +217,40 @@ public class Run {
     private void createCompleteDataBase() {
         SQLiteController sqlitec = new SQLiteController(Static.SQLiteDBName);
         sqlitec.createNewDatabase();
-        sqlitec.createNewTable("CREATE TABLE `MP` (\n"
-                + "	`MPID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,\n"
-                + "	`Mp`	TEXT,\n"
-                + "	`Mpa`	TEXT,\n"
-                + "	`MpaOriginal`	TEXT\n"
-                + ");");
-        sqlitec.createNewTable("CREATE TABLE `PASSS` (\n"
-                + "	`PasssID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,\n"
-                + "	`Service`	TEXT,\n"
-                + "	`User`	TEXT,\n"
-                + "	`Mail`	TEXT,\n"
-                + "	`Password`	TEXT,\n"
-                + "	`Notes`	TEXT,\n"
-                + "	`ID`	TEXT,\n"
-                + "	`Favorite`	INTEGER\n"
-                + ");");
-        sqlitec.createNewTable("CREATE TABLE `PROGRAMDATA` (\n"
-                + "	`ProgramDataID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,\n"
-                + "	`FirstRun`	INTEGER,\n"
-                + "	`EE1`	INTEGER\n"
-                + ");");
+        Boolean mp_table = Static.sqLite.check_if_table_exists("MP");
+        Boolean PASSS = Static.sqLite.check_if_table_exists("PASSS");
+        Boolean PROGRAMDATA = Static.sqLite.check_if_table_exists("PROGRAMDATA");
+        if (!mp_table) {
+            sqlitec.createNewTable("CREATE TABLE `MP` (\n"
+                    + "	`MPID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,\n"
+                    + "	`Mp`	TEXT,\n"
+                    + "	`Mpa`	TEXT,\n"
+                    + "	`MpaOriginal`	TEXT\n"
+                    + ");");
+            Static.sqLite.Query("INSERT INTO MP (Mp,Mpa,MpaOriginal)VALUES"
+                    + "('" + AES.encrypt("null", Static.KeyPassword) + "','"
+                    + "" + AES.encrypt("null", Static.KeyPassword) + "','"
+                    + "" + AES.encrypt("null", Static.KeyPassword) + "');");
+        }
+        if (!PASSS) {
+            sqlitec.createNewTable("CREATE TABLE `PASSS` (\n"
+                    + "	`PasssID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,\n"
+                    + "	`Service`	TEXT,\n"
+                    + "	`User`	TEXT,\n"
+                    + "	`Mail`	TEXT,\n"
+                    + "	`Password`	TEXT,\n"
+                    + "	`Notes`	TEXT,\n"
+                    + "	`ID`	TEXT,\n"
+                    + "	`Favorite`	INTEGER\n"
+                    + ");");
+        }
+        if (!PROGRAMDATA) {
+            sqlitec.createNewTable("CREATE TABLE `PROGRAMDATA` (\n"
+                    + "	`ProgramDataID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,\n"
+                    + "	`FirstRun`	INTEGER\n"
+                    + ");");
+            Static.sqLite.Query("INSERT INTO PROGRAMDATA (FirstRun)VALUES ('0');");
+        }
     }
 
 }
