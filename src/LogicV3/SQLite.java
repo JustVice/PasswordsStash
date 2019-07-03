@@ -83,26 +83,26 @@ public class SQLite {
         }
     }
 
-    public LinkedList<Passwordv3> load_passwords(String query) {
-        try {
-            this.con = DriverManager.getConnection("jdbc:sqlite:" + data_source_path);
-            Statement stmt = this.con.createStatement();
-            LinkedList<Passwordv3> passs_list = new LinkedList<Passwordv3>();
-            Passwordv3 p = new Passwordv3();
-            this.rs = stmt.executeQuery(query);
-            while (rs.next()) {
-                p.setFavorite(rs.getBoolean("Favorite"));
-                p.setID(AES.decrypt("" + rs.getInt("ID"), Static.KeyPassword));
-                System.out.println(rs.getString("TABLENAME"));
-                System.out.println(rs.getInt("TABLENAME"));
-            }
-        } catch (SQLException e) {
-            //e.printStackTrace();
-        } finally {
-            System.out.println("Query finished");
-            Close_connection();
-        }
-    }
+//    public LinkedList<Passwordv3> load_passwords(String query) {
+//        try {
+//            this.con = DriverManager.getConnection("jdbc:sqlite:" + data_source_path);
+//            Statement stmt = this.con.createStatement();
+//            LinkedList<Passwordv3> passs_list = new LinkedList<Passwordv3>();
+//            Passwordv3 p = new Passwordv3();
+//            this.rs = stmt.executeQuery(query);
+//            while (rs.next()) {
+//                p.setFavorite(rs.getBoolean("Favorite"));
+//                p.setID(AES.decrypt("" + rs.getInt("ID"), Static.KeyPassword));
+//                System.out.println(rs.getString("TABLENAME"));
+//                System.out.println(rs.getInt("TABLENAME"));
+//            }
+//        } catch (SQLException e) {
+//            //e.printStackTrace();
+//        } finally {
+//            System.out.println("Query finished");
+//            Close_connection();
+//        }
+//    }
 
     //Metodos de plantilla
     //<editor-fold desc="Templates SQLite methods">
