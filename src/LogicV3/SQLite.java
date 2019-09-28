@@ -1,6 +1,5 @@
 package LogicV3;
 
-import LogicV2.Static;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -13,38 +12,28 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class SQLite {
-
+    
     private String data_source_path = "";
     private Connection con;
     ResultSet rs;
-
-    //Connection example:
-    //SQLite sql = new SQLite(ClassLoader.getSystemResource("PackageName/DataBaseName.db").toString());
-    //public static SQLite sqlite = new SQLite(System.getProperty("user.dir") + "\\SQLite&JavaDB.db");
-    //ClassLoader.getSystemResource returns: /build/classes/
-    //Example: Getting data from ResultSet rs -> this.rs.getString("ColumnName");
-    //To get program path System.getProperty("user.dir")
+    
     public SQLite(String data_source_path) {
         this.data_source_path = data_source_path;
     }
-
-    //Metodo para consultas tipo InsertInto o Delete
-    //Se coloca la query en la sobrecarga del metodo
+    
     public void Query(String query) {
         try {
             this.con = DriverManager.getConnection("jdbc:sqlite:" + data_source_path);
             Statement stmt = this.con.createStatement();
             stmt.executeQuery(query);
         } catch (SQLException e) {
-            //e.printStackTrace();
+            e.printStackTrace();
         } finally {
             System.out.println("Query finished");
             Close_connection();
         }
     }
-
-    //Metodo que regresa True si la conexion a la base de datos es correcta
-    //False si no lo es.
+    
     public boolean test_connection() {
         try {
             this.con = DriverManager.getConnection("jdbc:sqlite:" + data_source_path);
@@ -59,9 +48,7 @@ public class SQLite {
             }
         }
     }
-
-    //Metodo para verificar si una tabla existe en la base de datos
-    //Se introduce el nombre de la tabla en la sobrecarga del metodo
+    
     public Boolean check_if_table_exists(String table_name) {
         try {
             this.con = DriverManager.getConnection("jdbc:sqlite:" + data_source_path);
@@ -82,27 +69,57 @@ public class SQLite {
             Close_connection();
         }
     }
-
-//    public LinkedList<Passwordv3> load_passwords(String query) {
-//        try {
-//            this.con = DriverManager.getConnection("jdbc:sqlite:" + data_source_path);
-//            Statement stmt = this.con.createStatement();
-//            LinkedList<Passwordv3> passs_list = new LinkedList<Passwordv3>();
-//            Passwordv3 p = new Passwordv3();
-//            this.rs = stmt.executeQuery(query);
-//            while (rs.next()) {
-//                p.setFavorite(rs.getBoolean("Favorite"));
-//                p.setID(AES.decrypt("" + rs.getInt("ID"), Static.KeyPassword));
-//                System.out.println(rs.getString("TABLENAME"));
-//                System.out.println(rs.getInt("TABLENAME"));
-//            }
-//        } catch (SQLException e) {
-//            //e.printStackTrace();
-//        } finally {
-//            System.out.println("Query finished");
-//            Close_connection();
-//        }
-//    }
+    
+    LinkedList<Passwordv3> getPasswordsFromDataBase(String query) {
+        try {
+            this.con = DriverManager.getConnection("jdbc:sqlite:" + data_source_path);
+            Statement stmt = this.con.createStatement();
+            this.rs = stmt.executeQuery(query);
+            LinkedList<Passwordv3> passwordTemporalList = new LinkedList<>();
+            Passwordv3 temporalPassword = new Passwordv3();
+            while (rs.next()) {
+                temporalPassword.setService(rs.getString("Service"));
+                temporalPassword.setUser(rs.getString("User"));
+                temporalPassword.setMail(rs.getString("Mail"));
+                temporalPassword.setPassword(rs.getString("Password"));
+                temporalPassword.setNotes(rs.getString("Notes"));
+                temporalPassword.setID(rs.getString("ID"));
+                temporalPassword.setFavorite(rs.getString("Favorite"));
+                passwordTemporalList.add(temporalPassword);
+            }
+            return passwordTemporalList;
+        } catch (SQLException e) {
+            System.out.println("FAILED!");
+            return null;
+            //e.printStackTrace();
+        } finally {
+            System.out.println("Query passwords load finished");
+            Close_connection();
+        }
+    }
+    
+    UserDataV3 getUserDataV3ParamettersFromDataBase(String query) {
+        try {
+            this.con = DriverManager.getConnection("jdbc:sqlite:" + data_source_path);
+            Statement stmt = this.con.createStatement();
+            this.rs = stmt.executeQuery(query);
+            UserDataV3 temporalUserDataV3 = new UserDataV3();
+            while (rs.next()) {
+                temporalUserDataV3.setFirstRun(rs.getString("firstRun"));
+                temporalUserDataV3.setMasterPassword(rs.getString("masterPassword"));
+                temporalUserDataV3.setMasterPasswordAttempts(rs.getString("masterPasswordAttempts"));
+                temporalUserDataV3.setMasterPasswordAttemptsOriginal(rs.getString("masterPasswordAttemptsOriginal"));
+                temporalUserDataV3.setInki(rs.getString("inki"));
+            }
+            return temporalUserDataV3;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            System.out.println("Query finished");
+            Close_connection();
+        }
+    }
 
     //Metodos de plantilla
     //<editor-fold desc="Templates SQLite methods">
@@ -146,12 +163,12 @@ public class SQLite {
     private void Close_connection() {
         try {
             this.con.close();
-            System.out.println("SQL connection closed");
+//            System.out.println("SQL connection closed");
         } catch (SQLException ex) {
             Logger.getLogger(SQLite.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     private int number_of_rows() {
         try {
             this.rs.last();
@@ -169,7 +186,7 @@ public class SQLite {
     public String getData_source_path() {
         return data_source_path;
     }
-
+    
     public void setData_source_path(String data_source_path) {
         this.data_source_path = data_source_path;
     }

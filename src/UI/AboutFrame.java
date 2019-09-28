@@ -1,6 +1,6 @@
 package UI;
 
-import LogicV2.Static;
+import LogicV3.Memory;
 import java.awt.Desktop;
 import java.awt.Frame;
 import java.io.IOException;
@@ -14,9 +14,9 @@ public class AboutFrame extends javax.swing.JFrame {
     public AboutFrame() {
         initComponents();
         setLocationRelativeTo(null);
-        this.setTitle(Static.title + " " + Static.version);
+        this.setTitle(Memory.title + " " + Memory.version);
         this.setResizable(false);
-        setIconImage(Static.getIconImage());
+        setIconImage(Memory.getIconImage());
     }
 
     @SuppressWarnings("unchecked")
@@ -143,7 +143,7 @@ public class AboutFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
-        Static.run.openStart();
+        Memory.run.openStart();
         this.dispose();
     }//GEN-LAST:event_backActionPerformed
 

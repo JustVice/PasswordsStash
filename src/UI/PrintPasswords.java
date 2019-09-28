@@ -2,7 +2,7 @@ package UI;
 
 import Logic.StaticOld;
 import Logic.Passwordv2;
-import LogicV2.Static;
+import LogicV3.Memory;
 import java.io.File;
 import javax.swing.JOptionPane;
 
@@ -11,11 +11,11 @@ public class PrintPasswords extends javax.swing.JFrame {
     public PrintPasswords() {
         initComponents();
         setLocationRelativeTo(null);
-        j_list.setModel(Static.run.setModelAndGet());
+        j_list.setModel(Memory.run.setModelAndGet());
         PrintSelected.setEnabled(false);
-        this.setTitle(Static.title + " " + Static.version);
+        this.setTitle(Memory.title + " " + Memory.version);
         this.setResizable(false);
-        setIconImage(Static.getIconImage());
+        setIconImage(Memory.getIconImage());
     }
 
     @SuppressWarnings("unchecked")
@@ -142,38 +142,38 @@ public class PrintPasswords extends javax.swing.JFrame {
     }//GEN-LAST:event_j_listMouseClicked
 
     private void PrintAllInASingleTxtFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrintAllInASingleTxtFileActionPerformed
-        if (!Static.data.getUserData().getPasswordsList().isEmpty()) {
+        if (!Memory.data.getUserData().getPasswordsList().isEmpty()) {
             int id = (int) (Math.random() * 9999);
-            Static.run.printAllPasswords(id);
+            Memory.run.printAllPasswords(id);
             JOptionPane.showMessageDialog(null, "PASSWORD(S) PRINTED AS \"Passwords " + id + "\"" + ".");
             System.out.println("PASSWORD(S) PRINTED AS \"Passwords " + id + "\"" + ".");
             System.out.println("PASSWORD(S) PRINTED AS \"Passwords " + id + "\"" + ".");
         } else {
-            Static.run.message("There are no passwords yet.", "No passwords", 2);
+            Memory.run.message("There are no passwords yet.", "No passwords", 2);
         }
     }//GEN-LAST:event_PrintAllInASingleTxtFileActionPerformed
 
     private void HelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HelpActionPerformed
-        Static.run.message("This buttons will create txt files IN THE SAME FOLDER\nwhere the program is located.", "Print Passwords", 3);
+        Memory.run.message("This buttons will create txt files IN THE SAME FOLDER\nwhere the program is located.", "Print Passwords", 3);
     }//GEN-LAST:event_HelpActionPerformed
 
     private void printOnTheirOwnTxtFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printOnTheirOwnTxtFileActionPerformed
-        if (!Static.data.getUserData().getPasswordsList().isEmpty()) {
+        if (!Memory.data.getUserData().getPasswordsList().isEmpty()) {
             int ID = (int) (Math.random() * 9999);
             String path = "Passwords " + ID;
             File file = new File(path);
             file.mkdir();
-            for (Passwordv2 pass : Static.data.getUserData().getPasswordsList()) {
-                Static.run.BuildTxtFile(path, pass.getService(Static.return_encoded) + " " + pass.getID(), ".txt", pass.getObjectForSeePasswords(Static.return_encoded));
+            for (Passwordv2 pass : Memory.data.getUserData().getPasswordsList()) {
+                Memory.run.BuildTxtFile(path, pass.getService(Memory.return_encoded) + " " + pass.getID(), ".txt", pass.getObjectForSeePasswords(Memory.return_encoded));
             }
             JOptionPane.showMessageDialog(null, "PASSWORD(S) PRINTED INSIDE THE FOLDER: \"Passwords "+ID+"\".");
         } else {
-            Static.run.message("There are no passwords yet.", "No passwords", 2);
+            Memory.run.message("There are no passwords yet.", "No passwords", 2);
         }
     }//GEN-LAST:event_printOnTheirOwnTxtFileActionPerformed
 
     private void PrintSelectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrintSelectedActionPerformed
-        if (!Static.data.getUserData().getPasswordsList().isEmpty()) {
+        if (!Memory.data.getUserData().getPasswordsList().isEmpty()) {
             int id = (int) (Math.random() * 9999);
             File file = new File("Passwords " + id);
             file.mkdir();
@@ -181,21 +181,21 @@ public class PrintPasswords extends javax.swing.JFrame {
             Passwordv2 password;
             String str = "";
             for (int i : indices) {
-                password = Static.passwords_model.get(i);
-                str += "Service: " + password.getService(Static.return_encoded) + "\r\n";
-                if (!password.getUser(Static.return_encoded).equals("")) {
-                    str += "User: " + password.getUser(Static.return_encoded) + "\r\n";
+                password = Memory.passwords_model.get(i);
+                str += "Service: " + password.getService(Memory.return_encoded) + "\r\n";
+                if (!password.getUser(Memory.return_encoded).equals("")) {
+                    str += "User: " + password.getUser(Memory.return_encoded) + "\r\n";
                 }
-                if (!password.getMail(Static.return_encoded).equals("")) {
-                    str += "Mail: " + password.getMail(Static.return_encoded) + "\r\n";
+                if (!password.getMail(Memory.return_encoded).equals("")) {
+                    str += "Mail: " + password.getMail(Memory.return_encoded) + "\r\n";
                 }
-                str += "Password: " + password.getPassword(Static.return_encoded) + "\r\n";
-                if (!password.getNotes(Static.return_encoded).equals("")) {
-                    str += "Notes:\n" + password.getNotes(Static.return_encoded) + "\r\n";
+                str += "Password: " + password.getPassword(Memory.return_encoded) + "\r\n";
+                if (!password.getNotes(Memory.return_encoded).equals("")) {
+                    str += "Notes:\n" + password.getNotes(Memory.return_encoded) + "\r\n";
                 }
                 str+= "Password ID: " + password.getID() + "\r\n";
                 str += "\r\n";
-                Static.run.BuildTxtFile("Passwords " + id, password.getService(Static.return_encoded) + " " + password.getID(), ".txt", str);
+                Memory.run.BuildTxtFile("Passwords " + id, password.getService(Memory.return_encoded) + " " + password.getID(), ".txt", str);
                 str = "";
             }
             JOptionPane.showMessageDialog(null, "PASSWORD PRINTED AS \"Passwords " + id + "\"" + ".");

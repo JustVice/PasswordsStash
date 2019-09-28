@@ -1,5 +1,7 @@
 package LogicV2;
 
+import LogicV3.Run;
+import LogicV3.Memory;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -17,10 +19,10 @@ public class Data {
      * data will be saved and loaded from a folder.
      */
     public void LoadData() {
-        File path = new File(Static.DataPath);
+        File path = new File(Memory.DataPath);
         if (!path.exists()) {
             try {
-                ObjectOutputStream writeFile = new ObjectOutputStream(new FileOutputStream(Static.DataPath));
+                ObjectOutputStream writeFile = new ObjectOutputStream(new FileOutputStream(Memory.DataPath));
                 writeFile.writeObject(userData);
                 writeFile.close();
             } catch (IOException e) {
@@ -30,7 +32,7 @@ public class Data {
         } else {
             try {
                 System.out.print("loading data... ");
-                ObjectInputStream getFile = new ObjectInputStream(new FileInputStream(Static.DataPath));
+                ObjectInputStream getFile = new ObjectInputStream(new FileInputStream(Memory.DataPath));
                 userData = (UserData) getFile.readObject();
                 System.out.println("success");
             } catch (IOException localIOException1) {
@@ -39,11 +41,11 @@ public class Data {
                 e.printStackTrace();
             } 
             catch (ClassCastException e) {
-                File file = new File(Static.DataPath);
+                File file = new File(Memory.DataPath);
                 boolean deleted = file.delete();
                 if (deleted) {
                     System.out.println("Data file refactor");
-                    Static.run = new Run();
+                    Memory.run = new Run();
                 }else{
                 }
             }
@@ -55,11 +57,11 @@ public class Data {
      * the LinkedList.
      */
     public void updateInfo() {
-        File path = new File(Static.DataPath);
+        File path = new File(Memory.DataPath);
         if (path.exists()) {
             try {
                 System.out.print("saving data... ");
-                ObjectOutputStream writeFile = new ObjectOutputStream(new FileOutputStream(Static.DataPath));
+                ObjectOutputStream writeFile = new ObjectOutputStream(new FileOutputStream(Memory.DataPath));
                 writeFile.writeObject(userData);
                 writeFile.close();
                 System.out.println("success");

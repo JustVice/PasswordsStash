@@ -3,7 +3,7 @@ package UI;
 import Logic.StaticOld;
 import Logic.Passwordv2;
 import LogicV2.Encode;
-import LogicV2.Static;
+import LogicV3.Memory;
 import java.awt.event.KeyEvent;
 
 public class CreateNewP extends javax.swing.JFrame {
@@ -11,10 +11,10 @@ public class CreateNewP extends javax.swing.JFrame {
     public CreateNewP() {
         initComponents();
         setLocationRelativeTo(null);
-        this.setTitle(Static.title + " " + Static.version);
+        this.setTitle(Memory.title + " " + Memory.version);
         this.setResizable(false);
         panelSettings();
-        setIconImage(Static.getIconImage());
+        setIconImage(Memory.getIconImage());
     }
 
     private void panelSettings() {
@@ -222,11 +222,11 @@ public class CreateNewP extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void notAllowedChar(char c) {
-        Static.run.message("It's not allowed to type " + c + " at this field.\nIf you need to save an information with this character you can on Description field.", "Not allowed char.", 0);
+        Memory.run.message("It's not allowed to type " + c + " at this field.\nIf you need to save an information with this character you can on Description field.", "Not allowed char.", 0);
     }
 
     private void cancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelMouseClicked
-        Static.run.openStart();
+        Memory.run.openStart();
         this.dispose();
     }//GEN-LAST:event_cancelMouseClicked
 
@@ -273,16 +273,16 @@ public class CreateNewP extends javax.swing.JFrame {
                 fav = true;
             }
             Passwordv2 new_password = new Passwordv2(Encode.Encode_Base64(servicetxt.getText().toUpperCase()), Encode.Encode_Base64(usertxt.getText()), Encode.Encode_Base64(mailtxt.getText()), Encode.Encode_Base64(passwordtxt.getText()), Encode.Encode_Base64(notesPanel.getText()), fav);
-            Static.data.getUserData().getPasswordsList().add(new_password);
-            Static.data.updateInfo();
-            Static.run.message("Password " + servicetxt.getText() + " recorded", "Recorded", 1);
+            Memory.data.getUserData().getPasswordsList().add(new_password);
+            Memory.data.updateInfo();
+            Memory.run.message("Password " + servicetxt.getText() + " recorded", "Recorded", 1);
             cleanFields();
         } else {
-            Static.run.message("YOU HAVE TO PROVIDE AT LEAST THE NAME OF THE SERVICE, PASSWORD AND EITHER USER OR EMAIL INFORMATION TO CREATE A NEW PASSWORD INFO", "Missing info", 2);
+            Memory.run.message("YOU HAVE TO PROVIDE AT LEAST THE NAME OF THE SERVICE, PASSWORD AND EITHER USER OR EMAIL INFORMATION TO CREATE A NEW PASSWORD INFO", "Missing info", 2);
         }
     }
     private void helpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpButtonActionPerformed
-        Static.run.message(
+        Memory.run.message(
                 "Service: Service carrier associated to the password, example: Facebook or fb (refering Facebook).\n"
                 + "Mail: Field to type your mail. You can type it as \"null\" if you know your mail and want to keep it hidden.\n"
                 + "User: Field to type you user. Example: \"anon01\" if it is your Twitter username."

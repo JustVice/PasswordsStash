@@ -3,7 +3,7 @@ package UI;
 import Logic.StaticOld;
 
 import Logic.Passwordv2;
-import LogicV2.Static;
+import LogicV3.Memory;
 import javax.swing.JOptionPane;
 
 public class Delete extends javax.swing.JFrame {
@@ -12,12 +12,12 @@ public class Delete extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         settings();
-        setIconImage(Static.getIconImage());
+        setIconImage(Memory.getIconImage());
     }
 
     private void settings() {
-        this.setTitle(Static.title + " " + Static.version);
-        j_list.setModel(Static.run.setModelAndGet());
+        this.setTitle(Memory.title + " " + Memory.version);
+        j_list.setModel(Memory.run.setModelAndGet());
         this.setResizable(false);
     }
 
@@ -93,11 +93,11 @@ public class Delete extends javax.swing.JFrame {
         try {
             Passwordv2 password = j_list.getSelectedValue();
             if (deleteYes(password)) {
-                for (int i = 0; i < Static.data.getUserData().getPasswordsList().size(); i++) {
-                    if (Static.data.getUserData().getPasswordsList().get(i).getID() == password.getID()) {
-                        Static.data.getUserData().getPasswordsList().remove(i);
-                        Static.data.updateInfo();
-                        j_list.setModel(Static.run.setModelAndGet());
+                for (int i = 0; i < Memory.data.getUserData().getPasswordsList().size(); i++) {
+                    if (Memory.data.getUserData().getPasswordsList().get(i).getID() == password.getID()) {
+                        Memory.data.getUserData().getPasswordsList().remove(i);
+                        Memory.data.updateInfo();
+                        j_list.setModel(Memory.run.setModelAndGet());
                     }
                 }
             } else {
@@ -109,7 +109,7 @@ public class Delete extends javax.swing.JFrame {
     }
 
     private void backBotMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBotMouseClicked
-        Static.run.openStart();
+        Memory.run.openStart();
         this.dispose();
     }//GEN-LAST:event_backBotMouseClicked
 
@@ -126,7 +126,7 @@ public class Delete extends javax.swing.JFrame {
      * @return
      */
     private boolean deleteYes(Passwordv2 password) {
-        int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this " + password.getService(Static.return_encoded) + " password? \n"
+        int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this " + password.getService(Memory.return_encoded) + " password? \n"
                 + "This action cannot be undone.", "DELETE", 0);
         if (option == 0) {
             return true;

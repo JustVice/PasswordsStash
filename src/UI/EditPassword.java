@@ -2,7 +2,7 @@ package UI;
 
 import Logic.Passwordv2;
 import LogicV2.Encode;
-import LogicV2.Static;
+import LogicV3.Memory;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
@@ -11,17 +11,17 @@ public class EditPassword extends javax.swing.JFrame {
     public EditPassword() {
         initComponents();
         setLocationRelativeTo(null);
-        this.setTitle(Static.title + " " + Static.version);
+        this.setTitle(Memory.title + " " + Memory.version);
         settings();
     }
     
     private void settings() {
-        j_list.setModel(Static.run.setModelAndGet());
+        j_list.setModel(Memory.run.setModelAndGet());
         notesTxt.setLineWrap(true);
         notesTxt.setCaretPosition(0);
         notesTxt.setWrapStyleWord(true);
         this.setResizable(false);
-        setIconImage(Static.getIconImage());
+        setIconImage(Memory.getIconImage());
     }
     
     private Passwordv2 tempPassword;
@@ -207,7 +207,7 @@ public class EditPassword extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelMouseClicked
-        Static.run.openStart();
+        Memory.run.openStart();
         this.dispose();
     }//GEN-LAST:event_cancelMouseClicked
 
@@ -228,11 +228,11 @@ public class EditPassword extends javax.swing.JFrame {
     }
     
     private void setSelectedPasswordInfoToDo() {
-        servicetxt.setText(tempPassword.getService(Static.return_encoded));
-        mailtxt.setText(tempPassword.getMail(Static.return_encoded));
-        usertxt.setText(tempPassword.getUser(Static.return_encoded));
-        passwordtxt.setText(tempPassword.getPassword(Static.return_encoded));
-        notesTxt.setText(tempPassword.getNotes(Static.return_encoded));
+        servicetxt.setText(tempPassword.getService(Memory.return_encoded));
+        mailtxt.setText(tempPassword.getMail(Memory.return_encoded));
+        usertxt.setText(tempPassword.getUser(Memory.return_encoded));
+        passwordtxt.setText(tempPassword.getPassword(Memory.return_encoded));
+        notesTxt.setText(tempPassword.getNotes(Memory.return_encoded));
     }
 
     private void servicetxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_servicetxtKeyTyped
@@ -274,14 +274,14 @@ public class EditPassword extends javax.swing.JFrame {
     
     private void updatePassword() {
         if (tempPassword != null) {
-            for (int i = 0; i < Static.data.getUserData().getPasswordsList().size(); i++) {
-                if (Static.data.getUserData().getPasswordsList().get(i).getID() == tempPassword.getID()) {
-                    int option = Static.run.askMessage("Are you sure that you want to update this " + Static.data.getUserData().getPasswordsList().get(i).getService(Static.return_encoded) + " info?\nThis action cannot be undone.", "Change password info?", 0, 3);
+            for (int i = 0; i < Memory.data.getUserData().getPasswordsList().size(); i++) {
+                if (Memory.data.getUserData().getPasswordsList().get(i).getID() == tempPassword.getID()) {
+                    int option = Memory.run.askMessage("Are you sure that you want to update this " + Memory.data.getUserData().getPasswordsList().get(i).getService(Memory.return_encoded) + " info?\nThis action cannot be undone.", "Change password info?", 0, 3);
                     if (option == 0) {
                         Passwordv2 passwordUpdate = new Passwordv2(Encode.Encode_Base64(servicetxt.getText().toUpperCase()), Encode.Encode_Base64(usertxt.getText()), Encode.Encode_Base64(mailtxt.getText()), Encode.Encode_Base64(passwordtxt.getText()), Encode.Encode_Base64(notesTxt.getText()), giveFavOrNot());
-                        Static.data.getUserData().getPasswordsList().set(i, passwordUpdate);
-                        Static.data.updateInfo();
-                        j_list.setModel(Static.run.setModelAndGet());
+                        Memory.data.getUserData().getPasswordsList().set(i, passwordUpdate);
+                        Memory.data.updateInfo();
+                        j_list.setModel(Memory.run.setModelAndGet());
                         clearFields();
                     } else {
                         System.out.println("cancelled");

@@ -9,19 +9,19 @@ public class Passwordv3 {
     private String mail;
     private String password;
     private String notes;
-    private int ID;
-    private boolean favorite;
+    private String ID;
+    private String favorite;
 
     public Passwordv3() {
     }
 
-    public Passwordv3(String service, String user, String mail, String password, String notes, boolean favorite) {
+    public Passwordv3(String service, String user, String mail, String password, String notes, String favorite) {
         this.service = service;
         this.user = user;
         this.mail = mail;
         this.password = password;
         this.notes = notes;
-        this.ID = (int) (Math.random() * 99999999);
+        this.ID = "" + ((int) (Math.random() * 99999999));
         this.favorite = favorite;
     }
 
@@ -37,7 +37,7 @@ public class Passwordv3 {
         if (!notes.equals("")) {
             str += "description: " + notes + " , ";
         }
-        if (favorite) {
+        if (favorite.equals("true")) {
             str += "password: *** , FAVORITE";
         } else {
             str += "password: *** , ";
@@ -77,23 +77,22 @@ public class Passwordv3 {
         this.password = password;
     }
 
-    public int getID() {
+    public String getID() {
         return ID;
     }
 
-    public void setID(int ID) {
+    public void setID(String ID) {
         this.ID = ID;
     }
 
-    public boolean isFavorite() {
+    public String getFavorite() {
         return favorite;
     }
 
-    public void setFavorite(boolean favorite) {
+    public void setFavorite(String favorite) {
         this.favorite = favorite;
     }
 
-    
 
     public void setNotes(String notes) {
         this.notes = notes;

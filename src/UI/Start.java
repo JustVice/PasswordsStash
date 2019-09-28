@@ -3,7 +3,7 @@ package UI;
 import Logic.Message;
 import Logic.StaticOld;
 import Logic.ThreadClass_Message;
-import LogicV2.Static;
+import LogicV3.Memory;
 import LogicV2.TextKeeper;
 import LogicV2.UserData;
 import javax.swing.ImageIcon;
@@ -16,13 +16,13 @@ public class Start extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         settings();
         this.setResizable(false);
-        setIconImage(Static.getIconImage());
+        setIconImage(Memory.getIconImage());
     }
 
     private void settings() {
-        this.setTitle(Static.title + " " + Static.version);
-        if (!Static.data.getUserData().getPasswordsList().isEmpty()) {
-            totalPw.setText("There is/are a total of " + Static.data.getUserData().getPasswordsList().size() + " password/s recorded.");
+        this.setTitle(Memory.title + " " + Memory.version);
+        if (!Memory.data.getUserData().getPasswordsList().isEmpty()) {
+            totalPw.setText("There is/are a total of " + Memory.data.getUserData().getPasswordsList().size() + " password/s recorded.");
         } else {
             totalPw.setText("There are no passwords registered.");
             seePasswords.setEnabled(false);
@@ -33,7 +33,7 @@ public class Start extends javax.swing.JFrame {
         }
         //Master Password Update
         try {
-            if (Static.data.getUserData().getMp().equals("null")) {
+            if (Memory.data.getUserData().getMp().equals("null")) {
                 MASTER_PASSWORD_BUTTON.setText("ENABLE MASTER PASSWORD");
             } else {
                 MASTER_PASSWORD_BUTTON.setText("Edit Master Password");
@@ -224,34 +224,34 @@ public class Start extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void createNewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_createNewMouseClicked
-        Static.run.openCreate();
+        Memory.run.openCreate();
         this.dispose();
     }//GEN-LAST:event_createNewMouseClicked
 
     private void seePasswordsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seePasswordsMouseClicked
-        if (!Static.data.getUserData().getPasswordsList().isEmpty()) {
-            Static.run.openSeeP();
+        if (!Memory.data.getUserData().getPasswordsList().isEmpty()) {
+            Memory.run.openSeeP();
             this.dispose();
         }
     }//GEN-LAST:event_seePasswordsMouseClicked
 
     private void DeletePasswordsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeletePasswordsMouseClicked
-        if (!Static.data.getUserData().getPasswordsList().isEmpty()) {
-            Static.run.openDelete();
+        if (!Memory.data.getUserData().getPasswordsList().isEmpty()) {
+            Memory.run.openDelete();
             this.dispose();
         }
     }//GEN-LAST:event_DeletePasswordsMouseClicked
 
     private void EDITPasswordsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EDITPasswordsMouseClicked
-        if (!Static.data.getUserData().getPasswordsList().isEmpty()) {
-            Static.run.openEdit();
+        if (!Memory.data.getUserData().getPasswordsList().isEmpty()) {
+            Memory.run.openEdit();
             this.dispose();
         }
     }//GEN-LAST:event_EDITPasswordsMouseClicked
 
     private void printPasswordsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_printPasswordsMouseClicked
-        if (!Static.data.getUserData().getPasswordsList().isEmpty()) {
-            Static.run.openPrintPasswords();
+        if (!Memory.data.getUserData().getPasswordsList().isEmpty()) {
+            Memory.run.openPrintPasswords();
             this.dispose();
         }
     }//GEN-LAST:event_printPasswordsMouseClicked
@@ -260,11 +260,11 @@ public class Start extends javax.swing.JFrame {
         TextKeeper textKeeper = new TextKeeper();
         String changeLog = textKeeper.getChangelog();
         System.out.println(changeLog);
-        Static.run.message(changeLog, "ChangeLog", 1);
+        Memory.run.message(changeLog, "ChangeLog", 1);
     }//GEN-LAST:event_changeLogMouseClicked
 
     private void aboutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutButtonActionPerformed
-        Static.run.openAbout();
+        Memory.run.openAbout();
         this.dispose();
     }//GEN-LAST:event_aboutButtonActionPerformed
 
@@ -277,7 +277,7 @@ public class Start extends javax.swing.JFrame {
     }//GEN-LAST:event_seePasswordsMouseEntered
 
     private void howToUseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_howToUseActionPerformed
-        Static.run.openUseGuideLines();
+        Memory.run.openUseGuideLines();
         this.dispose();
     }//GEN-LAST:event_howToUseActionPerformed
 
@@ -286,10 +286,10 @@ public class Start extends javax.swing.JFrame {
         if (option != null) {
             option = option.toLowerCase();
             if (option.equals("delete")) {
-                Static.data.setUserData(new UserData());
-                Static.data.getUserData().setFirstRun(false);
-                Static.data.updateInfo();
-                Static.run.openStart();
+                Memory.data.setUserData(new UserData());
+                Memory.data.getUserData().setFirstRun(false);
+                Memory.data.updateInfo();
+                Memory.run.openStart();
                 this.dispose();
             } else {
                 ThreadClass_Message threadClass = new ThreadClass_Message(800, (byte) 4);
@@ -305,11 +305,11 @@ public class Start extends javax.swing.JFrame {
     }//GEN-LAST:event_DELETEALLDATAActionPerformed
 
     private void MASTER_PASSWORD_BUTTONActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MASTER_PASSWORD_BUTTONActionPerformed
-        if (Static.data.getUserData().getMp().equals("null")) {
-            Static.run.openMasterPasswordSet();
+        if (Memory.data.getUserData().getMp().equals("null")) {
+            Memory.run.openMasterPasswordSet();
             this.dispose();
         } else {
-            Static.run.openEditMasterPassword();
+            Memory.run.openEditMasterPassword();
             this.dispose();
         }
     }//GEN-LAST:event_MASTER_PASSWORD_BUTTONActionPerformed

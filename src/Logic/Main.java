@@ -1,11 +1,11 @@
 package Logic;
 
-import LogicV2.Run;
-import LogicV2.Static;
+import LogicV3.Run;
+import LogicV3.Memory;
 
 public class Main {
 
     public static void main(String[] args) {
-        Static.run = new Run(); 
+        Memory.run = new Run(); 
     }
 }

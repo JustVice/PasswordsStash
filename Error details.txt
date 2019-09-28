@@ -1,0 +1,2 @@
+Error 001: Failed when trying to load passwords from database.
+Error 002: Failed when trying to load user's data from database.

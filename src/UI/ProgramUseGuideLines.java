@@ -1,6 +1,6 @@
 package UI;
 
-import LogicV2.Static;
+import LogicV3.Memory;
 
 public class ProgramUseGuideLines extends javax.swing.JFrame {
 
@@ -8,8 +8,8 @@ public class ProgramUseGuideLines extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         this.setResizable(false);
-        setIconImage(Static.getIconImage());
-        this.setTitle(Static.title + " " + Static.version);
+        setIconImage(Memory.getIconImage());
+        this.setTitle(Memory.title + " " + Memory.version);
     }
 
     @SuppressWarnings("unchecked")
@@ -57,7 +57,7 @@ public class ProgramUseGuideLines extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
-        Static.run.openStart();
+        Memory.run.openStart();
         this.dispose();
     }//GEN-LAST:event_backActionPerformed
 
