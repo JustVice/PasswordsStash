@@ -13,24 +13,24 @@ import javax.swing.JOptionPane;
 public class Run {
 
     public Run() {
-
         v3Run();
     }
 
     private void v3Run() {
-        sqliteDataBaseChecker();
+        SQLITE_CREATE_DATABASE_AND_TABLES_IF_NOT_EXIST();
         Memory.dataVSQL.loadData();
-//        loadLogo();
+        openStart();
     }
 
     //Creates the database if it does not exist. If it exists, checks if the tables
     //exist.
-    private void sqliteDataBaseChecker() {
+    private void SQLITE_CREATE_DATABASE_AND_TABLES_IF_NOT_EXIST() {
         SQLiteDBController sqliteController = new SQLiteDBController(Memory.SQLiteDBName);
         sqliteController.createNewDatabase();
-        Boolean PASSS = Memory.sqlite.check_if_table_exists("PASSS");
-        Boolean USERDATAV3 = Memory.sqlite.check_if_table_exists("USERDATAV3");
-        if (!PASSS) {
+        Boolean PASSS_TABLE = Memory.sqlite.check_if_table_exists("PASSS");
+        Boolean USERDATAV3_TABLE = Memory.sqlite.check_if_table_exists("USERDATAV3");
+        if (!PASSS_TABLE) {
+            System.out.println("Creating table PASSS");
             sqliteController.createNewTable("CREATE TABLE `PASSS` (\n"
                     + "	`PasssID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,\n"
                     + "	`Service`	TEXT,\n"
@@ -42,7 +42,8 @@ public class Run {
                     + "	`Favorite`	INTEGER\n"
                     + ");");
         }
-        if (!USERDATAV3) {
+        if (!USERDATAV3_TABLE) {
+            System.out.println("Creating table USERDATA");
             sqliteController.createNewTable("CREATE TABLE \"USERDATAV3\" (\n"
                     + "	\"ProgramDataID\"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,\n"
                     + "	\"firstRun\"	TEXT,\n"
@@ -58,10 +59,10 @@ public class Run {
                     + ",inki)"
                     + "VALUES "
                     + "('true'"
-                    + ",'true'"
-                    + ",'true'"
-                    + ",'true'"
-                    + ",'false');");
+                    + ",'null'"
+                    + ",'null'"
+                    + ",'null'"
+                    + ",'false');","USERDATAV3 info inserted");
         }
     }
 
@@ -102,52 +103,52 @@ public class Run {
 //        }
     }
 
-    public void openMasterPasswordSet() {
+    public static void openMasterPasswordSet() {
         SetMP s = new SetMP();
     }
 
-    public void openCreate() {
+    public static void openCreate() {
         CreateNewP c = new CreateNewP();
         c.setVisible(true);
     }
 
-    public void openSeeP() {
+    public static void openSeeP() {
         SeePasswords c = new SeePasswords();
         c.setVisible(true);
     }
 
-    public void openStart() {
+    public static void openStart() {
         Start c = new Start();
         c.setVisible(true);
     }
 
-    public void openStart_and_show_message(String message) {
+    public static void openStart_and_show_message(String message) {
         Start c = new Start();
         c.setVisible(true);
         Message_V2 message_V2 = new Message_V2(message);
     }
 
-    public void openDelete() {
+    public static void openDelete() {
         Delete c = new Delete();
         c.setVisible(true);
     }
 
-    public void openEdit() {
+    public static void openEdit() {
         EditPassword c = new EditPassword();
         c.setVisible(true);
     }
 
-    public void openPrintPasswords() {
+    public static void openPrintPasswords() {
         PrintPasswords pp = new PrintPasswords();
         pp.setVisible(true);
     }
 
-    public void openAbout() {
+    public static void openAbout() {
         AboutFrame abf = new AboutFrame();
         abf.setVisible(true);
     }
 
-    public void openUseGuideLines() {
+    public static void openUseGuideLines() {
         ProgramUseGuideLines f = new ProgramUseGuideLines();
         f.setVisible(true);
     }

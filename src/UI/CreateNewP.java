@@ -1,9 +1,10 @@
 package UI;
 
-import Logic.StaticOld;
 import Logic.Passwordv2;
 import LogicV2.Encode;
 import LogicV3.Memory;
+import LogicV3.Passwordv3;
+import LogicV3.Run;
 import java.awt.event.KeyEvent;
 
 public class CreateNewP extends javax.swing.JFrame {
@@ -18,9 +19,10 @@ public class CreateNewP extends javax.swing.JFrame {
     }
 
     private void panelSettings() {
-        notesPanel.setLineWrap(true);
-        notesPanel.setCaretPosition(0);
-        notesPanel.setWrapStyleWord(true);
+        jpanel_notesPanel.setLineWrap(true);
+        jpanel_notesPanel.setCaretPosition(0);
+        jpanel_notesPanel.setWrapStyleWord(true);
+        this.setVisible(true);
     }
 
     @SuppressWarnings("unchecked")
@@ -32,17 +34,17 @@ public class CreateNewP extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        servicetxt = new javax.swing.JTextField();
-        mailtxt = new javax.swing.JTextField();
-        usertxt = new javax.swing.JTextField();
-        passwordtxt = new javax.swing.JTextField();
-        create = new javax.swing.JButton();
-        cancel = new javax.swing.JButton();
+        jtext_servicetxt = new javax.swing.JTextField();
+        jtext_mailtxt = new javax.swing.JTextField();
+        jtext_usertxt = new javax.swing.JTextField();
+        jtext_passwordtxt = new javax.swing.JTextField();
+        jButton_create = new javax.swing.JButton();
+        jButton_cancel = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        favCombo = new javax.swing.JRadioButton();
+        jRadioButton_favCombo = new javax.swing.JRadioButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        notesPanel = new javax.swing.JTextArea();
-        helpButton = new javax.swing.JButton();
+        jpanel_notesPanel = new javax.swing.JTextArea();
+        jButton_helpButton = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
 
@@ -52,7 +54,7 @@ public class CreateNewP extends javax.swing.JFrame {
         jLabel1.setText("Service --");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel2.setText("Mail -----");
+        jLabel2.setText("E-Mail ---");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setText("User ----");
@@ -63,59 +65,64 @@ public class CreateNewP extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel5.setText("Notes/Comments/Additional info");
 
-        servicetxt.addKeyListener(new java.awt.event.KeyAdapter() {
+        jtext_servicetxt.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                servicetxtKeyTyped(evt);
+                jtext_servicetxtKeyTyped(evt);
             }
         });
 
-        mailtxt.addKeyListener(new java.awt.event.KeyAdapter() {
+        jtext_mailtxt.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                mailtxtKeyTyped(evt);
+                jtext_mailtxtKeyTyped(evt);
             }
         });
 
-        usertxt.addKeyListener(new java.awt.event.KeyAdapter() {
+        jtext_usertxt.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                usertxtKeyTyped(evt);
+                jtext_usertxtKeyTyped(evt);
             }
         });
 
-        passwordtxt.addKeyListener(new java.awt.event.KeyAdapter() {
+        jtext_passwordtxt.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                passwordtxtKeyTyped(evt);
+                jtext_passwordtxtKeyTyped(evt);
             }
         });
 
-        create.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        create.setText("CREATE");
-        create.addActionListener(new java.awt.event.ActionListener() {
+        jButton_create.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton_create.setText("CREATE");
+        jButton_create.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                createActionPerformed(evt);
+                jButton_createActionPerformed(evt);
             }
         });
 
-        cancel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        cancel.setText("BACK");
-        cancel.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButton_cancel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton_cancel.setText("BACK");
+        jButton_cancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cancelMouseClicked(evt);
+                jButton_cancelMouseClicked(evt);
+            }
+        });
+        jButton_cancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_cancelActionPerformed(evt);
             }
         });
 
         jLabel7.setText("*optional");
 
-        favCombo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        favCombo.setText("Add to favorites");
+        jRadioButton_favCombo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jRadioButton_favCombo.setText("Add to favorites");
 
-        notesPanel.setColumns(20);
-        notesPanel.setRows(5);
-        jScrollPane1.setViewportView(notesPanel);
+        jpanel_notesPanel.setColumns(20);
+        jpanel_notesPanel.setRows(5);
+        jScrollPane1.setViewportView(jpanel_notesPanel);
 
-        helpButton.setText("Help");
-        helpButton.addActionListener(new java.awt.event.ActionListener() {
+        jButton_helpButton.setText("Help");
+        jButton_helpButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                helpButtonActionPerformed(evt);
+                jButton_helpButtonActionPerformed(evt);
             }
         });
 
@@ -132,30 +139,30 @@ public class CreateNewP extends javax.swing.JFrame {
                 .addGap(140, 140, 140)
                 .addComponent(jLabel8)
                 .addGap(23, 23, 23)
-                .addComponent(helpButton))
+                .addComponent(jButton_helpButton))
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addComponent(jLabel1)
                 .addGap(15, 15, 15)
-                .addComponent(servicetxt, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jtext_servicetxt, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
-                .addComponent(mailtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jtext_mailtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addComponent(jLabel3)
                 .addGap(21, 21, 21)
-                .addComponent(usertxt, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jtext_usertxt, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addComponent(jLabel4)
                 .addGap(16, 16, 16)
-                .addComponent(passwordtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jtext_passwordtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(favCombo))
+                .addComponent(jRadioButton_favCombo))
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel5)
@@ -166,13 +173,13 @@ public class CreateNewP extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 523, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton_cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(80, 80, 80)
                         .addComponent(jLabel6))
-                    .addComponent(create, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jButton_create, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,25 +189,25 @@ public class CreateNewP extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(jLabel8))
-                    .addComponent(helpButton))
+                    .addComponent(jButton_helpButton))
                 .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(servicetxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtext_servicetxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(mailtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtext_mailtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(usertxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtext_usertxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
-                    .addComponent(passwordtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtext_passwordtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8)
-                .addComponent(favCombo)
+                .addComponent(jRadioButton_favCombo)
                 .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
@@ -211,11 +218,11 @@ public class CreateNewP extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cancel)
+                    .addComponent(jButton_cancel)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addComponent(jLabel6))
-                    .addComponent(create)))
+                    .addComponent(jButton_create)))
         );
 
         pack();
@@ -225,63 +232,150 @@ public class CreateNewP extends javax.swing.JFrame {
         Memory.run.message("It's not allowed to type " + c + " at this field.\nIf you need to save an information with this character you can on Description field.", "Not allowed char.", 0);
     }
 
-    private void cancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelMouseClicked
+    private void jButton_cancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_cancelMouseClicked
         Memory.run.openStart();
         this.dispose();
-    }//GEN-LAST:event_cancelMouseClicked
+    }//GEN-LAST:event_jButton_cancelMouseClicked
 
-    private void servicetxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_servicetxtKeyTyped
+    private void jtext_servicetxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtext_servicetxtKeyTyped
         char c = evt.getKeyChar();
         if (c == '/' || c == ':' || c == '*' || c == '?' || c == '<' || c == '>' || c == '|') {
             evt.consume();
             notAllowedChar(c);
         }
         if (c == KeyEvent.VK_ENTER) {
-            createNewPasswordToDo();
+//            createNewPasswordToDo();
+            CREATE_NEW_PASSWORD();
         }
-    }//GEN-LAST:event_servicetxtKeyTyped
+    }//GEN-LAST:event_jtext_servicetxtKeyTyped
 
-    private void mailtxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_mailtxtKeyTyped
+    private void jtext_mailtxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtext_mailtxtKeyTyped
         char c = evt.getKeyChar();
         if (c == '/' || c == ':' || c == '*' || c == '?' || c == '<' || c == '>' || c == '|') {
             evt.consume();
             notAllowedChar(c);
         }
         if (c == KeyEvent.VK_ENTER) {
-            createNewPasswordToDo();
+//            createNewPasswordToDo();
+            CREATE_NEW_PASSWORD();
         }
-    }//GEN-LAST:event_mailtxtKeyTyped
+    }//GEN-LAST:event_jtext_mailtxtKeyTyped
 
-    private void usertxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usertxtKeyTyped
+    private void jtext_usertxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtext_usertxtKeyTyped
         char c = evt.getKeyChar();
         if (c == '/' || c == ':' || c == '*' || c == '?' || c == '<' || c == '>' || c == '|') {
             evt.consume();
             notAllowedChar(c);
         }
         if (c == KeyEvent.VK_ENTER) {
-            createNewPasswordToDo();
+//            createNewPasswordToDo();
+            CREATE_NEW_PASSWORD();
         }
-    }//GEN-LAST:event_usertxtKeyTyped
+    }//GEN-LAST:event_jtext_usertxtKeyTyped
 
-    private void createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createActionPerformed
-        createNewPasswordToDo();
-    }//GEN-LAST:event_createActionPerformed
-    private void createNewPasswordToDo() {
-        if (verify()) {
+    private void jButton_createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_createActionPerformed
+//        createNewPasswordToDo();
+        CREATE_NEW_PASSWORD();
+    }//GEN-LAST:event_jButton_createActionPerformed
+
+    private void CREATE_NEW_PASSWORD() {
+        if (ARE_NECESSARY_INFORMATION_FILLED()) {
+            Passwordv3 passwordv3_TO_INSERT_INTO_DATABASE = BUILD_PASSWORDV3_OBJECT();
+            SAVE_NEW_PASSWORD_INSIDE_DATABASE(passwordv3_TO_INSERT_INTO_DATABASE);
+        } else {
+            String message = "YOU HAVE TO PROVIDE AT LEAST THE NAME OF THE "
+                    + "SERVICE, PASSWORD AND EITHER USER OR EMAIL "
+                    + "INFORMATION TO CREATE A NEW PASSWORD INFO";
+            Memory.run.message(message, "Missing info", 2);
+        }
+    }
+
+    private Passwordv3 BUILD_PASSWORDV3_OBJECT() {
+        String service = jtext_servicetxt.getText();
+        String user = jtext_usertxt.getText();
+        String mail = jtext_mailtxt.getText();
+        String password = jtext_passwordtxt.getText();
+        String notes = jpanel_notesPanel.getText();
+        String ID = "" + ((int) (Math.random() * 99999999));;
+        String favorite = "";
+        if (jRadioButton_favCombo.isSelected()) {
+            favorite = "true";
+        } else {
+            favorite = "false";
+        }
+        Passwordv3 passwordv3_OBJECT = new Passwordv3(service, user, mail, password, notes, favorite);
+        return passwordv3_OBJECT;
+    }
+
+    private boolean ARE_NECESSARY_INFORMATION_FILLED() {
+        //It is necessary that the user at least fill the Service, password and
+        //either user or email text fields.
+        if (jtext_servicetxt.getText().equals("")
+                || jtext_passwordtxt.getText().equals("")) {
+            return false;
+        } else if (jtext_usertxt.getText().equals("")
+                && jtext_mailtxt.getText().equals("")) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private void SAVE_NEW_PASSWORD_INSIDE_DATABASE(Passwordv3 PASS_TO_SAVE) {
+        if (Memory.DATA_IS_ENCRYPTED) {
+            SAVE_NEW_PASSWORD_INSIDE_DATABASE_ENCRYPTED(PASS_TO_SAVE);
+        } else {
+            SAVE_NEW_PASSWORD_INSIDE_DATABASE_NOT_ENCRYPTED(PASS_TO_SAVE);
+        }
+    }
+
+    private void SAVE_NEW_PASSWORD_INSIDE_DATABASE_ENCRYPTED(Passwordv3 PASS_TO_SAVE) {
+
+    }
+
+    private void SAVE_NEW_PASSWORD_INSIDE_DATABASE_NOT_ENCRYPTED(Passwordv3 PASS_TO_SAVE) {
+        String CONSOLE_QUERY_MESSAGE = "PASSWORD INSERTED SUCCESSFULLY.";
+        Memory.sqlite.Query("INSERT INTO PASSS\n"
+                + "VALUES ('value1'"
+                + ", '" + PASS_TO_SAVE.getService() + "'"
+                + ", '" + PASS_TO_SAVE.getUser() + "'"
+                + ", '" + PASS_TO_SAVE.getEmail() + "'"
+                + ", '" + PASS_TO_SAVE.getPassword() + "'"
+                + ", '" + PASS_TO_SAVE.getNotes() + "'"
+                + ", '" + PASS_TO_SAVE.getID() + "'"
+                + ", '" + PASS_TO_SAVE.getFavorite() + "'"
+                + ");", CONSOLE_QUERY_MESSAGE);
+        String UI_Message = "Password saved.";
+        CLEAN_JTEXTFIELDS();
+        Run.message(UI_Message, UI_Message, 0);
+    }
+
+    private void CLEAN_JTEXTFIELDS() {
+        jtext_servicetxt.setText("");
+        jtext_mailtxt.setText("");
+        jtext_usertxt.setText("");
+        jtext_passwordtxt.setText("");
+        jpanel_notesPanel.setText("");
+        jRadioButton_favCombo.setSelected(false);
+    }
+
+    private void createNewPasswordToDo_OLD_CODE() {
+        if (ARE_NECESSARY_INFORMATION_FILLED()) {
             boolean fav = false;
-            if (favCombo.isSelected()) {
+            if (jRadioButton_favCombo.isSelected()) {
                 fav = true;
             }
-            Passwordv2 new_password = new Passwordv2(Encode.Encode_Base64(servicetxt.getText().toUpperCase()), Encode.Encode_Base64(usertxt.getText()), Encode.Encode_Base64(mailtxt.getText()), Encode.Encode_Base64(passwordtxt.getText()), Encode.Encode_Base64(notesPanel.getText()), fav);
+            Passwordv2 new_password = new Passwordv2(Encode.Encode_Base64(jtext_servicetxt.getText().toUpperCase()), Encode.Encode_Base64(jtext_usertxt.getText()), Encode.Encode_Base64(jtext_mailtxt.getText()), Encode.Encode_Base64(jtext_passwordtxt.getText()), Encode.Encode_Base64(jpanel_notesPanel.getText()), fav);
             Memory.data.getUserData().getPasswordsList().add(new_password);
             Memory.data.updateInfo();
-            Memory.run.message("Password " + servicetxt.getText() + " recorded", "Recorded", 1);
-            cleanFields();
+            Memory.run.message("Password " + jtext_servicetxt.getText() + " recorded", "Recorded", 1);
+            CLEAN_JTEXTFIELDS();
         } else {
             Memory.run.message("YOU HAVE TO PROVIDE AT LEAST THE NAME OF THE SERVICE, PASSWORD AND EITHER USER OR EMAIL INFORMATION TO CREATE A NEW PASSWORD INFO", "Missing info", 2);
         }
     }
-    private void helpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpButtonActionPerformed
+
+    private void jButton_helpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_helpButtonActionPerformed
         Memory.run.message(
                 "Service: Service carrier associated to the password, example: Facebook or fb (refering Facebook).\n"
                 + "Mail: Field to type your mail. You can type it as \"null\" if you know your mail and want to keep it hidden.\n"
@@ -290,46 +384,25 @@ public class CreateNewP extends javax.swing.JFrame {
                 + "Notes: Field to type notes. It can stash any other information whether you want to.",
                 "Help",
                 1);
-    }//GEN-LAST:event_helpButtonActionPerformed
+    }//GEN-LAST:event_jButton_helpButtonActionPerformed
 
-    private void passwordtxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordtxtKeyTyped
+    private void jtext_passwordtxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtext_passwordtxtKeyTyped
         char c = evt.getKeyChar();
         if (c == KeyEvent.VK_ENTER) {
-            createNewPasswordToDo();
+            //createNewPasswordToDo();
+            CREATE_NEW_PASSWORD();
         }
-    }//GEN-LAST:event_passwordtxtKeyTyped
+    }//GEN-LAST:event_jtext_passwordtxtKeyTyped
 
-    /**
-     * Makes sure that you provide all the neccesary information to make a new
-     * password
-     */
-    private boolean verify() {
-        if (servicetxt.getText().equals("") || passwordtxt.getText().equals("")) {
-            return false;
-        } else if (usertxt.getText().equals("") && mailtxt.getText().equals("")) {
-            return false;
-        } else {
-            return true;
-        }
-    }
+    private void jButton_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_cancelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton_cancelActionPerformed
 
-    /**
-     * Clean all that the user typed and did in the frame.
-     */
-    private void cleanFields() {
-        servicetxt.setText("");
-        mailtxt.setText("");
-        usertxt.setText("");
-        passwordtxt.setText("");
-        notesPanel.setText("");
-        favCombo.setSelected(false);
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton cancel;
-    private javax.swing.JButton create;
-    private javax.swing.JRadioButton favCombo;
-    private javax.swing.JButton helpButton;
+    private javax.swing.JButton jButton_cancel;
+    private javax.swing.JButton jButton_create;
+    private javax.swing.JButton jButton_helpButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -338,11 +411,12 @@ public class CreateNewP extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JRadioButton jRadioButton_favCombo;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField mailtxt;
-    private javax.swing.JTextArea notesPanel;
-    private javax.swing.JTextField passwordtxt;
-    private javax.swing.JTextField servicetxt;
-    private javax.swing.JTextField usertxt;
+    private javax.swing.JTextArea jpanel_notesPanel;
+    private javax.swing.JTextField jtext_mailtxt;
+    private javax.swing.JTextField jtext_passwordtxt;
+    private javax.swing.JTextField jtext_servicetxt;
+    private javax.swing.JTextField jtext_usertxt;
     // End of variables declaration//GEN-END:variables
 }

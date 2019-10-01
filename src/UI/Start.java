@@ -1,28 +1,35 @@
 package UI;
 
-import Logic.Message;
-import Logic.StaticOld;
 import Logic.ThreadClass_Message;
 import LogicV3.Memory;
 import LogicV2.TextKeeper;
 import LogicV2.UserData;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class Start extends javax.swing.JFrame {
-
+    
     public Start() {
         initComponents();
-        setLocationRelativeTo(null);
-        settings();
-        this.setResizable(false);
-        setIconImage(Memory.getIconImage());
+        UI_SETTINGS();
+        DISPLAY_FRAME();
     }
-
-    private void settings() {
+    
+    private void DISPLAY_FRAME() {
+        setIconImage(Memory.getIconImage());
+        setLocationRelativeTo(null);
+        this.setResizable(false);
+        this.setVisible(true);
+    }
+    
+    private void UI_SETTINGS() {
         this.setTitle(Memory.title + " " + Memory.version);
-        if (!Memory.data.getUserData().getPasswordsList().isEmpty()) {
-            totalPw.setText("There is/are a total of " + Memory.data.getUserData().getPasswordsList().size() + " password/s recorded.");
+        UI_SETTINGS_BUTTONS_AND_LABEL();
+        UI_SETTINGS_MASTER_PASSWORD_BUTTON();
+    }
+    
+    private void UI_SETTINGS_BUTTONS_AND_LABEL() {
+        if (!Memory.passwordsV3LinkedList.isEmpty()) {
+            totalPw.setText("There is/are a total of " + Memory.passwordsV3LinkedList.size() + " password/s recorded.");
         } else {
             totalPw.setText("There are no passwords registered.");
             seePasswords.setEnabled(false);
@@ -31,19 +38,16 @@ public class Start extends javax.swing.JFrame {
             printPasswords.setEnabled(false);
             DELETEALLDATA.setEnabled(false);
         }
-        //Master Password Update
-        try {
-            if (Memory.data.getUserData().getMp().equals("null")) {
-                MASTER_PASSWORD_BUTTON.setText("ENABLE MASTER PASSWORD");
-            } else {
-                MASTER_PASSWORD_BUTTON.setText("Edit Master Password");
-            }
-        } catch (Exception e) {
-            MASTER_PASSWORD_BUTTON.setText("ENABLE MASTER PASSWORD");
-        }
-        //Master Password Update
     }
-
+    
+    private void UI_SETTINGS_MASTER_PASSWORD_BUTTON() {
+        if (Memory.userDataV3.getMasterPassword().equals("null")) {
+            MASTER_PASSWORD_BUTTON.setText("ENABLE MASTER PASSWORD");
+        } else {
+            MASTER_PASSWORD_BUTTON.setText("Edit Master Password");
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -69,9 +73,9 @@ public class Start extends javax.swing.JFrame {
 
         createNew.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         createNew.setText("CREATE NEW PASSWORD");
-        createNew.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                createNewMouseClicked(evt);
+        createNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createNewActionPerformed(evt);
             }
         });
 
@@ -223,16 +227,11 @@ public class Start extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void createNewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_createNewMouseClicked
-        Memory.run.openCreate();
-        this.dispose();
-    }//GEN-LAST:event_createNewMouseClicked
-
     private void seePasswordsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seePasswordsMouseClicked
-        if (!Memory.data.getUserData().getPasswordsList().isEmpty()) {
+    
             Memory.run.openSeeP();
             this.dispose();
-        }
+       
     }//GEN-LAST:event_seePasswordsMouseClicked
 
     private void DeletePasswordsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeletePasswordsMouseClicked
@@ -313,6 +312,11 @@ public class Start extends javax.swing.JFrame {
             this.dispose();
         }
     }//GEN-LAST:event_MASTER_PASSWORD_BUTTONActionPerformed
+
+    private void createNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createNewActionPerformed
+        CreateNewP createNewP = new CreateNewP();
+        this.dispose();
+    }//GEN-LAST:event_createNewActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

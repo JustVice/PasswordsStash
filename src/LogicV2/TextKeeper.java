@@ -3,7 +3,8 @@ package LogicV2;
 public class TextKeeper {
 
     public String getChangelog() {
-        return "2.3\nMaster Password added.\n";
+        return "Version 3\n"
+                + "Security updates";
     }
 
     public static String nullB64() {

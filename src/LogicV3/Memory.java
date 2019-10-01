@@ -19,9 +19,9 @@ public class Memory {
     public final static String KeyPassword = "JUSTVICESKEYPASSWORDFORPASSWORDSSTASHV3";
     public final static SQLite sqlite = new SQLite(SQLiteDBName);
     public final static DataVSQLite dataVSQL = new DataVSQLite();
-    public static LinkedList<Passwordv3> passwordsLinkedList = new LinkedList<Passwordv3>();
+    public static LinkedList<Passwordv3> passwordsV3LinkedList = new LinkedList<Passwordv3>();
     public static UserDataV3 userDataV3 = new UserDataV3();
-    public static boolean isDataEncrypted = false;
+    public static boolean DATA_IS_ENCRYPTED = false;
 
     public static Image getIconImage() {
         return Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("IMG/iconLogo.png"));

@@ -3,14 +3,22 @@ package LogicV3;
 public class DataVSQLite {
 
     public void loadData() {
-        loadPasswordsFromDataBase();
-        loadUserDataFromDataBase();
+        try {
+            LOAD_PASSWORDS_FROM_DATABASE();
+            LOAD_USERDATA_FROM_DATABASE();
+        } catch (Exception e) {
+            String message = "Critical error at loading data\n"
+                    + "Error 004";
+            LogicV3.Run.message(message, "Error 004", 0);
+            System.exit(0);
+        }
+
     }
 
-    private void loadPasswordsFromDataBase() {
+    private void LOAD_PASSWORDS_FROM_DATABASE() {
         System.out.println("Loading passwords...");
-        Memory.passwordsLinkedList = Memory.sqlite.getPasswordsFromDataBase("SELECT * FROM PASSS");
-        if (Memory.passwordsLinkedList != null) {
+        Memory.passwordsV3LinkedList = Memory.sqlite.getPasswordsFromDataBase("SELECT * FROM PASSS");
+        if (Memory.passwordsV3LinkedList != null) {
             System.out.println("Success");
         } else {
             String message = "Critical error at loading passwords\n"
@@ -20,7 +28,7 @@ public class DataVSQLite {
         }
     }
 
-    private void loadUserDataFromDataBase() {
+    private void LOAD_USERDATA_FROM_DATABASE() {
         System.out.println("Loading user data...");
         Memory.userDataV3 = Memory.sqlite.getUserDataV3ParamettersFromDataBase("SELECT * FROM USERDATAV3");
         if (Memory.userDataV3 != null) {
@@ -32,8 +40,5 @@ public class DataVSQLite {
             System.exit(0);
         }
     }
-
-    public void deleteALLData() {
-    }
-
+    
 }

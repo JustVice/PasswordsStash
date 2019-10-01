@@ -21,7 +21,7 @@ public class SQLite {
         this.data_source_path = data_source_path;
     }
     
-    public void Query(String query) {
+    public void Query(String query,String queryMessage) {
         try {
             this.con = DriverManager.getConnection("jdbc:sqlite:" + data_source_path);
             Statement stmt = this.con.createStatement();
@@ -29,7 +29,7 @@ public class SQLite {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            System.out.println("Query finished");
+            System.out.println(queryMessage);
             Close_connection();
         }
     }
@@ -80,7 +80,7 @@ public class SQLite {
             while (rs.next()) {
                 temporalPassword.setService(rs.getString("Service"));
                 temporalPassword.setUser(rs.getString("User"));
-                temporalPassword.setMail(rs.getString("Mail"));
+                temporalPassword.setEmail(rs.getString("Mail"));
                 temporalPassword.setPassword(rs.getString("Password"));
                 temporalPassword.setNotes(rs.getString("Notes"));
                 temporalPassword.setID(rs.getString("ID"));
