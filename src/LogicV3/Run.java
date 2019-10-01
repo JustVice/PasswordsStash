@@ -62,7 +62,7 @@ public class Run {
                     + ",'null'"
                     + ",'null'"
                     + ",'null'"
-                    + ",'false');","USERDATAV3 info inserted");
+                    + ",'false');", "USERDATAV3 info inserted");
         }
     }
 
@@ -103,6 +103,7 @@ public class Run {
 //        }
     }
 
+    // <editor-fold desc="OPEN FRAMES">
     public static void openMasterPasswordSet() {
         SetMP s = new SetMP();
     }
@@ -153,6 +154,16 @@ public class Run {
         f.setVisible(true);
     }
 
+    public void openEditMasterPassword() {
+        MPSettings m = new MPSettings();
+    }
+
+    // </editor-fold>
+    public static void SAVE_PASSV3_IN_MEMORY_PASS_LIST(Passwordv3 new_password) {
+        //Saves the new passwords added inside the LinkedList PassV3 static list.
+        Memory.passwordsV3LinkedList.add(new_password);
+    }
+
     /**
      * 0=Error 1=Message 2=Alert 3=What
      *
@@ -177,21 +188,6 @@ public class Run {
 
             default:
                 throw new AssertionError();
-        }
-    }
-
-    public DefaultListModel setModelAndGet() {
-        Memory.passwords_model.clear();
-        for (Passwordv2 item : Memory.data.getUserData().getPasswordsList()) {
-            Memory.passwords_model.addElement(item);
-        }
-        return Memory.passwords_model;
-    }
-
-    public void setModel() {
-        Memory.passwords_model.clear();
-        for (Passwordv2 item : Memory.data.getUserData().getPasswordsList()) {
-            Memory.passwords_model.addElement(item);
         }
     }
 
@@ -248,10 +244,6 @@ public class Run {
         } catch (IOException ex) {
             System.out.println("Error\n" + ex);
         }
-    }
-
-    public void openEditMasterPassword() {
-        MPSettings m = new MPSettings();
     }
 
 }

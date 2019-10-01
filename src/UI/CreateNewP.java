@@ -2,6 +2,7 @@ package UI;
 
 import Logic.Passwordv2;
 import LogicV2.Encode;
+import LogicV3.AES;
 import LogicV3.Memory;
 import LogicV3.Passwordv3;
 import LogicV3.Run;
@@ -291,7 +292,15 @@ public class CreateNewP extends javax.swing.JFrame {
     }
 
     private Passwordv3 BUILD_PASSWORDV3_OBJECT() {
-        String service = jtext_servicetxt.getText();
+        if (Memory.DATA_IS_ENCRYPTED) {
+            return BUILD_PASSWORDV3_OBJECT_ENCRYPTED();
+        } else {
+            return BUILD_PASSWORDV3_OBJECT_NOT_ENCRYPTED();
+        }
+    }
+
+    private Passwordv3 BUILD_PASSWORDV3_OBJECT_NOT_ENCRYPTED() {
+        String service = jtext_servicetxt.getText().toUpperCase();
         String user = jtext_usertxt.getText();
         String mail = jtext_mailtxt.getText();
         String password = jtext_passwordtxt.getText();
@@ -299,11 +308,34 @@ public class CreateNewP extends javax.swing.JFrame {
         String ID = "" + ((int) (Math.random() * 99999999));;
         String favorite = "";
         if (jRadioButton_favCombo.isSelected()) {
-            favorite = "true";
+            favorite = "1";
         } else {
-            favorite = "false";
+            favorite = "0";
         }
         Passwordv3 passwordv3_OBJECT = new Passwordv3(service, user, mail, password, notes, favorite);
+        return passwordv3_OBJECT;
+    }
+
+    private Passwordv3 BUILD_PASSWORDV3_OBJECT_ENCRYPTED() {
+        String service = jtext_servicetxt.getText().toUpperCase();
+        String user = jtext_usertxt.getText();
+        String mail = jtext_mailtxt.getText();
+        String password = jtext_passwordtxt.getText();
+        String notes = jpanel_notesPanel.getText();
+        String ID = "" + ((int) (Math.random() * 99999999));;
+        String favorite = "";
+        if (jRadioButton_favCombo.isSelected()) {
+            favorite = "1";
+        } else {
+            favorite = "0";
+        }
+        Passwordv3 passwordv3_OBJECT = new Passwordv3(
+                AES.encrypt(service, Memory.AES_KEY_PASSWORD),
+                AES.encrypt(user, Memory.AES_KEY_PASSWORD),
+                AES.encrypt(mail, Memory.AES_KEY_PASSWORD),
+                AES.encrypt(password, Memory.AES_KEY_PASSWORD),
+                AES.encrypt(notes, Memory.AES_KEY_PASSWORD),
+                AES.encrypt(favorite, Memory.AES_KEY_PASSWORD));
         return passwordv3_OBJECT;
     }
 
@@ -330,24 +362,52 @@ public class CreateNewP extends javax.swing.JFrame {
     }
 
     private void SAVE_NEW_PASSWORD_INSIDE_DATABASE_ENCRYPTED(Passwordv3 PASS_TO_SAVE) {
-
-    }
-
-    private void SAVE_NEW_PASSWORD_INSIDE_DATABASE_NOT_ENCRYPTED(Passwordv3 PASS_TO_SAVE) {
         String CONSOLE_QUERY_MESSAGE = "PASSWORD INSERTED SUCCESSFULLY.";
         Memory.sqlite.Query("INSERT INTO PASSS\n"
-                + "VALUES ('value1'"
-                + ", '" + PASS_TO_SAVE.getService() + "'"
+                + "(Service"
+                + ", User"
+                + ", Mail"
+                + ", Password"
+                + ", Notes"
+                + ", ID"
+                + ", Favorite)"
+                + "VALUES ('" + PASS_TO_SAVE.getService() + "'"
                 + ", '" + PASS_TO_SAVE.getUser() + "'"
                 + ", '" + PASS_TO_SAVE.getEmail() + "'"
                 + ", '" + PASS_TO_SAVE.getPassword() + "'"
                 + ", '" + PASS_TO_SAVE.getNotes() + "'"
                 + ", '" + PASS_TO_SAVE.getID() + "'"
-                + ", '" + PASS_TO_SAVE.getFavorite() + "'"
+                + ", " + PASS_TO_SAVE.getFavorite_FOR_DATABASE_INTEGER_BOL() + ""
                 + ");", CONSOLE_QUERY_MESSAGE);
+        UI_AND_MEMORY_CHANGES_AFTER_SAVING_A_NEW_PASSWORD(PASS_TO_SAVE);
+    }
+
+    private void SAVE_NEW_PASSWORD_INSIDE_DATABASE_NOT_ENCRYPTED(Passwordv3 PASS_TO_SAVE) {
+        String CONSOLE_QUERY_MESSAGE = "PASSWORD INSERTED SUCCESSFULLY.";
+        Memory.sqlite.Query("INSERT INTO PASSS\n"
+                + "(Service"
+                + ", User"
+                + ", Mail"
+                + ", Password"
+                + ", Notes"
+                + ", ID"
+                + ", Favorite)"
+                + "VALUES ('" + PASS_TO_SAVE.getService() + "'"
+                + ", '" + PASS_TO_SAVE.getUser() + "'"
+                + ", '" + PASS_TO_SAVE.getEmail() + "'"
+                + ", '" + PASS_TO_SAVE.getPassword() + "'"
+                + ", '" + PASS_TO_SAVE.getNotes() + "'"
+                + ", '" + PASS_TO_SAVE.getID() + "'"
+                + ", " + PASS_TO_SAVE.getFavorite_FOR_DATABASE_INTEGER_BOL() + ""
+                + ");", CONSOLE_QUERY_MESSAGE);
+        UI_AND_MEMORY_CHANGES_AFTER_SAVING_A_NEW_PASSWORD(PASS_TO_SAVE);
+    }
+
+    private void UI_AND_MEMORY_CHANGES_AFTER_SAVING_A_NEW_PASSWORD(Passwordv3 PASS_TO_SAVE) {
+        Run.SAVE_PASSV3_IN_MEMORY_PASS_LIST(PASS_TO_SAVE);
         String UI_Message = "Password saved.";
         CLEAN_JTEXTFIELDS();
-        Run.message(UI_Message, UI_Message, 0);
+        Run.message(UI_Message, UI_Message, 1);
     }
 
     private void CLEAN_JTEXTFIELDS() {

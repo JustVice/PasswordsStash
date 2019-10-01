@@ -6,14 +6,18 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import Logic.ThreadClass_Message;
 import LogicV3.Memory;
-import java.util.LinkedList;
+import LogicV3.Passwordv3;
 import javax.swing.DefaultListModel;
 
 public class SeePasswords extends javax.swing.JFrame {
 
     private Passwordv2 generalPassword;
+    private DefaultListModel<Passwordv3> PASSWORDS_MODEL = new DefaultListModel();
     private boolean searchPerformed = false;
     private boolean showFavoritesPerformed = false;
+    private boolean SearchEnganched = false;
+    private int timeThread = 1200;
+    private byte password = 0, mail = 1, user = 2;
 
     public SeePasswords() {
         initComponents();
@@ -21,46 +25,56 @@ public class SeePasswords extends javax.swing.JFrame {
         settings();
     }
 
-    private void setPasswordsToJlist() {
-        j_list.setModel(Memory.run.setModelAndGet());
+    private void settings() {
+        SET_JLIST_SETTINGS();
+        SET_SEARCH_COMBOBOX();
+        UI_VISUALS();
     }
 
-    private void setComboBox() {
-        LinkedList<String> items = new LinkedList<String>();
-        for (Passwordv2 password : Memory.data.getUserData().getPasswordsList()) {
-            boolean repeated = false;
-            for (String str : items) {
-                if (str.equals(password.getService(Memory.return_encoded))) {
-                    repeated = true;
-                    break;
-                }
-            }
-            if (!repeated) {
-                items.add(password.getService(Memory.return_encoded));
-            }
-        }
-        for (String str : items) {
-            serviceCombo.addItem(str);
-        }
+    private void UI_VISUALS() {
+        this.setTitle(Memory.title + " " + Memory.version);
+        this.setResizable(false);
+        saveFavB.setEnabled(false);
+        setIconImage(Memory.getIconImage());
+        PASSWORD.setEnabled(false);
+        User.setEnabled(false);
+        MAIL.setEnabled(false);
+        seePasswordInfo.setEnabled(false);
     }
 
-    private boolean SearchEnganched;
-    private int timeThread = 1200;
-    private byte password = 0, mail = 1, user = 2;
+    private void SET_JLIST_SETTINGS() {
+        this.PASSWORDS_MODEL.clear();
+        for (Passwordv3 p : Memory.passwordsV3LinkedList) {
+            this.PASSWORDS_MODEL.add(0, p);
+        }
+        this.jList_SEEPASSWORDS.setModel(this.PASSWORDS_MODEL);
+    }
+
+    private void SET_SEARCH_COMBOBOX() {
+        jCombobox_serviceSearch.removeAllItems();
+        boolean DATA_IS_ENCRYPTED = Memory.DATA_IS_ENCRYPTED;
+        for (Passwordv3 p : Memory.passwordsV3LinkedList) {
+            if (DATA_IS_ENCRYPTED) {
+                jCombobox_serviceSearch.addItem(p.getService_ENCRYPTED());
+            } else {
+                jCombobox_serviceSearch.addItem(p.getService());
+            }
+        }
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jScrollPane2 = new javax.swing.JScrollPane();
-        j_list = new javax.swing.JList<>();
+        jList_SEEPASSWORDS = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
         MAIL = new javax.swing.JButton();
         User = new javax.swing.JButton();
         PASSWORD = new javax.swing.JButton();
         SEARCHBUTTON = new javax.swing.JButton();
         seePasswordInfo = new javax.swing.JButton();
-        serviceCombo = new javax.swing.JComboBox<>();
+        jCombobox_serviceSearch = new javax.swing.JComboBox<>();
         serviceTxt = new javax.swing.JTextField();
         saveFavB = new javax.swing.JButton();
         showFavButton = new javax.swing.JButton();
@@ -70,13 +84,13 @@ public class SeePasswords extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        j_list.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        j_list.addMouseListener(new java.awt.event.MouseAdapter() {
+        jList_SEEPASSWORDS.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jList_SEEPASSWORDS.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                j_listMouseClicked(evt);
+                jList_SEEPASSWORDSMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(j_list);
+        jScrollPane2.setViewportView(jList_SEEPASSWORDS);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Search:");
@@ -121,10 +135,10 @@ public class SeePasswords extends javax.swing.JFrame {
             }
         });
 
-        serviceCombo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        serviceCombo.addItemListener(new java.awt.event.ItemListener() {
+        jCombobox_serviceSearch.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jCombobox_serviceSearch.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                serviceComboItemStateChanged(evt);
+                jCombobox_serviceSearchItemStateChanged(evt);
             }
         });
 
@@ -192,7 +206,7 @@ public class SeePasswords extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(serviceTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(serviceCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCombobox_serviceSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(SEARCHBUTTON, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         layout.setVerticalGroup(
@@ -225,7 +239,7 @@ public class SeePasswords extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(28, 28, 28)
                                 .addComponent(serviceTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(serviceCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jCombobox_serviceSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(12, 12, 12)
                         .addComponent(SEARCHBUTTON, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
@@ -246,7 +260,7 @@ public class SeePasswords extends javax.swing.JFrame {
         saveFavB.setEnabled(false);
         try {
             Clipboard clip = getToolkit().getSystemClipboard();
-            Passwordv2 toClipBoardPassword = j_list.getSelectedValue();
+            Passwordv2 toClipBoardPassword = jList_SEEPASSWORDS.getSelectedValue();
             StringSelection stringClip = new StringSelection(toClipBoardPassword.getPassword(Memory.return_encoded));
             clip.setContents(stringClip, stringClip);
             ThreadClass_Message threadClass = new ThreadClass_Message(timeThread, password);/*action 0 to change button text*/
@@ -258,7 +272,7 @@ public class SeePasswords extends javax.swing.JFrame {
 
     private void seePasswordInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seePasswordInfoMouseClicked
         try {
-            Passwordv2 password = j_list.getSelectedValue();
+            Passwordv2 password = jList_SEEPASSWORDS.getSelectedValue();
             if (password != null) {
                 FrameSeePasswordText f = new FrameSeePasswordText(password);
                 f.setVisible(true);
@@ -275,7 +289,7 @@ public class SeePasswords extends javax.swing.JFrame {
                 showFavoritesPerformed = true;
             }
         } else {
-            j_list.setModel(Memory.passwords_model);
+            jList_SEEPASSWORDS.setModel(Memory.passwords_model);
             showFavButton.setText("Show favorite passwords");
             showFavoritesPerformed = false;
         }
@@ -290,7 +304,7 @@ public class SeePasswords extends javax.swing.JFrame {
             }
         }
         if (!tempModel.isEmpty()) {
-            j_list.setModel(tempModel);
+            jList_SEEPASSWORDS.setModel(tempModel);
         } else {
             Memory.run.message("There are not any password setted as favorite", "No fav passwords", 1);
             thereAreFavPasswords = false;
@@ -299,7 +313,7 @@ public class SeePasswords extends javax.swing.JFrame {
     }
 
     private void saveFavBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveFavBActionPerformed
-        Passwordv2 tempPassword = j_list.getSelectedValue();
+        Passwordv2 tempPassword = jList_SEEPASSWORDS.getSelectedValue();
         try {
             if (tempPassword != null) {
                 for (int i = 0; i < Memory.data.getUserData().getPasswordsList().size(); i++) {
@@ -316,7 +330,7 @@ public class SeePasswords extends javax.swing.JFrame {
                     }
                 }
                 Memory.data.updateInfo();
-                j_list.setModel(Memory.run.setModelAndGet());
+                jList_SEEPASSWORDS.setModel(Memory.run.setModelAndGet());
             } else {
                 System.out.println("User does not selected any password.");
             }
@@ -331,7 +345,7 @@ public class SeePasswords extends javax.swing.JFrame {
             SEARCHBUTTON.setText("RESET VIEW");
             searchPerformed = true;
         } else {
-            j_list.setModel(Memory.passwords_model);
+            jList_SEEPASSWORDS.setModel(Memory.passwords_model);
             SEARCHBUTTON.setText("SEARCH SERVICE");
             searchPerformed = false;
         }
@@ -339,12 +353,12 @@ public class SeePasswords extends javax.swing.JFrame {
 
     }//GEN-LAST:event_SEARCHBUTTONActionPerformed
 
-    private void serviceComboItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_serviceComboItemStateChanged
-        serviceTxt.setText(serviceCombo.getSelectedItem().toString());
-    }//GEN-LAST:event_serviceComboItemStateChanged
+    private void jCombobox_serviceSearchItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCombobox_serviceSearchItemStateChanged
+        serviceTxt.setText(jCombobox_serviceSearch.getSelectedItem().toString());
+    }//GEN-LAST:event_jCombobox_serviceSearchItemStateChanged
 
-    private void j_listMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_j_listMouseClicked
-        Passwordv2 pass = j_list.getSelectedValue();
+    private void jList_SEEPASSWORDSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList_SEEPASSWORDSMouseClicked
+        Passwordv2 pass = jList_SEEPASSWORDS.getSelectedValue();
         if (pass != null) {
             PASSWORD.setEnabled(true);
             saveFavB.setEnabled(true);
@@ -363,7 +377,7 @@ public class SeePasswords extends javax.swing.JFrame {
                 passwordCopyToDo();
             }
         }
-    }//GEN-LAST:event_j_listMouseClicked
+    }//GEN-LAST:event_jList_SEEPASSWORDSMouseClicked
 
     private void PASSWORDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PASSWORDActionPerformed
         passwordCopyToDo();
@@ -373,7 +387,7 @@ public class SeePasswords extends javax.swing.JFrame {
         saveFavB.setEnabled(false);
         try {
             Clipboard clip = getToolkit().getSystemClipboard();
-            Passwordv2 toClipBoardPassword = j_list.getSelectedValue();
+            Passwordv2 toClipBoardPassword = jList_SEEPASSWORDS.getSelectedValue();
             StringSelection stringClip = new StringSelection(toClipBoardPassword.getMail(Memory.return_encoded));
             clip.setContents(stringClip, stringClip);
             ThreadClass_Message t = new ThreadClass_Message(timeThread, mail);
@@ -386,7 +400,7 @@ public class SeePasswords extends javax.swing.JFrame {
         saveFavB.setEnabled(false);
         try {
             Clipboard clip = getToolkit().getSystemClipboard();
-            Passwordv2 toClipBoardPassword = j_list.getSelectedValue();
+            Passwordv2 toClipBoardPassword = jList_SEEPASSWORDS.getSelectedValue();
             StringSelection stringClip = new StringSelection(toClipBoardPassword.getUser(Memory.return_encoded));
             clip.setContents(stringClip, stringClip);
             ThreadClass_Message t = new ThreadClass_Message(timeThread, user);
@@ -404,7 +418,7 @@ public class SeePasswords extends javax.swing.JFrame {
                 }
             }
             if (!tempModel.isEmpty()) {
-                j_list.setModel(tempModel);
+                jList_SEEPASSWORDS.setModel(tempModel);
 
             } else {
                 Memory.run.message("There is not any password associated with the service name \"" + serviceTxt.getText() + "\"", "Not found", 0);
@@ -421,30 +435,16 @@ public class SeePasswords extends javax.swing.JFrame {
     private javax.swing.JButton SEARCHBUTTON;
     public static javax.swing.JButton User;
     private javax.swing.JButton back;
+    private javax.swing.JComboBox<String> jCombobox_serviceSearch;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JList<LogicV3.Passwordv3> jList_SEEPASSWORDS;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JList<Logic.Passwordv2> j_list;
     private javax.swing.JButton saveFavB;
     private javax.swing.JButton seePasswordInfo;
-    private javax.swing.JComboBox<String> serviceCombo;
     private javax.swing.JTextField serviceTxt;
     private javax.swing.JButton showFavButton;
     // End of variables declaration//GEN-END:variables
-
-    private void settings() {
-        setPasswordsToJlist();
-        setComboBox();
-        SearchEnganched = false;
-        this.setTitle(Memory.title + " " + Memory.version);
-        this.setResizable(false);
-        saveFavB.setEnabled(false);
-        setIconImage(Memory.getIconImage());
-        PASSWORD.setEnabled(false);
-        User.setEnabled(false);
-        MAIL.setEnabled(false);
-        seePasswordInfo.setEnabled(false);
-    }
 
 }
