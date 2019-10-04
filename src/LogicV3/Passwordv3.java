@@ -79,6 +79,35 @@ public class Passwordv3 {
         }
     }
 
+    // <editor-fold desc="SEE ALL PASSWORD INFORMATION FRAME CONTENT METHODS">
+    //Gives the information displayed inside the freme: SeePasswordInformation
+    public String SEE_ALL_PASSWORD_INFORMATION_FRAME_CONTENT() {
+        if (Memory.DATA_IS_ENCRYPTED) {
+            return SEE_ALL_PASSWORD_INFORMATION_FRAME_CONTENT_GIVER_ENCRYPTED();
+        } else {
+            return SEE_ALL_PASSWORD_INFORMATION_FRAME_CONTENT_GIVER_NOT_ENCRYPTED();
+        }
+    }
+
+    private String SEE_ALL_PASSWORD_INFORMATION_FRAME_CONTENT_GIVER_ENCRYPTED() {
+        String STRING_RETURN
+                = "Service: " + this.getService_ENCRYPTED() + "\n"
+                + "User: " + this.getUser_ENCRYPTED() + "\n"
+                + "EMail: " + this.getEmail_ENCRYPTED() + "\n"
+                + "Password: " + this.getPassword_ENCRYPTED() + "\n";
+        return STRING_RETURN;
+    }
+
+    private String SEE_ALL_PASSWORD_INFORMATION_FRAME_CONTENT_GIVER_NOT_ENCRYPTED() {
+        String STRING_RETURN
+                = "Service: " + this.getService() + "\n"
+                + "User: " + this.getUser() + "\n"
+                + "EMail: " + this.getEmail() + "\n"
+                + "Password: " + this.getPassword() + "\n";
+        return STRING_RETURN;
+    }
+
+    // </editor-fold>
     // <editor-fold desc="ENCRYPT GET AND SET">
     public String getService_ENCRYPTED() {
         return AES.decrypt(service, Memory.AES_KEY_PASSWORD);
@@ -110,14 +139,6 @@ public class Passwordv3 {
 
     public void setPassword_ENCRYPTED(String password) {
         this.password = AES.encrypt(password, Memory.AES_KEY_PASSWORD);
-    }
-
-    public String getID_ENCRYPTED() {
-        return AES.decrypt(ID, Memory.AES_KEY_PASSWORD);
-    }
-
-    public void setID_ENCRYPTED(String ID) {
-        this.ID = AES.encrypt(ID, Memory.AES_KEY_PASSWORD);
     }
 
     public String getFavorite_ENCRYPTED() {

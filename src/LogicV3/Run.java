@@ -7,13 +7,20 @@ import UI.MasterPassword.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 
 public class Run {
 
     public Run() {
         v3Run();
+        TESTS();
+    }
+
+    private void TESTS() {
+        System.out.println("Not tests settled.");
     }
 
     private void v3Run() {
@@ -244,6 +251,12 @@ public class Run {
         } catch (IOException ex) {
             System.out.println("Error\n" + ex);
         }
+    }
+    
+     public static void COPY_CONTENT_TO_CLIPBOARD(String textToSaveIntoClipBoard) {
+        StringSelection selection = new StringSelection(textToSaveIntoClipBoard);
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        clipboard.setContents(selection, selection);
     }
 
 }

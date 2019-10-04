@@ -1,16 +1,20 @@
 package UI;
 
-import Logic.Passwordv2;
 import LogicV3.Memory;
+import LogicV3.Passwordv3;
 
-public class FrameSeePasswordText extends javax.swing.JFrame {
+public class SeePasswordInformation extends javax.swing.JFrame {
 
-    public FrameSeePasswordText(Passwordv2 password) {
+    public SeePasswordInformation(Passwordv3 TEMPORAL_PASSWORD) {
         setUndecorated(rootPaneCheckingEnabled);
         initComponents();
         setLocationRelativeTo(null);
+        UI_SETTINGS(TEMPORAL_PASSWORD);
+    }
+
+    private void UI_SETTINGS(Passwordv3 TEMPORAL_PASSWORD) {
         text.setEditable(false);
-        text.setText(password.getObjectForSeePasswords(Memory.return_encoded));
+        text.setText(TEMPORAL_PASSWORD.SEE_ALL_PASSWORD_INFORMATION_FRAME_CONTENT());
         this.setTitle(Memory.title + " " + Memory.version);
         this.setResizable(false);
         setIconImage(Memory.getIconImage());

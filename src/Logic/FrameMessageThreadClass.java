@@ -3,14 +3,16 @@ package Logic;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ThreadClass_Message extends Thread {
+public class FrameMessageThreadClass implements Runnable {
 
     private final int time;
     private final byte action;
 
-    public ThreadClass_Message(int time, byte action) {
+    public FrameMessageThreadClass(int time, byte action) {
         this.time = time;
         this.action = action;
+        Thread thread = new Thread(this);
+        thread.start();
     }
 
     /*
@@ -24,31 +26,31 @@ public class ThreadClass_Message extends Thread {
         try {
             switch (action) {
                 case 0:
-                    Message password = new Message("Password Copied");
-                    password.setVisible(true);
+                    FrameMessage password_copied = new FrameMessage("Password Copied");
+                    password_copied.setVisible(true);
                     Thread.sleep(time);
-                    password.dispose();
+                    password_copied.dispose();
                     break;
                 case 1:
-                    Message mail = new Message("Mail Copied");
+                    FrameMessage mail = new FrameMessage("Mail Copied");
                     mail.setVisible(true);
                     Thread.sleep(time);
                     mail.dispose();
                     break;
                 case 2:
-                    Message user = new Message("User Copied");
+                    FrameMessage user = new FrameMessage("User Copied");
                     user.setVisible(true);
                     Thread.sleep(time);
                     user.dispose();
                     break;
                 case 3:
-                    Message NotFound = new Message("Item not found");
+                    FrameMessage NotFound = new FrameMessage("Item not found");
                     NotFound.setVisible(true);
                     Thread.sleep(time);
                     NotFound.dispose();
                     break;
                     case 4:
-                    Message Cancelled = new Message("Cancelled");
+                    FrameMessage Cancelled = new FrameMessage("Cancelled");
                     Cancelled.setVisible(true);
                     Thread.sleep(time);
                     Cancelled.dispose();
@@ -56,7 +58,7 @@ public class ThreadClass_Message extends Thread {
             }
 
         } catch (InterruptedException ex) {
-            Logger.getLogger(ThreadClass_Message.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FrameMessageThreadClass.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

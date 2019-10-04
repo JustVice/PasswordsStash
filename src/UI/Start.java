@@ -1,6 +1,6 @@
 package UI;
 
-import Logic.ThreadClass_Message;
+import Logic.FrameMessageThreadClass;
 import LogicV3.Memory;
 import LogicV2.TextKeeper;
 import LogicV2.UserData;
@@ -291,14 +291,14 @@ public class Start extends javax.swing.JFrame {
                 Memory.run.openStart();
                 this.dispose();
             } else {
-                ThreadClass_Message threadClass = new ThreadClass_Message(800, (byte) 4);
+                FrameMessageThreadClass threadClass = new FrameMessageThreadClass(800, (byte) 4);
                 threadClass.start();
             }
             if (option.toLowerCase().equals("inki")) {
                 Inki inki = new Inki();
             }
         } else {
-            ThreadClass_Message threadClass = new ThreadClass_Message(800, (byte) 4);
+            FrameMessageThreadClass threadClass = new FrameMessageThreadClass(800, (byte) 4);
             threadClass.start();
         }
     }//GEN-LAST:event_DELETEALLDATAActionPerformed

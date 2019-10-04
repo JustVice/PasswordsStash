@@ -1,8 +1,8 @@
 package Logic;
 
-public class Message extends javax.swing.JFrame {
+public class FrameMessage extends javax.swing.JFrame {
 
-    public Message(String item) {
+    public FrameMessage(String item) {
         setUndecorated(true);
         initComponents();
         setLocationRelativeTo(null);

@@ -86,6 +86,7 @@ public class SQLite {
                 temporalPassword.setID(rs.getString("ID"));
                 temporalPassword.setFavorite(rs.getString("Favorite"));
                 passwordTemporalList.add(temporalPassword);
+                temporalPassword = new Passwordv3();
             }
             return passwordTemporalList;
         } catch (SQLException e) {
