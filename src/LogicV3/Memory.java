@@ -1,8 +1,6 @@
 package LogicV3;
 
-import Logic.Passwordv2;
 import LogicV2.Data;
-import javax.swing.DefaultListModel;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.LinkedList;

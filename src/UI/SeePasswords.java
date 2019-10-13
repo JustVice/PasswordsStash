@@ -28,7 +28,7 @@ public class SeePasswords extends javax.swing.JFrame {
     }
 
     private void settings() {
-        SET_JLIST_SETTINGS();
+        SET_JLIST_DEFAULT_CONTENT();
         SET_SEARCH_COMBOBOX();
         UI_VISUALS();
     }
@@ -36,7 +36,7 @@ public class SeePasswords extends javax.swing.JFrame {
     private void UI_VISUALS() {
         this.setTitle(Memory.title + " " + Memory.version);
         this.setResizable(false);
-        jButton_saveFavB.setEnabled(false);
+        jButton_ADD_REMOVE_FAVORITE_MARK_TO_PASSWORD.setEnabled(false);
         setIconImage(Memory.getIconImage());
         jButton_PASSWORD.setEnabled(false);
         jButton_User.setEnabled(false);
@@ -44,12 +44,16 @@ public class SeePasswords extends javax.swing.JFrame {
         jButton_seePasswordInfo.setEnabled(false);
     }
 
-    private void SET_JLIST_SETTINGS() {
+    private void SET_JLIST_DEFAULT_CONTENT() {
         this.PASSWORDS_MODEL.clear();
         for (Passwordv3 p : Memory.passwordsV3LinkedList) {
             this.PASSWORDS_MODEL.add(0, p);
         }
         this.jList_SEEPASSWORDS.setModel(this.PASSWORDS_MODEL);
+    }
+
+    private void SET_CUSTOM_PASSWORDS_LIST_TO_JLIST(DefaultListModel<Passwordv3> PASSWORDS_LIST) {
+        this.jList_SEEPASSWORDS.setModel(PASSWORDS_LIST);
     }
 
     private void SET_SEARCH_COMBOBOX() {
@@ -78,8 +82,8 @@ public class SeePasswords extends javax.swing.JFrame {
         jButton_seePasswordInfo = new javax.swing.JButton();
         jCombobox_serviceSearch = new javax.swing.JComboBox<>();
         serviceTxt = new javax.swing.JTextField();
-        jButton_saveFavB = new javax.swing.JButton();
-        jButton_showFavButton = new javax.swing.JButton();
+        jButton_ADD_REMOVE_FAVORITE_MARK_TO_PASSWORD = new javax.swing.JButton();
+        jButton_SHOW_OR_HIDE_FAVORITE_PASSWORDS = new javax.swing.JButton();
         jButton_back = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -146,19 +150,19 @@ public class SeePasswords extends javax.swing.JFrame {
 
         serviceTxt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
-        jButton_saveFavB.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton_saveFavB.setText("Add/remove favorite");
-        jButton_saveFavB.addActionListener(new java.awt.event.ActionListener() {
+        jButton_ADD_REMOVE_FAVORITE_MARK_TO_PASSWORD.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton_ADD_REMOVE_FAVORITE_MARK_TO_PASSWORD.setText("Add/remove favorite");
+        jButton_ADD_REMOVE_FAVORITE_MARK_TO_PASSWORD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_saveFavBActionPerformed(evt);
+                jButton_ADD_REMOVE_FAVORITE_MARK_TO_PASSWORDActionPerformed(evt);
             }
         });
 
-        jButton_showFavButton.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton_showFavButton.setText("Show favorite passwords");
-        jButton_showFavButton.addActionListener(new java.awt.event.ActionListener() {
+        jButton_SHOW_OR_HIDE_FAVORITE_PASSWORDS.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton_SHOW_OR_HIDE_FAVORITE_PASSWORDS.setText("Show favorite passwords");
+        jButton_SHOW_OR_HIDE_FAVORITE_PASSWORDS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_showFavButtonActionPerformed(evt);
+                jButton_SHOW_OR_HIDE_FAVORITE_PASSWORDSActionPerformed(evt);
             }
         });
 
@@ -203,8 +207,8 @@ public class SeePasswords extends javax.swing.JFrame {
                     .addComponent(jButton_seePasswordInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton_showFavButton)
-                    .addComponent(jButton_saveFavB, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton_SHOW_OR_HIDE_FAVORITE_PASSWORDS)
+                    .addComponent(jButton_ADD_REMOVE_FAVORITE_MARK_TO_PASSWORD, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(serviceTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -233,9 +237,9 @@ public class SeePasswords extends javax.swing.JFrame {
                         .addGap(3, 3, 3)
                         .addComponent(jButton_seePasswordInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton_showFavButton)
+                        .addComponent(jButton_SHOW_OR_HIDE_FAVORITE_PASSWORDS)
                         .addGap(9, 9, 9)
-                        .addComponent(jButton_saveFavB, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButton_ADD_REMOVE_FAVORITE_MARK_TO_PASSWORD, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -300,88 +304,183 @@ public class SeePasswords extends javax.swing.JFrame {
 
     // </editor-fold>
 
-    private void jButton_showFavButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_showFavButtonActionPerformed
-        if (!showFavoritesPerformed) {
-            Boolean thereAreFavPasswords = showFavorites();
-            if (thereAreFavPasswords) {
-                jButton_showFavButton.setText("RESET VIEW");
-                showFavoritesPerformed = true;
-            }
+    private void jButton_SHOW_OR_HIDE_FAVORITE_PASSWORDSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SHOW_OR_HIDE_FAVORITE_PASSWORDSActionPerformed
+        if (ARE_THERE_FAVORITE_PASSWORDS()) {
+            SHOW_OR_HIDE_FAVORITE_PASSWORDS();
         } else {
-            jList_SEEPASSWORDS.setModel(Memory.passwords_model);
-            jButton_showFavButton.setText("Show favorite passwords");
-            showFavoritesPerformed = false;
+            NO_FAVORITE_PASSWORDS_FOUND_UI_MESSAGE();
         }
-    }//GEN-LAST:event_jButton_showFavButtonActionPerformed
+    }//GEN-LAST:event_jButton_SHOW_OR_HIDE_FAVORITE_PASSWORDSActionPerformed
 
-    private boolean showFavorites() {
-        boolean thereAreFavPasswords = true;
-        DefaultListModel<Passwordv2> tempModel = new DefaultListModel();
-        for (Passwordv2 password : Memory.data.getUserData().getPasswordsList()) {
-            if (password.isFavorite()) {
-                tempModel.addElement(password);
-            }
-        }
-        if (!tempModel.isEmpty()) {
-            jList_SEEPASSWORDS.setModel(tempModel);
+    // <editor-fold desc="SHOW OR HIDE FAVORITE PASSWORDS METHODS.">
+    private boolean ARE_THERE_FAVORITE_PASSWORDS() {
+        if (Memory.DATA_IS_ENCRYPTED) {
+            return ARE_THERE_FAVORITE_PASSWORDS_ENCRYPTED();
         } else {
-            Memory.run.message("There are not any password setted as favorite", "No fav passwords", 1);
-            thereAreFavPasswords = false;
+            return ARE_THERE_FAVORITE_PASSWORDS_NOT_ENCRYPTED();
         }
-        return thereAreFavPasswords;
     }
 
-    private void jButton_saveFavBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_saveFavBActionPerformed
-        if (jList_SEEPASSWORDS.getSelectedValue() != null) {
-            TOGGLE_PASSWORD_FAVORITE();
+    private boolean ARE_THERE_FAVORITE_PASSWORDS_ENCRYPTED() {
+        for (int i = 0; i < this.PASSWORDS_MODEL.size(); i++) {
+            if (this.PASSWORDS_MODEL.get(i).getFavorite_ENCRYPTED().equals("1")) {
+                return true;
+            }
         }
-    }//GEN-LAST:event_jButton_saveFavBActionPerformed
+        return false;
+    }
 
-    private void TOGGLE_PASSWORD_FAVORITE() {
-        Passwordv3 TEMPORAL_PASSWORD = jList_SEEPASSWORDS.getSelectedValue();
-        boolean PASSWORD_CURRENT_FAV_STATUS
-                = TOGGLE_PASSWORD_FAVORITE_IS_PASSWORD_FAVORITE(TEMPORAL_PASSWORD);
-        boolean FAV_VALUE_TOGGLE;
-        if (PASSWORD_CURRENT_FAV_STATUS) {
-            FAV_VALUE_TOGGLE = false;
+    private boolean ARE_THERE_FAVORITE_PASSWORDS_NOT_ENCRYPTED() {
+        for (int i = 0; i < this.PASSWORDS_MODEL.size(); i++) {
+            if (this.PASSWORDS_MODEL.get(i).getFavorite().equals("1")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void SHOW_OR_HIDE_FAVORITE_PASSWORDS() {
+        if (this.jButton_SHOW_OR_HIDE_FAVORITE_PASSWORDS.getText().equals("Show favorite passwords")) {
+            SHOW_FAVORITE_PASSWORDS();
         } else {
-            FAV_VALUE_TOGGLE = true;
+            HIDE_FAVORITE_PASSWORDS();
         }
-        String QUERY = "UPDATE PASSS\n"
-                + " SET "
-                + "Favorite = "
-                + TOGGLE_PASSWORD_FAVORITE_INT_VALUE_FOR_SQLITE_COLUMN(FAV_VALUE_TOGGLE)
-                + " WHERE "
-                + "ID = " + TEMPORAL_PASSWORD.getID();
+    }
 
-        Memory.sqlite.Query(QUERY, "");
+    private void SHOW_FAVORITE_PASSWORDS() {
+        //BUILDS A DefaultListModel WITH ALL THE PASSWORDS MARKED AS FAVORITE
+        DefaultListModel<Passwordv3> FAVORITE_PASSWORDS_MODEL_LIST
+                = BUILD_FAVORITE_PASSWORDS_MODEL_LIST();
+
+        //SETS THE DefaultListModel WITH ALL THE PASSWORDS MARKED AS FAVORITE
+        //INTO THE JLIST
+        SET_CUSTOM_PASSWORDS_LIST_TO_JLIST(FAVORITE_PASSWORDS_MODEL_LIST);
+
+        //CHANGES THE TEXT OF THE JBUTTON. THIS IS USED TO KNOW WHAT ACTION
+        //MUST BE DONE WHEN THE BUTTON IS CLICKED.
+        this.jButton_SHOW_OR_HIDE_FAVORITE_PASSWORDS.setText("Hide favorite passwords");
+    }
+
+    private void HIDE_FAVORITE_PASSWORDS() {
+        SET_JLIST_DEFAULT_CONTENT();
+
+        //CHANGES THE TEXT OF THE JBUTTON. THIS IS USED TO KNOW WHAT ACTION
+        //MUST BE DONE WHEN THE BUTTON IS CLICKED.
+        this.jButton_SHOW_OR_HIDE_FAVORITE_PASSWORDS.setText("Show favorite passwords");
+    }
+
+    private DefaultListModel<Passwordv3> BUILD_FAVORITE_PASSWORDS_MODEL_LIST() {
+        DefaultListModel<Passwordv3> FAVORITE_PASSWORDS_MODEL_LIST
+                = new DefaultListModel();
+        for (int i = 0; i < this.PASSWORDS_MODEL.size(); i++) {
+            if (this.PASSWORDS_MODEL.get(i).getFavorite_ENCRYPTED().equals("1")
+                    || this.PASSWORDS_MODEL.get(i).getFavorite().equals("1")) {
+                FAVORITE_PASSWORDS_MODEL_LIST.add(0, this.PASSWORDS_MODEL.get(i));
+            }
+        }
+        return FAVORITE_PASSWORDS_MODEL_LIST;
+    }
+
+    private void NO_FAVORITE_PASSWORDS_FOUND_UI_MESSAGE() {
+        FrameMessageThreadClass th
+                = new FrameMessageThreadClass(this.MESSAGES_TIME_BEFORE_DISPOSE, (byte) 5);
+    }
+    // </editor-fold>
+
+    private void jButton_ADD_REMOVE_FAVORITE_MARK_TO_PASSWORDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ADD_REMOVE_FAVORITE_MARK_TO_PASSWORDActionPerformed
+        if (jList_SEEPASSWORDS.getSelectedValue() != null) {
+            TOGGLE_PASSWORD_FAVORITE_MARK();
+        }
+    }//GEN-LAST:event_jButton_ADD_REMOVE_FAVORITE_MARK_TO_PASSWORDActionPerformed
+
+    // <editor-fold desc="ADD REMOVE FAVORITE MARK TO PASSWORD METHODS">
+    /**
+     * DEPENDING IF THE PASSWORD IS MARKED AS FAVORITE OR NOT THIS METHOD WILL
+     * DO EITHER MARK IT AS FAVORITE IF IT IS NOT MARKED AS SO OR DISMARK IT AS
+     * FAVORITE IF IT IS MARKED AS FAVORITE.
+     */
+    private void TOGGLE_PASSWORD_FAVORITE_MARK() {
+        Passwordv3 TEMPORAL_PASSWORD = jList_SEEPASSWORDS.getSelectedValue();
+        boolean IS_PASSWORD_MARKED_AS_FAVORITE
+                = TOGGLE_PASSWORD_FAVORITE_MARK_IS_PASSWORD_FAVORITE_NON_OR_ENCRYPTED_HANDLER(TEMPORAL_PASSWORD);
+        TOOGLE_PASSWORD_FAVORITE_MARK_MAKE_CHANGES_INSIDE_DATABASE(TEMPORAL_PASSWORD.getID(), IS_PASSWORD_MARKED_AS_FAVORITE);
+        TOOGLE_PASSWORD_FAVORITE_MARK_MAKE_CHANGES_INSIDE_PROGRAM_MEMORY(TEMPORAL_PASSWORD.getID(), IS_PASSWORD_MARKED_AS_FAVORITE);
+        SET_JLIST_DEFAULT_CONTENT();
         System.out.println("DONE!");
     }
 
-    private boolean TOGGLE_PASSWORD_FAVORITE_IS_PASSWORD_FAVORITE(Passwordv3 TEMPORAL_PASSWORD) {
+    /**
+     * GETS THE CURRENT STATUS OF THE PASSWORD GIVEN TO SEE IF IT IS MARKED AS
+     * FAVORITE OR NOT. DOES THE WORK OF CHECKING IF THE DATABASE IS ENCRYPTED
+     * OR NOT.
+     *
+     * @param TEMPORAL_PASSWORD THE PASSWORD THAT IS GOING TO BE EVALUATED.
+     * @return RETURNS TRUE IF THIS PASSWORD IS MARKED AS FAVORITE, OTHERWISE
+     * FALSE.
+     */
+    private boolean TOGGLE_PASSWORD_FAVORITE_MARK_IS_PASSWORD_FAVORITE_NON_OR_ENCRYPTED_HANDLER(Passwordv3 TEMPORAL_PASSWORD) {
         if (Memory.DATA_IS_ENCRYPTED) {
             if (TEMPORAL_PASSWORD.getFavorite_ENCRYPTED().equals("0")) {
-                return false;
-            } else {
                 return true;
+            } else {
+                return false;
             }
         } else {
             if (TEMPORAL_PASSWORD.getFavorite().equals("0")) {
-                return false;
-            } else {
                 return true;
+            } else {
+                return false;
             }
         }
     }
 
-    private int TOGGLE_PASSWORD_FAVORITE_INT_VALUE_FOR_SQLITE_COLUMN(boolean FAV_VALUE_TOGGLE) {
-        //The database works with 0 or 1 at its bol Favorite column.
-        if (FAV_VALUE_TOGGLE) {
+    /**
+     * MAKES THE CHANGES INSIDE THE DATABASE.
+     *
+     * @param TEMPORAL_PASSWORD THE PASSWORD THAT WILL BE CHANGED. IT IS ASKED
+     * TO KNOW PASSWORD'S ID.
+     * @param IS_PASSWORD_MARKED_AS_FAVORITE BOOLEAN THAT LETS KNOW THE PROGRAM
+     * WHETER THE PASSWORD IS MARKED AS FAVORITE OR NOT.
+     */
+    private void TOOGLE_PASSWORD_FAVORITE_MARK_MAKE_CHANGES_INSIDE_DATABASE(String TEMPORAL_PASSWORD_ID, boolean IS_PASSWORD_MARKED_AS_FAVORITE) {
+        String QUERY = "UPDATE PASSS\n"
+                + " SET "
+                + "Favorite = "
+                + TOGGLE_PASSWORD_FAVORITE_MARK_CONVERT_BOOLEAN_TO_INT_BOOLEAN(IS_PASSWORD_MARKED_AS_FAVORITE)
+                + " WHERE "
+                + "ID = " + TEMPORAL_PASSWORD_ID;
+
+        Memory.sqlite.Query(QUERY, "Password updated");
+    }
+
+    private void TOOGLE_PASSWORD_FAVORITE_MARK_MAKE_CHANGES_INSIDE_PROGRAM_MEMORY(String PASSWORD_ID, boolean IS_PASSWORD_FAVORITE) {
+        for (Passwordv3 p : Memory.passwordsV3LinkedList) {
+            if (p.getID().equals(PASSWORD_ID)) {
+                if (Memory.DATA_IS_ENCRYPTED) {
+                    p.setFavorite_ENCRYPTED("" + TOGGLE_PASSWORD_FAVORITE_MARK_CONVERT_BOOLEAN_TO_INT_BOOLEAN(IS_PASSWORD_FAVORITE));
+                } else {
+                    p.setFavorite("" + TOGGLE_PASSWORD_FAVORITE_MARK_CONVERT_BOOLEAN_TO_INT_BOOLEAN(IS_PASSWORD_FAVORITE));
+                }
+            }
+        }
+    }
+
+    /**
+     * CONVERTS TRUE/FALSE BOOLEAN TO 1/0 INT BOOLEAN. INSIDE THE DATABASE, THE
+     * FAVORITE MARK WORKS WITH 0=FALSE OR 1=TRUE.
+     *
+     * @param IS_PASSWORD_MARKED_AS_FAVORITE THE BOOLEAN VALUE TO BE CONVERTED
+     * INTO INT BOOLEAN.
+     * @return RETURNS INT BOLEAN. 1=TRUE. 0=FALSE.
+     */
+    private int TOGGLE_PASSWORD_FAVORITE_MARK_CONVERT_BOOLEAN_TO_INT_BOOLEAN(boolean IS_PASSWORD_MARKED_AS_FAVORITE) {
+        if (IS_PASSWORD_MARKED_AS_FAVORITE) {
             return 1;
         } else {
             return 0;
         }
     }
+    // </editor-fold>
 
     private void jButton_SEARCHBUTTONActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SEARCHBUTTONActionPerformed
         if (!searchPerformed) {
@@ -405,17 +504,22 @@ public class SeePasswords extends javax.swing.JFrame {
         if (Memory.DATA_IS_ENCRYPTED) {
             UI_CHANGES_WHEN_JLIST_CLICKED_ENCRYPTED();
         } else {
-
+            UI_CHANGES_WHEN_JLIST_CLICKED_NOT_ENCRYPTED();
         }
-        UI_CHANGES_WHEN_JLIST_CLICKED_ENCRYPTED();
+
         COPY_PASSWORD_TO_CLIPBOARD_WHEN_DOBLE_CLICK(evt);
     }//GEN-LAST:event_jList_SEEPASSWORDSMouseClicked
 
+    /**
+     * WHEN THE USER CLICKS ON A PASSWORD INSIDE THE JLIST, SOME BUTTONS ARE 
+     * ENABLED AND DISABLED. THIS METHOD DOES THE COMPROBATION WHEN THE PROGRAM
+     * IS WORKING WITH AN ECRYPTED DATABASE.
+     */
     private void UI_CHANGES_WHEN_JLIST_CLICKED_ENCRYPTED() {
         Passwordv3 TEMPORAL_PASSWORD = jList_SEEPASSWORDS.getSelectedValue();
         if (TEMPORAL_PASSWORD != null) {
             jButton_PASSWORD.setEnabled(true);
-            jButton_saveFavB.setEnabled(true);
+            jButton_ADD_REMOVE_FAVORITE_MARK_TO_PASSWORD.setEnabled(true);
             jButton_seePasswordInfo.setEnabled(true);
             if (!TEMPORAL_PASSWORD.getEmail_ENCRYPTED().equals("")) {
                 jButton_MAIL.setEnabled(true);
@@ -431,11 +535,16 @@ public class SeePasswords extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * WHEN THE USER CLICKS ON A PASSWORD INSIDE THE JLIST, SOME BUTTONS ARE 
+     * ENABLED AND DISABLED. THIS METHOD DOES THE COMPROBATION WHEN THE PROGRAM
+     * IS WORKING WITH A NOT ECRYPTED DATABASE.
+     */
     private void UI_CHANGES_WHEN_JLIST_CLICKED_NOT_ENCRYPTED() {
         Passwordv3 TEMPORAL_PASSWORD = jList_SEEPASSWORDS.getSelectedValue();
         if (TEMPORAL_PASSWORD != null) {
             jButton_PASSWORD.setEnabled(true);
-            jButton_saveFavB.setEnabled(true);
+            jButton_ADD_REMOVE_FAVORITE_MARK_TO_PASSWORD.setEnabled(true);
             jButton_seePasswordInfo.setEnabled(true);
             if (!TEMPORAL_PASSWORD.getEmail().equals("")) {
                 jButton_MAIL.setEnabled(true);
@@ -500,14 +609,14 @@ public class SeePasswords extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton_ADD_REMOVE_FAVORITE_MARK_TO_PASSWORD;
     public static javax.swing.JButton jButton_MAIL;
     private javax.swing.JButton jButton_PASSWORD;
     private javax.swing.JButton jButton_SEARCHBUTTON;
+    private javax.swing.JButton jButton_SHOW_OR_HIDE_FAVORITE_PASSWORDS;
     public static javax.swing.JButton jButton_User;
     private javax.swing.JButton jButton_back;
-    private javax.swing.JButton jButton_saveFavB;
     private javax.swing.JButton jButton_seePasswordInfo;
-    private javax.swing.JButton jButton_showFavButton;
     private javax.swing.JComboBox<String> jCombobox_serviceSearch;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

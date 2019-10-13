@@ -20,6 +20,8 @@ public class FrameMessageThreadClass implements Runnable {
     1 = MAIL
     2 = USER
     3 = ITEM NOT FOUND
+    4 = CANCELLED
+    5 = NO FAVORITE PASSWORDS.
      */
     @Override
     public void run() {
@@ -49,11 +51,17 @@ public class FrameMessageThreadClass implements Runnable {
                     Thread.sleep(time);
                     NotFound.dispose();
                     break;
-                    case 4:
+                case 4:
                     FrameMessage Cancelled = new FrameMessage("Cancelled");
                     Cancelled.setVisible(true);
                     Thread.sleep(time);
                     Cancelled.dispose();
+                    break;
+                case 5:
+                    FrameMessage NoFavoritePasswords = new FrameMessage("No favorite passwords.");
+                    NoFavoritePasswords.setVisible(true);
+                    Thread.sleep(time);
+                    NoFavoritePasswords.dispose();
                     break;
             }
 

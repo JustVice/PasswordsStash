@@ -39,15 +39,19 @@ public class Passwordv3 {
         String user = this.user;
         String email = this.email;
         String notes = this.notes;
+        String favorite = this.favorite;
 
         String RETURN_STRING = service + ". ";
         if (!user.equals("")) {
-            RETURN_STRING += "User: " + user + ".";
+            RETURN_STRING += "User: " + user + ". ";
         } else {
-            RETURN_STRING += "E-Mail: " + email + ".";
+            RETURN_STRING += "E-Mail: " + email + ". ";
         }
         if (!notes.equals("")) {
-            RETURN_STRING += " Additional notes included.";
+            RETURN_STRING += "Additional notes included. ";
+        }
+        if(favorite.equals("1")){
+        RETURN_STRING += "Favorite password. ";
         }
         return RETURN_STRING;
     }
@@ -57,15 +61,19 @@ public class Passwordv3 {
         String user = AES.decrypt(this.user, Memory.AES_KEY_PASSWORD);
         String email = AES.decrypt(this.email, Memory.AES_KEY_PASSWORD);
         String notes = AES.decrypt(this.notes, Memory.AES_KEY_PASSWORD);
+        String favorite = AES.decrypt(this.favorite, Memory.AES_KEY_PASSWORD);
 
         String RETURN_STRING = service + ". ";
         if (!user.equals("")) {
-            RETURN_STRING += "User: " + user + ".";
+            RETURN_STRING += "User: " + user + ". ";
         } else {
-            RETURN_STRING += "E-Mail: " + email + ".";
+            RETURN_STRING += "E-Mail: " + email + ". ";
         }
         if (!notes.equals("")) {
-            RETURN_STRING += " Additional notes included.";
+            RETURN_STRING += "Additional notes included. ";
+        }
+        if(favorite.equals("1")){
+        RETURN_STRING += "Favorite password.";
         }
         return RETURN_STRING;
     }
@@ -109,6 +117,7 @@ public class Passwordv3 {
 
     // </editor-fold>
     // <editor-fold desc="ENCRYPT GET AND SET">
+    //GET AND SET IF THE PROGRAM IS WORKING WITH ENCRYPTED PASSWORDS.
     public String getService_ENCRYPTED() {
         return AES.decrypt(service, Memory.AES_KEY_PASSWORD);
     }
