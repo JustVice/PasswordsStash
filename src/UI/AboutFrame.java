@@ -148,15 +148,15 @@ public class AboutFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_backActionPerformed
 
     private void TWITTERMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TWITTERMouseClicked
-        openLink("https://twitter.com/JustVice1");
+        openLink("https://justvice.github.io/s/twitter");
     }//GEN-LAST:event_TWITTERMouseClicked
 
     private void GITHUBMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GITHUBMouseClicked
-        openLink("https://github.com/JustVice?tab=repositories");
+        openLink("https://justvice.github.io/s/github-repos");
     }//GEN-LAST:event_GITHUBMouseClicked
 
     private void ALLLINKSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ALLLINKSMouseClicked
-        openLink("https://justvice.wixsite.com/info");
+        openLink("https://justvice.github.io/s/links");
     }//GEN-LAST:event_ALLLINKSMouseClicked
 
     private void openLink(String link) {
