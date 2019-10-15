@@ -275,7 +275,6 @@ public class CreateNewP extends javax.swing.JFrame {
     }//GEN-LAST:event_jtext_usertxtKeyTyped
 
     private void jButton_createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_createActionPerformed
-//        createNewPasswordToDo();
         CREATE_NEW_PASSWORD();
     }//GEN-LAST:event_jButton_createActionPerformed
 
@@ -312,7 +311,7 @@ public class CreateNewP extends javax.swing.JFrame {
         } else {
             favorite = "0";
         }
-        Passwordv3 passwordv3_OBJECT = new Passwordv3(service, user, mail, password, notes, favorite);
+        Passwordv3 passwordv3_OBJECT = new Passwordv3(service, user, mail, password, notes, favorite, "0");
         return passwordv3_OBJECT;
     }
 
@@ -335,7 +334,8 @@ public class CreateNewP extends javax.swing.JFrame {
                 AES.encrypt(mail, Memory.AES_KEY_PASSWORD),
                 AES.encrypt(password, Memory.AES_KEY_PASSWORD),
                 AES.encrypt(notes, Memory.AES_KEY_PASSWORD),
-                AES.encrypt(favorite, Memory.AES_KEY_PASSWORD));
+                AES.encrypt(favorite, Memory.AES_KEY_PASSWORD),
+                "0");
         return passwordv3_OBJECT;
     }
 
@@ -357,7 +357,8 @@ public class CreateNewP extends javax.swing.JFrame {
         if (Memory.DATA_IS_ENCRYPTED) {
             SAVE_NEW_PASSWORD_INSIDE_DATABASE_ENCRYPTED(PASS_TO_SAVE);
         } else {
-            SAVE_NEW_PASSWORD_INSIDE_DATABASE_NOT_ENCRYPTED(PASS_TO_SAVE);
+//            SAVE_NEW_PASSWORD_INSIDE_DATABASE_NOT_ENCRYPTED(PASS_TO_SAVE);
+            SAVE_NEW_PASSWORD_INSIDE_DATABASE_ENCRYPTED(PASS_TO_SAVE);
         }
     }
 
@@ -370,7 +371,8 @@ public class CreateNewP extends javax.swing.JFrame {
                 + ", Password"
                 + ", Notes"
                 + ", ID"
-                + ", Favorite)"
+                + ", Favorite"
+                + ", InTrashCan)"
                 + "VALUES ('" + PASS_TO_SAVE.getService() + "'"
                 + ", '" + PASS_TO_SAVE.getUser() + "'"
                 + ", '" + PASS_TO_SAVE.getEmail() + "'"
@@ -378,6 +380,7 @@ public class CreateNewP extends javax.swing.JFrame {
                 + ", '" + PASS_TO_SAVE.getNotes() + "'"
                 + ", '" + PASS_TO_SAVE.getID() + "'"
                 + ", " + PASS_TO_SAVE.getFavorite_FOR_DATABASE_INTEGER_BOL() + ""
+                + ", '0'"
                 + ");", CONSOLE_QUERY_MESSAGE);
         UI_AND_MEMORY_CHANGES_AFTER_SAVING_A_NEW_PASSWORD(PASS_TO_SAVE);
     }
@@ -412,7 +415,7 @@ public class CreateNewP extends javax.swing.JFrame {
     private void MESSAGE_ABOUT_SAVED_PASSWORD(Passwordv3 PASS_TO_SAVE) {
         String UI_Message = "";
         if (Memory.DATA_IS_ENCRYPTED) {
-            UI_Message = "Password " + PASS_TO_SAVE.getService_DECRYPTED() + " saved.";
+            UI_Message = "Password " + AES.decrypt(PASS_TO_SAVE.getService(), Memory.AES_KEY_PASSWORD) + " saved.";
         } else {
             UI_Message = "Password " + PASS_TO_SAVE.getService() + " saved.";
         }

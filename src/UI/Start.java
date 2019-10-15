@@ -241,10 +241,8 @@ public class Start extends javax.swing.JFrame {
     }//GEN-LAST:event_seePasswordsMouseClicked
 
     private void DeletePasswordsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeletePasswordsMouseClicked
-        if (!Memory.data.getUserData().getPasswordsList().isEmpty()) {
-            Memory.run.openDelete();
-            this.dispose();
-        }
+        Run.openDelete();
+        dispose();
     }//GEN-LAST:event_DeletePasswordsMouseClicked
 
     private void EDITPasswordsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EDITPasswordsMouseClicked

@@ -4,6 +4,10 @@ import Logic.StaticOld;
 
 import Logic.Passwordv2;
 import LogicV3.Memory;
+import LogicV3.Passwordv3;
+import LogicV3.Run;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 public class Delete extends javax.swing.JFrame {
@@ -12,49 +16,89 @@ public class Delete extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         settings();
+    }
+
+    private void UI_SETTINGS() {
         setIconImage(Memory.getIconImage());
+        this.setTitle(Memory.title + " " + Memory.version);
+        this.setResizable(false);
     }
 
     private void settings() {
-        this.setTitle(Memory.title + " " + Memory.version);
-        j_list.setModel(Memory.run.setModelAndGet());
-        this.setResizable(false);
+        UI_SETTINGS();
+        SET_JLIST_DEFAULT_LIST();
+        ENABLE_OR_DISABLE_BOTH_DELETE_BUTTONS(false, false);
+    }
+
+    private void SET_JLIST_DEFAULT_LIST() {
+        DefaultListModel<Passwordv3> PASSWORDS_MODEL
+                = new DefaultListModel<>();
+        PASSWORDS_MODEL.clear();
+        for (Passwordv3 p : Memory.passwordsV3LinkedList) {
+            PASSWORDS_MODEL.add(0, p);
+        }
+        this.jList_PASSWORDS_LIST.setModel(PASSWORDS_MODEL);
+    }
+
+    private void ENABLE_OR_DISABLE_BOTH_DELETE_BUTTONS(boolean deleteButton, boolean trashCanButton) {
+        jButton_DeleteBOT.setEnabled(deleteButton);
+        jButton_trashCan.setEnabled(trashCanButton);
+    }
+
+    private void ENABLE_OR_DISABLE_DELETE_BUTTON(boolean deleteButton) {
+        jButton_DeleteBOT.setEnabled(deleteButton);
+
+    }
+
+    private void ENABLE_OR_DISABLE_TRASH_CAN(boolean trashCanButton) {
+        jButton_trashCan.setEnabled(trashCanButton);
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        DeleteBOT = new javax.swing.JButton();
+        jButton_DeleteBOT = new javax.swing.JButton();
         backBot = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        j_list = new javax.swing.JList<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jList_PASSWORDS_LIST = new javax.swing.JList<>();
+        jButton_trashCan = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        DeleteBOT.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        DeleteBOT.setText("DELETE");
-        DeleteBOT.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                DeleteBOTMouseClicked(evt);
+        jButton_DeleteBOT.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton_DeleteBOT.setText("Delete password");
+        jButton_DeleteBOT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_DeleteBOTActionPerformed(evt);
             }
         });
 
-        backBot.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        backBot.setText("BACK");
+        backBot.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        backBot.setText("Back");
         backBot.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 backBotMouseClicked(evt);
             }
         });
 
-        j_list.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        j_list.addMouseListener(new java.awt.event.MouseAdapter() {
+        jScrollPane2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+
+        jList_PASSWORDS_LIST.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jList_PASSWORDS_LIST.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                j_listMouseClicked(evt);
+                jList_PASSWORDS_LISTMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(j_list);
+        jScrollPane2.setViewportView(jList_PASSWORDS_LIST);
+
+        jButton_trashCan.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton_trashCan.setText("Trash can");
+        jButton_trashCan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_trashCanActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -62,86 +106,96 @@ public class Delete extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 782, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 773, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(backBot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(DeleteBOT, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(backBot)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton_trashCan)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton_DeleteBOT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 476, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(DeleteBOT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(backBot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(backBot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton_DeleteBOT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton_trashCan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void DeleteBOTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeleteBOTMouseClicked
-        deleteToDo();
-    }//GEN-LAST:event_DeleteBOTMouseClicked
-
-    private void deleteToDo() {
-        try {
-            Passwordv2 password = j_list.getSelectedValue();
-            if (deleteYes(password)) {
-                for (int i = 0; i < Memory.data.getUserData().getPasswordsList().size(); i++) {
-                    if (Memory.data.getUserData().getPasswordsList().get(i).getID() == password.getID()) {
-                        Memory.data.getUserData().getPasswordsList().remove(i);
-                        Memory.data.updateInfo();
-                        j_list.setModel(Memory.run.setModelAndGet());
-                    }
-                }
-            } else {
-                System.out.println("Action cancelled");
-            }
-        } catch (Exception e) {
-            System.out.println("User hasnt selected any password.");
+    private boolean IS_THERE_A_PASSWORD_SELECTED() {
+        Passwordv3 p = this.jList_PASSWORDS_LIST.getSelectedValue();
+        if (p != null) {
+            ENABLE_OR_DISABLE_DELETE_BUTTON(true);
+            return true;
+        } else {
+            ENABLE_OR_DISABLE_DELETE_BUTTON(false);
+            return false;
         }
     }
+
 
     private void backBotMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBotMouseClicked
         Memory.run.openStart();
         this.dispose();
     }//GEN-LAST:event_backBotMouseClicked
 
-    private void j_listMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_j_listMouseClicked
-        if (evt.getClickCount() == 2) {
-            deleteToDo();
-        }
-    }//GEN-LAST:event_j_listMouseClicked
+    private void jList_PASSWORDS_LISTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList_PASSWORDS_LISTMouseClicked
+        IS_THERE_A_PASSWORD_SELECTED();
+    }//GEN-LAST:event_jList_PASSWORDS_LISTMouseClicked
 
-    /**
-     * Makes the user confirm his selection of deleting the selected password
-     *
-     * @param password
-     * @return
-     */
-    private boolean deleteYes(Passwordv2 password) {
-        int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this " + password.getService(Memory.return_encoded) + " password? \n"
-                + "This action cannot be undone.", "DELETE", 0);
-        if (option == 0) {
-            return true;
-            /*0 = yes*/
-        } else {
-            return false;
-            /*1 = no*/
-        }
+    private void jButton_trashCanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_trashCanActionPerformed
+        
+    }//GEN-LAST:event_jButton_trashCanActionPerformed
 
+    private void jButton_DeleteBOTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_DeleteBOTActionPerformed
+        if (IS_THERE_A_PASSWORD_SELECTED()) {
+            Passwordv3 passwordToDelete = this.jList_PASSWORDS_LIST.getSelectedValue();
+            DELETE_PASSWORD(passwordToDelete);
+        }
+    }//GEN-LAST:event_jButton_DeleteBOTActionPerformed
+
+    private void DELETE_PASSWORD(Passwordv3 passwordToDelete) {
+        DELETE_PASSWORD_FROM_PROGRAM_MEMORY(passwordToDelete);
+        DELETE_PASSWORD_FROM_DATABASE(passwordToDelete);
+        DELETE_PASSWORD_UI_CHANGES_AND_MESSAGES();
+    }
+
+    private void DELETE_PASSWORD_FROM_PROGRAM_MEMORY(Passwordv3 passwordToDelete) {
+        for (int i = 0; i < Memory.passwordsV3LinkedList.size(); i++) {
+            if (Memory.passwordsV3LinkedList.get(i).getID().equals(passwordToDelete.getID())) {
+                Memory.passwordsV3LinkedList.remove(i);
+                System.out.println("Password deleted from program memory.");
+                break;
+            }
+        }
+    }
+
+    private void DELETE_PASSWORD_FROM_DATABASE(Passwordv3 passwordToDelete) {
+        String query = "DELETE FROM PASSS WHERE ID = '" + passwordToDelete.getID() + "';";
+        Memory.sqlite.Query(query, "Password deleted from Database.");
+    }
+
+    private void DELETE_PASSWORD_UI_CHANGES_AND_MESSAGES() {
+        ENABLE_OR_DISABLE_DELETE_BUTTON(true);
+        SET_JLIST_DEFAULT_LIST();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton DeleteBOT;
     private javax.swing.JButton backBot;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JList<Logic.Passwordv2> j_list;
+    private javax.swing.JButton jButton_DeleteBOT;
+    private javax.swing.JButton jButton_trashCan;
+    private javax.swing.JList<LogicV3.Passwordv3> jList_PASSWORDS_LIST;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }

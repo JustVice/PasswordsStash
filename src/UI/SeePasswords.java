@@ -13,13 +13,8 @@ import javax.swing.DefaultListModel;
 
 public class SeePasswords extends javax.swing.JFrame {
 
-    private Passwordv2 generalPassword;
     private DefaultListModel<Passwordv3> PASSWORDS_MODEL = new DefaultListModel();
-    private boolean searchPerformed = false;
-    private boolean showFavoritesPerformed = false;
-    private boolean SearchEnganched = false;
     private int MESSAGES_TIME_BEFORE_DISPOSE = 1200;
-    private byte password = 0, mail = 1, user = 2;
 
     public SeePasswords() {
         initComponents();
@@ -51,7 +46,9 @@ public class SeePasswords extends javax.swing.JFrame {
     private void SET_JLIST_DEFAULT_CONTENT() {
         this.PASSWORDS_MODEL.clear();
         for (Passwordv3 p : Memory.passwordsV3LinkedList) {
-            this.PASSWORDS_MODEL.add(0, p);
+            if (p.getInTrashCan().equals("0")) {
+                this.PASSWORDS_MODEL.add(0, p);
+            }
         }
         this.jList_SEEPASSWORDS.setModel(this.PASSWORDS_MODEL);
     }
@@ -280,10 +277,6 @@ public class SeePasswords extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton_backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_backMouseClicked
-        if (SearchEnganched) {
-            StaticOld.LoadData();
-            StaticOld.setModelsItems();
-        }
         StaticOld.admin.openStart();
         this.dispose();
     }//GEN-LAST:event_jButton_backMouseClicked
@@ -360,7 +353,7 @@ public class SeePasswords extends javax.swing.JFrame {
 
     private boolean ARE_THERE_FAVORITE_PASSWORDS_ENCRYPTED() {
         for (int i = 0; i < this.PASSWORDS_MODEL.size(); i++) {
-            if (this.PASSWORDS_MODEL.get(i).getFavorite_DECRYPTED().equals("1")) {
+            if (this.PASSWORDS_MODEL.get(i).getFavorite().equals("1")) {
                 return true;
             }
         }
@@ -402,7 +395,7 @@ public class SeePasswords extends javax.swing.JFrame {
         DefaultListModel<Passwordv3> FAVORITE_PASSWORDS_MODEL_LIST
                 = new DefaultListModel();
         for (Passwordv3 p : Memory.passwordsV3LinkedList) {
-            if (p.getFavorite_DECRYPTED().equals("1")
+            if (p.getFavorite().equals("1")
                     || p.getFavorite().equals("1")) {
                 FAVORITE_PASSWORDS_MODEL_LIST.add(0, p);
             }
@@ -453,7 +446,7 @@ public class SeePasswords extends javax.swing.JFrame {
      */
     private boolean TOGGLE_PASSWORD_FAVORITE_MARK_IS_PASSWORD_FAVORITE_NON_OR_ENCRYPTED_HANDLER(Passwordv3 TEMPORAL_PASSWORD) {
         if (Memory.DATA_IS_ENCRYPTED) {
-            if (TEMPORAL_PASSWORD.getFavorite_DECRYPTED().equals("0")) {
+            if (TEMPORAL_PASSWORD.getFavorite().equals("0")) {
                 return true;
             } else {
                 return false;
@@ -490,7 +483,7 @@ public class SeePasswords extends javax.swing.JFrame {
         for (Passwordv3 p : Memory.passwordsV3LinkedList) {
             if (p.getID().equals(PASSWORD_ID)) {
                 if (Memory.DATA_IS_ENCRYPTED) {
-                    p.setFavorite_ENCRYPTED("" + TOGGLE_PASSWORD_FAVORITE_MARK_CONVERT_BOOLEAN_TO_INT_BOOLEAN(IS_PASSWORD_FAVORITE));
+                    p.setFavorite("" + TOGGLE_PASSWORD_FAVORITE_MARK_CONVERT_BOOLEAN_TO_INT_BOOLEAN(IS_PASSWORD_FAVORITE));
                 } else {
                     p.setFavorite("" + TOGGLE_PASSWORD_FAVORITE_MARK_CONVERT_BOOLEAN_TO_INT_BOOLEAN(IS_PASSWORD_FAVORITE));
                 }
@@ -627,7 +620,7 @@ public class SeePasswords extends javax.swing.JFrame {
         DefaultListModel<Passwordv3> TEMPORAL_PASSWORDS_LIST
                 = new DefaultListModel<>();
         for (int i = 0; i < this.jList_SEEPASSWORDS.getModel().getSize(); i++) {
-            if (this.jList_SEEPASSWORDS.getModel().getElementAt(i).getService_SPECIAL().contains(TEXT_TYPED)) {
+            if (this.jList_SEEPASSWORDS.getModel().getElementAt(i).getService_LEGIBLE().contains(TEXT_TYPED)) {
                 TEMPORAL_PASSWORDS_LIST.add(0, this.PASSWORDS_MODEL.get(i));
             }
         }
@@ -648,6 +641,9 @@ public class SeePasswords extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         this.jLabel_MESSAGE_DOUBLE_CLICK_PASSWORDS.setVisible(false);
+        for (Passwordv3 p : Memory.passwordsV3LinkedList) {
+            System.out.println(p);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -85,6 +85,7 @@ public class SQLite {
                 temporalPassword.setNotes(rs.getString("Notes"));
                 temporalPassword.setID(rs.getString("ID"));
                 temporalPassword.setFavorite(rs.getString("Favorite"));
+                temporalPassword.setInTrashCan(rs.getString("InTrashCan"));
                 passwordTemporalList.add(temporalPassword);
                 temporalPassword = new Passwordv3();
             }
