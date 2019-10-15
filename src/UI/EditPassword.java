@@ -16,7 +16,7 @@ public class EditPassword extends javax.swing.JFrame {
     }
     
     private void settings() {
-        j_list.setModel(Memory.run.setModelAndGet());
+//        j_list.setModel(Memory.run.setModelAndGet());
         notesTxt.setLineWrap(true);
         notesTxt.setCaretPosition(0);
         notesTxt.setWrapStyleWord(true);

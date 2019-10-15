@@ -29,19 +29,23 @@ public class SeePasswords extends javax.swing.JFrame {
 
     private void settings() {
         SET_JLIST_DEFAULT_CONTENT();
-        SET_SEARCH_COMBOBOX();
         UI_VISUALS();
     }
 
     private void UI_VISUALS() {
         this.setTitle(Memory.title + " " + Memory.version);
         this.setResizable(false);
-        jButton_ADD_REMOVE_FAVORITE_MARK_TO_PASSWORD.setEnabled(false);
         setIconImage(Memory.getIconImage());
-        jButton_PASSWORD.setEnabled(false);
-        jButton_User.setEnabled(false);
-        jButton_MAIL.setEnabled(false);
-        jButton_seePasswordInfo.setEnabled(false);
+        TOGGLE_ACTION_BUTTONS_ENABLED_OR_DISABLED(false);
+        TOGGLE_RESET_SEARCH_BUTTON_ENABLE_DISABLED(false);
+    }
+
+    private void TOGGLE_ACTION_BUTTONS_ENABLED_OR_DISABLED(boolean STATUS) {
+        jButton_ADD_REMOVE_FAVORITE_MARK_TO_PASSWORD.setEnabled(STATUS);
+        jButton_PASSWORD.setEnabled(STATUS);
+        jButton_User.setEnabled(STATUS);
+        jButton_MAIL.setEnabled(STATUS);
+        jButton_seePasswordInfo.setEnabled(STATUS);
     }
 
     private void SET_JLIST_DEFAULT_CONTENT() {
@@ -56,18 +60,6 @@ public class SeePasswords extends javax.swing.JFrame {
         this.jList_SEEPASSWORDS.setModel(PASSWORDS_LIST);
     }
 
-    private void SET_SEARCH_COMBOBOX() {
-        jCombobox_serviceSearch.removeAllItems();
-        boolean DATA_IS_ENCRYPTED = Memory.DATA_IS_ENCRYPTED;
-        for (Passwordv3 p : Memory.passwordsV3LinkedList) {
-            if (DATA_IS_ENCRYPTED) {
-                jCombobox_serviceSearch.addItem(p.getService_ENCRYPTED());
-            } else {
-                jCombobox_serviceSearch.addItem(p.getService());
-            }
-        }
-    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -78,15 +70,17 @@ public class SeePasswords extends javax.swing.JFrame {
         jButton_MAIL = new javax.swing.JButton();
         jButton_User = new javax.swing.JButton();
         jButton_PASSWORD = new javax.swing.JButton();
-        jButton_SEARCHBUTTON = new javax.swing.JButton();
         jButton_seePasswordInfo = new javax.swing.JButton();
-        jCombobox_serviceSearch = new javax.swing.JComboBox<>();
-        serviceTxt = new javax.swing.JTextField();
-        jButton_ADD_REMOVE_FAVORITE_MARK_TO_PASSWORD = new javax.swing.JButton();
-        jButton_SHOW_OR_HIDE_FAVORITE_PASSWORDS = new javax.swing.JButton();
+        jtextField_serviceTxt = new javax.swing.JTextField();
         jButton_back = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jButton_SHOW_OR_HIDE_FAVORITE_PASSWORDS = new javax.swing.JButton();
+        jButton_ADD_REMOVE_FAVORITE_MARK_TO_PASSWORD = new javax.swing.JButton();
+        jLabel_MESSAGE_DOUBLE_CLICK_PASSWORDS = new javax.swing.JLabel();
+        jButton_reset_search = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -125,14 +119,6 @@ public class SeePasswords extends javax.swing.JFrame {
             }
         });
 
-        jButton_SEARCHBUTTON.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton_SEARCHBUTTON.setText("SEARCH SERVICE");
-        jButton_SEARCHBUTTON.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_SEARCHBUTTONActionPerformed(evt);
-            }
-        });
-
         jButton_seePasswordInfo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton_seePasswordInfo.setText("SEE ALL INFORMATION");
         jButton_seePasswordInfo.addActionListener(new java.awt.event.ActionListener() {
@@ -141,28 +127,10 @@ public class SeePasswords extends javax.swing.JFrame {
             }
         });
 
-        jCombobox_serviceSearch.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jCombobox_serviceSearch.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jCombobox_serviceSearchItemStateChanged(evt);
-            }
-        });
-
-        serviceTxt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-
-        jButton_ADD_REMOVE_FAVORITE_MARK_TO_PASSWORD.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton_ADD_REMOVE_FAVORITE_MARK_TO_PASSWORD.setText("Add/remove favorite");
-        jButton_ADD_REMOVE_FAVORITE_MARK_TO_PASSWORD.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_ADD_REMOVE_FAVORITE_MARK_TO_PASSWORDActionPerformed(evt);
-            }
-        });
-
-        jButton_SHOW_OR_HIDE_FAVORITE_PASSWORDS.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton_SHOW_OR_HIDE_FAVORITE_PASSWORDS.setText("Show favorite passwords");
-        jButton_SHOW_OR_HIDE_FAVORITE_PASSWORDS.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_SHOW_OR_HIDE_FAVORITE_PASSWORDSActionPerformed(evt);
+        jtextField_serviceTxt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jtextField_serviceTxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtextField_serviceTxtKeyReleased(evt);
             }
         });
 
@@ -180,74 +148,132 @@ public class SeePasswords extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("Copy to clipboard:");
 
+        jButton_SHOW_OR_HIDE_FAVORITE_PASSWORDS.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton_SHOW_OR_HIDE_FAVORITE_PASSWORDS.setText("Show favorite passwords");
+        jButton_SHOW_OR_HIDE_FAVORITE_PASSWORDS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_SHOW_OR_HIDE_FAVORITE_PASSWORDSActionPerformed(evt);
+            }
+        });
+
+        jButton_ADD_REMOVE_FAVORITE_MARK_TO_PASSWORD.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton_ADD_REMOVE_FAVORITE_MARK_TO_PASSWORD.setText("Add/remove favorite");
+        jButton_ADD_REMOVE_FAVORITE_MARK_TO_PASSWORD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_ADD_REMOVE_FAVORITE_MARK_TO_PASSWORDActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jButton_ADD_REMOVE_FAVORITE_MARK_TO_PASSWORD, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jButton_SHOW_OR_HIDE_FAVORITE_PASSWORDS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jButton_SHOW_OR_HIDE_FAVORITE_PASSWORDS)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton_ADD_REMOVE_FAVORITE_MARK_TO_PASSWORD, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 11, Short.MAX_VALUE))
+        );
+
+        jLabel_MESSAGE_DOUBLE_CLICK_PASSWORDS.setText("Note: you can copy a password on clipboard by making double click on a password!");
+
+        jButton_reset_search.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton_reset_search.setText("Reset search");
+        jButton_reset_search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_reset_searchActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 830, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(180, 180, 180)
                 .addComponent(jLabel3)
                 .addGap(153, 153, 153)
                 .addComponent(jLabel2)
-                .addGap(187, 187, 187)
-                .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(93, 93, 93))
             .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jButton_back, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton_PASSWORD, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton_MAIL, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(jButton_User, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton_seePasswordInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton_SHOW_OR_HIDE_FAVORITE_PASSWORDS)
-                    .addComponent(jButton_ADD_REMOVE_FAVORITE_MARK_TO_PASSWORD, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(serviceTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCombobox_serviceSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_SEARCHBUTTON, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton_back, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(11, 11, 11)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton_PASSWORD, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jButton_MAIL, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, 0)
+                                        .addComponent(jButton_User, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jButton_seePasswordInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jtextField_serviceTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                        .addComponent(jButton_reset_search, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jButton1)
+                                        .addGap(60, 60, 60))))
+                            .addComponent(jLabel_MESSAGE_DOUBLE_CLICK_PASSWORDS))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
+                .addComponent(jLabel_MESSAGE_DOUBLE_CLICK_PASSWORDS)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1))
-                .addGap(3, 3, 3)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel1)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton_back, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton_PASSWORD)
                         .addGap(3, 3, 3)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton_MAIL)
-                            .addComponent(jButton_User))
-                        .addGap(3, 3, 3)
-                        .addComponent(jButton_seePasswordInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton_SHOW_OR_HIDE_FAVORITE_PASSWORDS)
-                        .addGap(9, 9, 9)
-                        .addComponent(jButton_ADD_REMOVE_FAVORITE_MARK_TO_PASSWORD, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton_back, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(28, 28, 28)
-                                .addComponent(serviceTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jCombobox_serviceSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(12, 12, 12)
-                        .addComponent(jButton_SEARCHBUTTON, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jButton_PASSWORD)
+                                .addGap(3, 3, 3)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton_MAIL)
+                                    .addComponent(jButton_User))
+                                .addGap(3, 3, 3)
+                                .addComponent(jButton_seePasswordInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jtextField_serviceTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton_reset_search)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton1))))
         );
 
         pack();
@@ -267,7 +293,7 @@ public class SeePasswords extends javax.swing.JFrame {
         Passwordv3 TEMPORAL_PASSWORD = jList_SEEPASSWORDS.getSelectedValue();
         if (TEMPORAL_PASSWORD != null) {
             if (Memory.DATA_IS_ENCRYPTED) {
-                Run.COPY_CONTENT_TO_CLIPBOARD(TEMPORAL_PASSWORD.getPassword_ENCRYPTED());
+                Run.COPY_CONTENT_TO_CLIPBOARD(TEMPORAL_PASSWORD.getPassword_DECRYPTED());
                 FrameMessageThreadClass th
                         = new FrameMessageThreadClass(this.MESSAGES_TIME_BEFORE_DISPOSE, (byte) 0);
             } else {
@@ -280,7 +306,7 @@ public class SeePasswords extends javax.swing.JFrame {
         Passwordv3 TEMPORAL_PASSWORD = jList_SEEPASSWORDS.getSelectedValue();
         if (TEMPORAL_PASSWORD != null) {
             if (Memory.DATA_IS_ENCRYPTED) {
-                Run.COPY_CONTENT_TO_CLIPBOARD(TEMPORAL_PASSWORD.getEmail_ENCRYPTED());
+                Run.COPY_CONTENT_TO_CLIPBOARD(TEMPORAL_PASSWORD.getEmail_DECRYPTED());
                 FrameMessageThreadClass th
                         = new FrameMessageThreadClass(this.MESSAGES_TIME_BEFORE_DISPOSE, (byte) 1);
             } else {
@@ -293,7 +319,7 @@ public class SeePasswords extends javax.swing.JFrame {
         Passwordv3 TEMPORAL_PASSWORD = jList_SEEPASSWORDS.getSelectedValue();
         if (TEMPORAL_PASSWORD != null) {
             if (Memory.DATA_IS_ENCRYPTED) {
-                Run.COPY_CONTENT_TO_CLIPBOARD(TEMPORAL_PASSWORD.getUser_ENCRYPTED());
+                Run.COPY_CONTENT_TO_CLIPBOARD(TEMPORAL_PASSWORD.getUser_DECRYPTED());
                 FrameMessageThreadClass th
                         = new FrameMessageThreadClass(this.MESSAGES_TIME_BEFORE_DISPOSE, (byte) 2);
             } else {
@@ -307,12 +333,23 @@ public class SeePasswords extends javax.swing.JFrame {
     private void jButton_SHOW_OR_HIDE_FAVORITE_PASSWORDSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SHOW_OR_HIDE_FAVORITE_PASSWORDSActionPerformed
         if (ARE_THERE_FAVORITE_PASSWORDS()) {
             SHOW_OR_HIDE_FAVORITE_PASSWORDS();
+            TOGGLE_ACTION_BUTTONS_ENABLED_OR_DISABLED(false);
+            jtextField_serviceTxt.setText("");
+            TOGGLE_RESET_SEARCH_BUTTON_ENABLE_DISABLED(false);
         } else {
             NO_FAVORITE_PASSWORDS_FOUND_UI_MESSAGE();
         }
     }//GEN-LAST:event_jButton_SHOW_OR_HIDE_FAVORITE_PASSWORDSActionPerformed
 
     // <editor-fold desc="SHOW OR HIDE FAVORITE PASSWORDS METHODS.">
+    private void SHOW_OR_HIDE_FAVORITE_PASSWORDS() {
+        if (this.jButton_SHOW_OR_HIDE_FAVORITE_PASSWORDS.getText().equals("Show favorite passwords")) {
+            SHOW_FAVORITE_PASSWORDS();
+        } else {
+            HIDE_FAVORITE_PASSWORDS();
+        }
+    }
+
     private boolean ARE_THERE_FAVORITE_PASSWORDS() {
         if (Memory.DATA_IS_ENCRYPTED) {
             return ARE_THERE_FAVORITE_PASSWORDS_ENCRYPTED();
@@ -323,7 +360,7 @@ public class SeePasswords extends javax.swing.JFrame {
 
     private boolean ARE_THERE_FAVORITE_PASSWORDS_ENCRYPTED() {
         for (int i = 0; i < this.PASSWORDS_MODEL.size(); i++) {
-            if (this.PASSWORDS_MODEL.get(i).getFavorite_ENCRYPTED().equals("1")) {
+            if (this.PASSWORDS_MODEL.get(i).getFavorite_DECRYPTED().equals("1")) {
                 return true;
             }
         }
@@ -339,14 +376,6 @@ public class SeePasswords extends javax.swing.JFrame {
         return false;
     }
 
-    private void SHOW_OR_HIDE_FAVORITE_PASSWORDS() {
-        if (this.jButton_SHOW_OR_HIDE_FAVORITE_PASSWORDS.getText().equals("Show favorite passwords")) {
-            SHOW_FAVORITE_PASSWORDS();
-        } else {
-            HIDE_FAVORITE_PASSWORDS();
-        }
-    }
-
     private void SHOW_FAVORITE_PASSWORDS() {
         //BUILDS A DefaultListModel WITH ALL THE PASSWORDS MARKED AS FAVORITE
         DefaultListModel<Passwordv3> FAVORITE_PASSWORDS_MODEL_LIST
@@ -358,7 +387,7 @@ public class SeePasswords extends javax.swing.JFrame {
 
         //CHANGES THE TEXT OF THE JBUTTON. THIS IS USED TO KNOW WHAT ACTION
         //MUST BE DONE WHEN THE BUTTON IS CLICKED.
-        this.jButton_SHOW_OR_HIDE_FAVORITE_PASSWORDS.setText("Hide favorite passwords");
+        this.jButton_SHOW_OR_HIDE_FAVORITE_PASSWORDS.setText("Show all passwords");
     }
 
     private void HIDE_FAVORITE_PASSWORDS() {
@@ -372,10 +401,10 @@ public class SeePasswords extends javax.swing.JFrame {
     private DefaultListModel<Passwordv3> BUILD_FAVORITE_PASSWORDS_MODEL_LIST() {
         DefaultListModel<Passwordv3> FAVORITE_PASSWORDS_MODEL_LIST
                 = new DefaultListModel();
-        for (int i = 0; i < this.PASSWORDS_MODEL.size(); i++) {
-            if (this.PASSWORDS_MODEL.get(i).getFavorite_ENCRYPTED().equals("1")
-                    || this.PASSWORDS_MODEL.get(i).getFavorite().equals("1")) {
-                FAVORITE_PASSWORDS_MODEL_LIST.add(0, this.PASSWORDS_MODEL.get(i));
+        for (Passwordv3 p : Memory.passwordsV3LinkedList) {
+            if (p.getFavorite_DECRYPTED().equals("1")
+                    || p.getFavorite().equals("1")) {
+                FAVORITE_PASSWORDS_MODEL_LIST.add(0, p);
             }
         }
         return FAVORITE_PASSWORDS_MODEL_LIST;
@@ -390,6 +419,7 @@ public class SeePasswords extends javax.swing.JFrame {
     private void jButton_ADD_REMOVE_FAVORITE_MARK_TO_PASSWORDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ADD_REMOVE_FAVORITE_MARK_TO_PASSWORDActionPerformed
         if (jList_SEEPASSWORDS.getSelectedValue() != null) {
             TOGGLE_PASSWORD_FAVORITE_MARK();
+            TOGGLE_ACTION_BUTTONS_ENABLED_OR_DISABLED(false);
         }
     }//GEN-LAST:event_jButton_ADD_REMOVE_FAVORITE_MARK_TO_PASSWORDActionPerformed
 
@@ -405,8 +435,11 @@ public class SeePasswords extends javax.swing.JFrame {
                 = TOGGLE_PASSWORD_FAVORITE_MARK_IS_PASSWORD_FAVORITE_NON_OR_ENCRYPTED_HANDLER(TEMPORAL_PASSWORD);
         TOOGLE_PASSWORD_FAVORITE_MARK_MAKE_CHANGES_INSIDE_DATABASE(TEMPORAL_PASSWORD.getID(), IS_PASSWORD_MARKED_AS_FAVORITE);
         TOOGLE_PASSWORD_FAVORITE_MARK_MAKE_CHANGES_INSIDE_PROGRAM_MEMORY(TEMPORAL_PASSWORD.getID(), IS_PASSWORD_MARKED_AS_FAVORITE);
-        SET_JLIST_DEFAULT_CONTENT();
-        System.out.println("DONE!");
+        if (IS_THERE_TEXT_INSIDE_THE_SEARCH_TEXT_FIELD()) {
+            SEARCH_FOR_SERVICES_AND_SET_INTO_JLIST();
+        } else {
+            SET_JLIST_DEFAULT_CONTENT();
+        }
     }
 
     /**
@@ -420,7 +453,7 @@ public class SeePasswords extends javax.swing.JFrame {
      */
     private boolean TOGGLE_PASSWORD_FAVORITE_MARK_IS_PASSWORD_FAVORITE_NON_OR_ENCRYPTED_HANDLER(Passwordv3 TEMPORAL_PASSWORD) {
         if (Memory.DATA_IS_ENCRYPTED) {
-            if (TEMPORAL_PASSWORD.getFavorite_ENCRYPTED().equals("0")) {
+            if (TEMPORAL_PASSWORD.getFavorite_DECRYPTED().equals("0")) {
                 return true;
             } else {
                 return false;
@@ -482,24 +515,6 @@ public class SeePasswords extends javax.swing.JFrame {
     }
     // </editor-fold>
 
-    private void jButton_SEARCHBUTTONActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SEARCHBUTTONActionPerformed
-        if (!searchPerformed) {
-            searchService();
-            jButton_SEARCHBUTTON.setText("RESET VIEW");
-            searchPerformed = true;
-        } else {
-            jList_SEEPASSWORDS.setModel(Memory.passwords_model);
-            jButton_SEARCHBUTTON.setText("SEARCH SERVICE");
-            searchPerformed = false;
-        }
-
-
-    }//GEN-LAST:event_jButton_SEARCHBUTTONActionPerformed
-
-    private void jCombobox_serviceSearchItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCombobox_serviceSearchItemStateChanged
-        serviceTxt.setText(jCombobox_serviceSearch.getSelectedItem().toString());
-    }//GEN-LAST:event_jCombobox_serviceSearchItemStateChanged
-
     private void jList_SEEPASSWORDSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList_SEEPASSWORDSMouseClicked
         if (Memory.DATA_IS_ENCRYPTED) {
             UI_CHANGES_WHEN_JLIST_CLICKED_ENCRYPTED();
@@ -511,7 +526,7 @@ public class SeePasswords extends javax.swing.JFrame {
     }//GEN-LAST:event_jList_SEEPASSWORDSMouseClicked
 
     /**
-     * WHEN THE USER CLICKS ON A PASSWORD INSIDE THE JLIST, SOME BUTTONS ARE 
+     * WHEN THE USER CLICKS ON A PASSWORD INSIDE THE JLIST, SOME BUTTONS ARE
      * ENABLED AND DISABLED. THIS METHOD DOES THE COMPROBATION WHEN THE PROGRAM
      * IS WORKING WITH AN ECRYPTED DATABASE.
      */
@@ -521,12 +536,12 @@ public class SeePasswords extends javax.swing.JFrame {
             jButton_PASSWORD.setEnabled(true);
             jButton_ADD_REMOVE_FAVORITE_MARK_TO_PASSWORD.setEnabled(true);
             jButton_seePasswordInfo.setEnabled(true);
-            if (!TEMPORAL_PASSWORD.getEmail_ENCRYPTED().equals("")) {
+            if (!TEMPORAL_PASSWORD.getEmail_DECRYPTED().equals("")) {
                 jButton_MAIL.setEnabled(true);
             } else {
                 jButton_MAIL.setEnabled(false);
             }
-            if (!TEMPORAL_PASSWORD.getUser_ENCRYPTED().equals("")) {
+            if (!TEMPORAL_PASSWORD.getUser_DECRYPTED().equals("")) {
                 jButton_User.setEnabled(true);
             } else {
                 jButton_User.setEnabled(false);
@@ -536,7 +551,7 @@ public class SeePasswords extends javax.swing.JFrame {
     }
 
     /**
-     * WHEN THE USER CLICKS ON A PASSWORD INSIDE THE JLIST, SOME BUTTONS ARE 
+     * WHEN THE USER CLICKS ON A PASSWORD INSIDE THE JLIST, SOME BUTTONS ARE
      * ENABLED AND DISABLED. THIS METHOD DOES THE COMPROBATION WHEN THE PROGRAM
      * IS WORKING WITH A NOT ECRYPTED DATABASE.
      */
@@ -588,42 +603,71 @@ public class SeePasswords extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton_seePasswordInfoActionPerformed
 
-    private void searchService() {
-        if (!serviceTxt.getText().equals("")) {
-            DefaultListModel<Passwordv2> tempModel = new DefaultListModel();
-            for (Passwordv2 password : Memory.data.getUserData().getPasswordsList()) {
-                if (password.getService(Memory.return_encoded).equals(serviceTxt.getText())) {
-                    tempModel.addElement(password);
-                }
-            }
-            if (!tempModel.isEmpty()) {
-                jList_SEEPASSWORDS.setModel(tempModel);
-
-            } else {
-                Memory.run.message("There is not any password associated with the service name \"" + serviceTxt.getText() + "\"", "Not found", 0);
-            }
+    private void jtextField_serviceTxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtextField_serviceTxtKeyReleased
+        if (IS_THERE_TEXT_INSIDE_THE_SEARCH_TEXT_FIELD()) {
+            TOGGLE_RESET_SEARCH_BUTTON_ENABLE_DISABLED(true);
+            SEARCH_FOR_SERVICES_AND_SET_INTO_JLIST();
         } else {
-            System.out.println("Empty field");
+            TOGGLE_RESET_SEARCH_BUTTON_ENABLE_DISABLED(false);
+            SET_JLIST_DEFAULT_CONTENT();
+            jButton_SHOW_OR_HIDE_FAVORITE_PASSWORDS.setText("Show favorite passwords");
+        }
+    }//GEN-LAST:event_jtextField_serviceTxtKeyReleased
+
+    private boolean IS_THERE_TEXT_INSIDE_THE_SEARCH_TEXT_FIELD() {
+        if (this.jtextField_serviceTxt.getText().equals("")) {
+            return false;
+        } else {
+            return true;
         }
     }
 
+    private void SEARCH_FOR_SERVICES_AND_SET_INTO_JLIST() {
+        String TEXT_TYPED = jtextField_serviceTxt.getText().toUpperCase();
+        DefaultListModel<Passwordv3> TEMPORAL_PASSWORDS_LIST
+                = new DefaultListModel<>();
+        for (int i = 0; i < this.jList_SEEPASSWORDS.getModel().getSize(); i++) {
+            if (this.jList_SEEPASSWORDS.getModel().getElementAt(i).getService_SPECIAL().contains(TEXT_TYPED)) {
+                TEMPORAL_PASSWORDS_LIST.add(0, this.PASSWORDS_MODEL.get(i));
+            }
+        }
+        SET_CUSTOM_PASSWORDS_LIST_TO_JLIST(TEMPORAL_PASSWORDS_LIST);
+    }
+
+    private void TOGGLE_RESET_SEARCH_BUTTON_ENABLE_DISABLED(boolean STATUS) {
+        this.jButton_reset_search.setEnabled(STATUS);
+    }
+
+    private void jButton_reset_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_reset_searchActionPerformed
+        this.jtextField_serviceTxt.setText("");
+        TOGGLE_RESET_SEARCH_BUTTON_ENABLE_DISABLED(false);
+        SET_JLIST_DEFAULT_CONTENT();
+        jButton_SHOW_OR_HIDE_FAVORITE_PASSWORDS.setText("Show favorite passwords");
+    }//GEN-LAST:event_jButton_reset_searchActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        this.jLabel_MESSAGE_DOUBLE_CLICK_PASSWORDS.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton_ADD_REMOVE_FAVORITE_MARK_TO_PASSWORD;
     public static javax.swing.JButton jButton_MAIL;
     private javax.swing.JButton jButton_PASSWORD;
-    private javax.swing.JButton jButton_SEARCHBUTTON;
     private javax.swing.JButton jButton_SHOW_OR_HIDE_FAVORITE_PASSWORDS;
     public static javax.swing.JButton jButton_User;
     private javax.swing.JButton jButton_back;
+    private javax.swing.JButton jButton_reset_search;
     private javax.swing.JButton jButton_seePasswordInfo;
-    private javax.swing.JComboBox<String> jCombobox_serviceSearch;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel_MESSAGE_DOUBLE_CLICK_PASSWORDS;
     private javax.swing.JList<LogicV3.Passwordv3> jList_SEEPASSWORDS;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField serviceTxt;
+    private javax.swing.JTextField jtextField_serviceTxt;
     // End of variables declaration//GEN-END:variables
 
 }

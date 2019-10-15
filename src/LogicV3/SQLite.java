@@ -12,16 +12,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class SQLite {
-    
+
     private String data_source_path = "";
     private Connection con;
     ResultSet rs;
-    
+
     public SQLite(String data_source_path) {
         this.data_source_path = data_source_path;
     }
-    
-    public void Query(String query,String queryMessage) {
+
+    public void Query(String query, String queryMessage) {
         try {
             this.con = DriverManager.getConnection("jdbc:sqlite:" + data_source_path);
             Statement stmt = this.con.createStatement();
@@ -33,7 +33,7 @@ public class SQLite {
             Close_connection();
         }
     }
-    
+
     public boolean test_connection() {
         try {
             this.con = DriverManager.getConnection("jdbc:sqlite:" + data_source_path);
@@ -48,29 +48,29 @@ public class SQLite {
             }
         }
     }
-    
+
     public Boolean check_if_table_exists(String table_name) {
         try {
             this.con = DriverManager.getConnection("jdbc:sqlite:" + data_source_path);
             DatabaseMetaData dbm = this.con.getMetaData();
             ResultSet rs = dbm.getTables(null, null, table_name, null);
             if (rs.next()) {
-                System.out.println("Table exists");
+                System.out.println("Table " + table_name + " exists");
                 return true;
             } else {
-                System.out.println("Table does not exist");
+                System.out.println("Table " + table_name + " does not exist");
                 return false;
             }
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         } finally {
-            System.out.println("Query finished");
+//            System.out.println("Query finished");
             Close_connection();
         }
     }
-    
-    LinkedList<Passwordv3> getPasswordsFromDataBase(String query) {
+
+    public LinkedList<Passwordv3> getPasswordsFromDataBase(String query) {
         try {
             this.con = DriverManager.getConnection("jdbc:sqlite:" + data_source_path);
             Statement stmt = this.con.createStatement();
@@ -88,18 +88,19 @@ public class SQLite {
                 passwordTemporalList.add(temporalPassword);
                 temporalPassword = new Passwordv3();
             }
+            System.out.println(" success");
             return passwordTemporalList;
         } catch (SQLException e) {
             System.out.println("FAILED!");
             return null;
             //e.printStackTrace();
         } finally {
-            System.out.println("Query passwords load finished");
+//            System.out.println("Query passwords load finished");
             Close_connection();
         }
     }
-    
-    UserDataV3 getUserDataV3ParamettersFromDataBase(String query) {
+
+    public UserDataV3 getUserDataV3ParamettersFromDataBase(String query) {
         try {
             this.con = DriverManager.getConnection("jdbc:sqlite:" + data_source_path);
             Statement stmt = this.con.createStatement();
@@ -112,12 +113,13 @@ public class SQLite {
                 temporalUserDataV3.setMasterPasswordAttemptsOriginal(rs.getString("masterPasswordAttemptsOriginal"));
                 temporalUserDataV3.setInki(rs.getString("inki"));
             }
+            System.out.println(" success");
             return temporalUserDataV3;
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
         } finally {
-            System.out.println("Query finished");
+//            System.out.println("Query load userdata finished.");
             Close_connection();
         }
     }
@@ -169,7 +171,7 @@ public class SQLite {
             Logger.getLogger(SQLite.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     private int number_of_rows() {
         try {
             this.rs.last();
@@ -187,7 +189,7 @@ public class SQLite {
     public String getData_source_path() {
         return data_source_path;
     }
-    
+
     public void setData_source_path(String data_source_path) {
         this.data_source_path = data_source_path;
     }

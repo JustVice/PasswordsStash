@@ -50,8 +50,8 @@ public class Passwordv3 {
         if (!notes.equals("")) {
             RETURN_STRING += "Additional notes included. ";
         }
-        if(favorite.equals("1")){
-        RETURN_STRING += "Favorite password. ";
+        if (favorite.equals("1")) {
+            RETURN_STRING += "Favorite password. ";
         }
         return RETURN_STRING;
     }
@@ -72,8 +72,8 @@ public class Passwordv3 {
         if (!notes.equals("")) {
             RETURN_STRING += "Additional notes included. ";
         }
-        if(favorite.equals("1")){
-        RETURN_STRING += "Favorite password.";
+        if (favorite.equals("1")) {
+            RETURN_STRING += "Favorite password.";
         }
         return RETURN_STRING;
     }
@@ -99,10 +99,10 @@ public class Passwordv3 {
 
     private String SEE_ALL_PASSWORD_INFORMATION_FRAME_CONTENT_GIVER_ENCRYPTED() {
         String STRING_RETURN
-                = "Service: " + this.getService_ENCRYPTED() + "\n"
-                + "User: " + this.getUser_ENCRYPTED() + "\n"
-                + "EMail: " + this.getEmail_ENCRYPTED() + "\n"
-                + "Password: " + this.getPassword_ENCRYPTED() + "\n";
+                = "Service: " + this.getService_DECRYPTED() + "\n"
+                + "User: " + this.getUser_DECRYPTED() + "\n"
+                + "EMail: " + this.getEmail_DECRYPTED() + "\n"
+                + "Password: " + this.getPassword_DECRYPTED() + "\n";
         return STRING_RETURN;
     }
 
@@ -118,7 +118,9 @@ public class Passwordv3 {
     // </editor-fold>
     // <editor-fold desc="ENCRYPT GET AND SET">
     //GET AND SET IF THE PROGRAM IS WORKING WITH ENCRYPTED PASSWORDS.
-    public String getService_ENCRYPTED() {
+    //THE SET METHODS WILL SAVE THE INFORMATION ENCRYPTED. THE DECRYPTED METHODS
+    //WILL RETURN THE INFORMATION DECRYPTED.
+    public String getService_DECRYPTED() {
         return AES.decrypt(service, Memory.AES_KEY_PASSWORD);
     }
 
@@ -126,7 +128,7 @@ public class Passwordv3 {
         this.service = AES.encrypt(service, Memory.AES_KEY_PASSWORD);
     }
 
-    public String getUser_ENCRYPTED() {
+    public String getUser_DECRYPTED() {
         return AES.decrypt(user, Memory.AES_KEY_PASSWORD);
     }
 
@@ -134,7 +136,7 @@ public class Passwordv3 {
         this.user = AES.encrypt(user, Memory.AES_KEY_PASSWORD);
     }
 
-    public String getEmail_ENCRYPTED() {
+    public String getEmail_DECRYPTED() {
         return AES.decrypt(email, Memory.AES_KEY_PASSWORD);
     }
 
@@ -142,7 +144,7 @@ public class Passwordv3 {
         this.email = AES.encrypt(email, Memory.AES_KEY_PASSWORD);
     }
 
-    public String getPassword_ENCRYPTED() {
+    public String getPassword_DECRYPTED() {
         return AES.decrypt(password, Memory.AES_KEY_PASSWORD);
     }
 
@@ -150,7 +152,7 @@ public class Passwordv3 {
         this.password = AES.encrypt(password, Memory.AES_KEY_PASSWORD);
     }
 
-    public String getFavorite_ENCRYPTED() {
+    public String getFavorite_DECRYPTED() {
         return AES.decrypt(favorite, Memory.AES_KEY_PASSWORD);
     }
 
@@ -158,7 +160,7 @@ public class Passwordv3 {
         this.favorite = AES.encrypt(favorite, Memory.AES_KEY_PASSWORD);
     }
 
-    public String getNotes_ENCRYPTED() {
+    public String getNotes_DECRYPTED() {
         return AES.decrypt(notes, Memory.AES_KEY_PASSWORD);
     }
 
@@ -224,5 +226,120 @@ public class Passwordv3 {
         this.notes = notes;
     }
 
+    // </editor-fold>
+    // <editor-fold desc="SPECIAL GET AND SET">
+    //SPECIAL GET AND SET WILL SET OR RETURN THE VALUES DEPENDING IF THE
+    //DATA IS ENCRYPTED OR NOT ENCRYPTED AUTOMATICALLY.
+    public String getService_SPECIAL() {
+        if (Memory.DATA_IS_ENCRYPTED) {
+            return AES.decrypt(service, Memory.AES_KEY_PASSWORD);
+        } else {
+            return service;
+        }
+    }
+
+    public void setService_SPECIAL(String service) {
+        if (Memory.DATA_IS_ENCRYPTED) {
+            this.service = AES.encrypt(service, Memory.AES_KEY_PASSWORD);
+        } else {
+            this.service = service;
+        }
+    }
+
+    public String getUser_SPECIAL() {
+        if (Memory.DATA_IS_ENCRYPTED) {
+            return AES.decrypt(user, Memory.AES_KEY_PASSWORD);
+        } else {
+            return user;
+        }
+    }
+
+    public void setUser_SPECIAL(String user) {
+        if (Memory.DATA_IS_ENCRYPTED) {
+            this.user = AES.encrypt(user, Memory.AES_KEY_PASSWORD);
+        } else {
+            this.user = user;
+        }
+    }
+
+    public String getEmail_SPECIAL() {
+        if (Memory.DATA_IS_ENCRYPTED) {
+            return AES.decrypt(email, Memory.AES_KEY_PASSWORD);
+        } else {
+            return email;
+        }
+    }
+
+    public void setEmail_SPECIAL(String email) {
+        if (Memory.DATA_IS_ENCRYPTED) {
+            this.email = AES.encrypt(email, Memory.AES_KEY_PASSWORD);
+        } else {
+            this.email = email;
+        }
+    }
+
+    public String getPassword_SPECIAL() {
+        if (Memory.DATA_IS_ENCRYPTED) {
+            return AES.decrypt(password, Memory.AES_KEY_PASSWORD);
+        } else {
+            return password;
+        }
+    }
+
+    public void setPassword_SPECIAL(String password) {
+        if (Memory.DATA_IS_ENCRYPTED) {
+            this.password = AES.encrypt(password, Memory.AES_KEY_PASSWORD);
+        } else {
+            this.password = password;
+        }
+    }
+
+    public String getNotes_SPECIAL() {
+        if (Memory.DATA_IS_ENCRYPTED) {
+            return AES.decrypt(notes, Memory.AES_KEY_PASSWORD);
+        } else {
+            return notes;
+        }
+    }
+
+    public void setNotes_SPECIAL(String notes) {
+        if (Memory.DATA_IS_ENCRYPTED) {
+            this.notes = AES.encrypt(notes, Memory.AES_KEY_PASSWORD);
+        } else {
+            this.notes = notes;
+        }
+    }
+
+    public String getID_SPECIAL() {
+        if (Memory.DATA_IS_ENCRYPTED) {
+            return AES.decrypt(ID, Memory.AES_KEY_PASSWORD);
+        } else {
+            return ID;
+        }
+    }
+
+    public void setID_SPECIAL(String ID) {
+        if (Memory.DATA_IS_ENCRYPTED) {
+            this.ID = AES.encrypt(ID, Memory.AES_KEY_PASSWORD);
+        } else {
+            this.ID = ID;
+        }
+    }
+
+    public String getFavorite_SPECIAL() {
+        if (Memory.DATA_IS_ENCRYPTED) {
+            return AES.decrypt(favorite, Memory.AES_KEY_PASSWORD);
+        } else {
+            return favorite;
+        }
+    }
+
+    public void setFavorite_SPECIAL(String favorite) {
+        if (Memory.DATA_IS_ENCRYPTED) {
+            this.favorite = AES.encrypt(favorite, Memory.AES_KEY_PASSWORD);
+        } else {
+            this.favorite = favorite;
+        }
+    }
     // </editor-fold>
 }

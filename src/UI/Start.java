@@ -4,6 +4,7 @@ import Logic.FrameMessageThreadClass;
 import LogicV3.Memory;
 import LogicV2.TextKeeper;
 import LogicV2.UserData;
+import LogicV3.Run;
 import javax.swing.JOptionPane;
 
 public class Start extends javax.swing.JFrame {
@@ -103,6 +104,11 @@ public class Start extends javax.swing.JFrame {
         EDITPasswords.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 EDITPasswordsMouseClicked(evt);
+            }
+        });
+        EDITPasswords.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EDITPasswordsActionPerformed(evt);
             }
         });
 
@@ -317,6 +323,11 @@ public class Start extends javax.swing.JFrame {
         CreateNewP createNewP = new CreateNewP();
         this.dispose();
     }//GEN-LAST:event_createNewActionPerformed
+
+    private void EDITPasswordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EDITPasswordsActionPerformed
+        Run.openEdit();
+        this.dispose();
+    }//GEN-LAST:event_EDITPasswordsActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -16,10 +16,9 @@ public class DataVSQLite {
     }
 
     private void LOAD_PASSWORDS_FROM_DATABASE() {
-        System.out.println("Loading passwords...");
+        System.out.print("Loading passwords...");
         Memory.passwordsV3LinkedList = Memory.sqlite.getPasswordsFromDataBase("SELECT * FROM PASSS");
         if (Memory.passwordsV3LinkedList != null) {
-            System.out.println("Success");
         } else {
             String message = "Critical error at loading passwords\n"
                     + "Error 001";
@@ -29,10 +28,9 @@ public class DataVSQLite {
     }
 
     private void LOAD_USERDATA_FROM_DATABASE() {
-        System.out.println("Loading user data...");
+        System.out.print("Loading user data...");
         Memory.userDataV3 = Memory.sqlite.getUserDataV3ParamettersFromDataBase("SELECT * FROM USERDATAV3");
         if (Memory.userDataV3 != null) {
-            System.out.println("Success");
         } else {
             String message = "Critical error at loading user data\n"
                     + "Error 002";

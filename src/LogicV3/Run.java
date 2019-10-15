@@ -20,18 +20,35 @@ public class Run {
     }
 
     private void TESTS() {
-        System.out.println("Not tests settled.");
     }
 
     private void v3Run() {
+        CHECK_IF_SQLITE_LIBRARY_EXISTS();
         SQLITE_CREATE_DATABASE_AND_TABLES_IF_NOT_EXIST();
         Memory.dataVSQL.loadData();
         openStart();
     }
 
-    //Creates the database if it does not exist. If it exists, checks if the tables
-    //exist.
+    private void CHECK_IF_SQLITE_LIBRARY_EXISTS() {
+        File file = new File(System.getProperty("user.dir") + "\\lib\\sqlite-jdbc-3.27.2.1.jar");
+        if (!file.exists()) {
+            System.out.println("ERROR 005: LIBRARY sqlite-jdbc-3.27.2.1.jar NOT FOUND");
+            String message = "Library sqlite-jdbc-3.27.2.1.jar was not found.\n\n"
+                    + "Passwords Stash Version 3+ needs that library inside the folder\n"
+                    + "\"lib\" inside the same directory where the program is located.\n"
+                    + "Please, download Passwords Stash again to fix the problem.\n"
+                    + "To prevent data loss make a copy of the file \"pwsdata.db\".\n\n"
+                    + "ERROR 005";
+            message(message, "ERROR 005", 0);
+            System.exit(0);
+        }else{
+            System.out.println("Library sqlite-jdbc-3.27.2.1.jar: OK!");
+        }
+    }
+
     private void SQLITE_CREATE_DATABASE_AND_TABLES_IF_NOT_EXIST() {
+        //Creates the database if it does not exist. If it exists, checks if the tables
+        //exist.
         SQLiteDBController sqliteController = new SQLiteDBController(Memory.SQLiteDBName);
         sqliteController.createNewDatabase();
         Boolean PASSS_TABLE = Memory.sqlite.check_if_table_exists("PASSS");
@@ -252,8 +269,8 @@ public class Run {
             System.out.println("Error\n" + ex);
         }
     }
-    
-     public static void COPY_CONTENT_TO_CLIPBOARD(String textToSaveIntoClipBoard) {
+
+    public static void COPY_CONTENT_TO_CLIPBOARD(String textToSaveIntoClipBoard) {
         StringSelection selection = new StringSelection(textToSaveIntoClipBoard);
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(selection, selection);

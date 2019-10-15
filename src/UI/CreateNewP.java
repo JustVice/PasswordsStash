@@ -412,7 +412,7 @@ public class CreateNewP extends javax.swing.JFrame {
     private void MESSAGE_ABOUT_SAVED_PASSWORD(Passwordv3 PASS_TO_SAVE) {
         String UI_Message = "";
         if (Memory.DATA_IS_ENCRYPTED) {
-            UI_Message = "Password " + PASS_TO_SAVE.getService_ENCRYPTED() + " saved.";
+            UI_Message = "Password " + PASS_TO_SAVE.getService_DECRYPTED() + " saved.";
         } else {
             UI_Message = "Password " + PASS_TO_SAVE.getService() + " saved.";
         }
