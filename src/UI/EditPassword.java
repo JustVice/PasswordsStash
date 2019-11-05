@@ -1,7 +1,7 @@
 package UI;
 
 import LogicV3.Memory;
-import LogicV3.Passwordv3;
+import Objects.Passwordv3;
 import LogicV3.Run;
 import java.awt.event.KeyEvent;
 import javax.swing.DefaultListModel;
@@ -393,7 +393,7 @@ public class EditPassword extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JList<LogicV3.Passwordv3> jList_passwrods;
+    private javax.swing.JList<Objects.Passwordv3> jList_passwrods;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField_mailtxt;

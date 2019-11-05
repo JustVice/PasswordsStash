@@ -1,5 +1,6 @@
 package LogicV3;
 
+import Objects.Passwordv3;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -27,7 +28,7 @@ public class SQLite {
             Statement stmt = this.con.createStatement();
             stmt.executeQuery(query);
         } catch (SQLException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         } finally {
             System.out.println(queryMessage);
             Close_connection();
@@ -93,8 +94,8 @@ public class SQLite {
             return passwordTemporalList;
         } catch (SQLException e) {
             System.out.println("FAILED!");
+            e.printStackTrace();
             return null;
-            //e.printStackTrace();
         } finally {
 //            System.out.println("Query passwords load finished");
             Close_connection();

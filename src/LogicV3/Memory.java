@@ -1,5 +1,6 @@
 package LogicV3;
 
+import Objects.Passwordv3;
 import LogicV2.Data;
 import java.awt.Image;
 import java.awt.Toolkit;

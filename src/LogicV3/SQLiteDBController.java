@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 public class SQLiteDBController {
 
-    private String databasePath;
+    private final String databasePath;
 
     public SQLiteDBController(String url) {
         this.databasePath = url;

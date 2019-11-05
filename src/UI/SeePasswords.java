@@ -6,7 +6,7 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import Logic.FrameMessageThreadClass;
 import LogicV3.Memory;
-import LogicV3.Passwordv3;
+import Objects.Passwordv3;
 import LogicV3.Run;
 
 import javax.swing.DefaultListModel;
@@ -660,7 +660,7 @@ public class SeePasswords extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel_MESSAGE_DOUBLE_CLICK_PASSWORDS;
-    private javax.swing.JList<LogicV3.Passwordv3> jList_SEEPASSWORDS;
+    private javax.swing.JList<Objects.Passwordv3> jList_SEEPASSWORDS;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jtextField_serviceTxt;

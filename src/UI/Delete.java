@@ -4,7 +4,7 @@ import Logic.StaticOld;
 
 import Logic.Passwordv2;
 import LogicV3.Memory;
-import LogicV3.Passwordv3;
+import Objects.Passwordv3;
 import LogicV3.Run;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
@@ -14,11 +14,11 @@ public class Delete extends javax.swing.JFrame {
 
     public Delete() {
         initComponents();
-        setLocationRelativeTo(null);
         settings();
     }
 
     private void UI_SETTINGS() {
+        setLocationRelativeTo(null);
         setIconImage(Memory.getIconImage());
         this.setTitle(Memory.title + " " + Memory.version);
         this.setResizable(false);
@@ -27,7 +27,7 @@ public class Delete extends javax.swing.JFrame {
     private void settings() {
         UI_SETTINGS();
         SET_JLIST_DEFAULT_LIST();
-        ENABLE_OR_DISABLE_BOTH_DELETE_BUTTONS(false, false);
+        ENABLE_OR_DISABLE_BOTH_DELETE_BUTTONS(false, true);
     }
 
     private void SET_JLIST_DEFAULT_LIST() {
@@ -35,7 +35,9 @@ public class Delete extends javax.swing.JFrame {
                 = new DefaultListModel<>();
         PASSWORDS_MODEL.clear();
         for (Passwordv3 p : Memory.passwordsV3LinkedList) {
-            PASSWORDS_MODEL.add(0, p);
+            if (!p.getInTrashCan().equals("1")) {
+                PASSWORDS_MODEL.add(0, p);
+            }
         }
         this.jList_PASSWORDS_LIST.setModel(PASSWORDS_MODEL);
     }
@@ -47,7 +49,6 @@ public class Delete extends javax.swing.JFrame {
 
     private void ENABLE_OR_DISABLE_DELETE_BUTTON(boolean deleteButton) {
         jButton_DeleteBOT.setEnabled(deleteButton);
-
     }
 
     private void ENABLE_OR_DISABLE_TRASH_CAN(boolean trashCanButton) {
@@ -155,15 +156,37 @@ public class Delete extends javax.swing.JFrame {
     }//GEN-LAST:event_jList_PASSWORDS_LISTMouseClicked
 
     private void jButton_trashCanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_trashCanActionPerformed
-        
+        TrashCan trashCan = new TrashCan();
+        dispose();
     }//GEN-LAST:event_jButton_trashCanActionPerformed
 
     private void jButton_DeleteBOTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_DeleteBOTActionPerformed
         if (IS_THERE_A_PASSWORD_SELECTED()) {
             Passwordv3 passwordToDelete = this.jList_PASSWORDS_LIST.getSelectedValue();
-            DELETE_PASSWORD(passwordToDelete);
+            SEND_PASSWORD_TO_TRASH_CAN(passwordToDelete);
         }
     }//GEN-LAST:event_jButton_DeleteBOTActionPerformed
+
+    private void SEND_PASSWORD_TO_TRASH_CAN(Passwordv3 passwordToSendToTrashCan) {
+        SEND_PASSWORD_TO_TRASH_CAN_FROM_PROGRAM_MEMORY(passwordToSendToTrashCan);
+        SEND_PASSWORD_TO_TRASH_CAN_FROM_DATABASE(passwordToSendToTrashCan);
+        DELETE_PASSWORD_UI_CHANGES_AND_MESSAGES();
+    }
+
+    private void SEND_PASSWORD_TO_TRASH_CAN_FROM_PROGRAM_MEMORY(Passwordv3 passwordToSendToTrashCan) {
+        for (int i = 0; i < Memory.passwordsV3LinkedList.size(); i++) {
+            if (Memory.passwordsV3LinkedList.get(i).getID().equals(passwordToSendToTrashCan.getID())) {
+                Memory.passwordsV3LinkedList.get(i).setInTrashCan("1");
+                System.out.println("Password sent to trash can from program memory.");
+                break;
+            }
+        }
+    }
+
+    private void SEND_PASSWORD_TO_TRASH_CAN_FROM_DATABASE(Passwordv3 passwordToSendToTrashCan) {
+        String query = "UPDATE PASSS SET InTrashCan = '1' WHERE ID = '" + passwordToSendToTrashCan.getID() + "';";
+        Memory.sqlite.Query(query, "Password sent to trash can from Database.");
+    }
 
     private void DELETE_PASSWORD(Passwordv3 passwordToDelete) {
         DELETE_PASSWORD_FROM_PROGRAM_MEMORY(passwordToDelete);
@@ -195,7 +218,7 @@ public class Delete extends javax.swing.JFrame {
     private javax.swing.JButton backBot;
     private javax.swing.JButton jButton_DeleteBOT;
     private javax.swing.JButton jButton_trashCan;
-    private javax.swing.JList<LogicV3.Passwordv3> jList_PASSWORDS_LIST;
+    private javax.swing.JList<Objects.Passwordv3> jList_PASSWORDS_LIST;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }

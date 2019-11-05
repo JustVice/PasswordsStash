@@ -4,7 +4,7 @@ import Logic.Passwordv2;
 import LogicV2.Encode;
 import LogicV3.AES;
 import LogicV3.Memory;
-import LogicV3.Passwordv3;
+import Objects.Passwordv3;
 import LogicV3.Run;
 import java.awt.event.KeyEvent;
 

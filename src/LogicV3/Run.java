@@ -1,5 +1,6 @@
 package LogicV3;
 
+import Objects.Passwordv3;
 import Logic.Passwordv2;
 import LogicV2.Message_V2;
 import UI.*;

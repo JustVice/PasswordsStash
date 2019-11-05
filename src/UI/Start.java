@@ -93,9 +93,9 @@ public class Start extends javax.swing.JFrame {
 
         DeletePasswords.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         DeletePasswords.setText("DELETE PASSWORDS");
-        DeletePasswords.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                DeletePasswordsMouseClicked(evt);
+        DeletePasswords.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DeletePasswordsActionPerformed(evt);
             }
         });
 
@@ -240,11 +240,6 @@ public class Start extends javax.swing.JFrame {
        
     }//GEN-LAST:event_seePasswordsMouseClicked
 
-    private void DeletePasswordsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeletePasswordsMouseClicked
-        Run.openDelete();
-        dispose();
-    }//GEN-LAST:event_DeletePasswordsMouseClicked
-
     private void EDITPasswordsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EDITPasswordsMouseClicked
         if (!Memory.data.getUserData().getPasswordsList().isEmpty()) {
             Memory.run.openEdit();
@@ -273,8 +268,10 @@ public class Start extends javax.swing.JFrame {
 
     private void seePasswordsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seePasswordsMouseEntered
         //You are not supposed to be reading this.
+        System.out.println("?");
         int n = (int) (Math.random() * 100000);
-        if (n < 1500) {
+        if (n < 1100) {
+            System.out.println("???");
             Inki inki = new Inki();
         }
     }//GEN-LAST:event_seePasswordsMouseEntered
@@ -285,26 +282,26 @@ public class Start extends javax.swing.JFrame {
     }//GEN-LAST:event_howToUseActionPerformed
 
     private void DELETEALLDATAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DELETEALLDATAActionPerformed
-        String option = JOptionPane.showInputDialog(null, "Type \"delete\" and accept to confirm all data deletion.", "Delete all data", 2);
-        if (option != null) {
-            option = option.toLowerCase();
-            if (option.equals("delete")) {
-                Memory.data.setUserData(new UserData());
-                Memory.data.getUserData().setFirstRun(false);
-                Memory.data.updateInfo();
-                Memory.run.openStart();
-                this.dispose();
-            } else {
-                FrameMessageThreadClass threadClass = new FrameMessageThreadClass(800, (byte) 4);
-                threadClass.start();
-            }
-            if (option.toLowerCase().equals("inki")) {
-                Inki inki = new Inki();
-            }
-        } else {
-            FrameMessageThreadClass threadClass = new FrameMessageThreadClass(800, (byte) 4);
-            threadClass.start();
-        }
+//        String option = JOptionPane.showInputDialog(null, "Type \"delete\" and accept to confirm all data deletion.", "Delete all data", 2);
+//        if (option != null) {
+//            option = option.toLowerCase();
+//            if (option.equals("delete")) {
+//                Memory.data.setUserData(new UserData());
+//                Memory.data.getUserData().setFirstRun(false);
+//                Memory.data.updateInfo();
+//                Memory.run.openStart();
+//                this.dispose();
+//            } else {
+//                FrameMessageThreadClass threadClass = new FrameMessageThreadClass(800, (byte) 4);
+//                threadClass.start();
+//            }
+//            if (option.toLowerCase().equals("inki")) {
+//                Inki inki = new Inki();
+//            }
+//        } else {
+//            FrameMessageThreadClass threadClass = new FrameMessageThreadClass(800, (byte) 4);
+//            threadClass.start();
+//        }
     }//GEN-LAST:event_DELETEALLDATAActionPerformed
 
     private void MASTER_PASSWORD_BUTTONActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MASTER_PASSWORD_BUTTONActionPerformed
@@ -326,6 +323,11 @@ public class Start extends javax.swing.JFrame {
         Run.openEdit();
         this.dispose();
     }//GEN-LAST:event_EDITPasswordsActionPerformed
+
+    private void DeletePasswordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeletePasswordsActionPerformed
+        Run.openDelete();
+        dispose();
+    }//GEN-LAST:event_DeletePasswordsActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

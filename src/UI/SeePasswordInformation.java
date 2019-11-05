@@ -1,7 +1,7 @@
 package UI;
 
 import LogicV3.Memory;
-import LogicV3.Passwordv3;
+import Objects.Passwordv3;
 
 public class SeePasswordInformation extends javax.swing.JFrame {
 

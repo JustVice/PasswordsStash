@@ -1,4 +1,7 @@
-package LogicV3;
+package Objects;
+
+import LogicV3.AES;
+import LogicV3.Memory;
 
 public class Passwordv3 {
 
@@ -12,7 +15,6 @@ public class Passwordv3 {
     private String InTrashCan;
 
     public Passwordv3() {
-
     }
 
     public Passwordv3(String service, String user, String mail, String password, String notes, String favorite, String InTrashCan) {
@@ -28,13 +30,11 @@ public class Passwordv3 {
 
     @Override
     public String toString() {
-        String return_string = "";
         if (Memory.DATA_IS_ENCRYPTED) {
-            return_string = TO_STRING_ENCRYPTED_DATA();
+            return TO_STRING_ENCRYPTED_DATA();
         } else {
-            return_string = TO_STRING_NON_ENCRYPTED_DATA();
+            return TO_STRING_NON_ENCRYPTED_DATA();
         }
-        return return_string;
     }
 
     private String TO_STRING_NON_ENCRYPTED_DATA() {
