@@ -170,7 +170,7 @@ public class Delete extends javax.swing.JFrame {
     private void SEND_PASSWORD_TO_TRASH_CAN(Passwordv3 passwordToSendToTrashCan) {
         SEND_PASSWORD_TO_TRASH_CAN_FROM_PROGRAM_MEMORY(passwordToSendToTrashCan);
         SEND_PASSWORD_TO_TRASH_CAN_FROM_DATABASE(passwordToSendToTrashCan);
-        DELETE_PASSWORD_UI_CHANGES_AND_MESSAGES();
+        UI_CHANGES_AFTER_SENDING_PASS_TO_TASHCAN();
     }
 
     private void SEND_PASSWORD_TO_TRASH_CAN_FROM_PROGRAM_MEMORY(Passwordv3 passwordToSendToTrashCan) {
@@ -188,31 +188,11 @@ public class Delete extends javax.swing.JFrame {
         Memory.sqlite.Query(query, "Password sent to trash can from Database.");
     }
 
-    private void DELETE_PASSWORD(Passwordv3 passwordToDelete) {
-        DELETE_PASSWORD_FROM_PROGRAM_MEMORY(passwordToDelete);
-        DELETE_PASSWORD_FROM_DATABASE(passwordToDelete);
-        DELETE_PASSWORD_UI_CHANGES_AND_MESSAGES();
-    }
-
-    private void DELETE_PASSWORD_FROM_PROGRAM_MEMORY(Passwordv3 passwordToDelete) {
-        for (int i = 0; i < Memory.passwordsV3LinkedList.size(); i++) {
-            if (Memory.passwordsV3LinkedList.get(i).getID().equals(passwordToDelete.getID())) {
-                Memory.passwordsV3LinkedList.remove(i);
-                System.out.println("Password deleted from program memory.");
-                break;
-            }
-        }
-    }
-
-    private void DELETE_PASSWORD_FROM_DATABASE(Passwordv3 passwordToDelete) {
-        String query = "DELETE FROM PASSS WHERE ID = '" + passwordToDelete.getID() + "';";
-        Memory.sqlite.Query(query, "Password deleted from Database.");
-    }
-
-    private void DELETE_PASSWORD_UI_CHANGES_AND_MESSAGES() {
+    private void UI_CHANGES_AFTER_SENDING_PASS_TO_TASHCAN() {
         ENABLE_OR_DISABLE_DELETE_BUTTON(true);
         SET_JLIST_DEFAULT_LIST();
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBot;
