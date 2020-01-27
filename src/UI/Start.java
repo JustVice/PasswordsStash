@@ -8,26 +8,26 @@ import LogicV3.Run;
 import javax.swing.JOptionPane;
 
 public class Start extends javax.swing.JFrame {
-    
+
     public Start() {
         initComponents();
         UI_SETTINGS();
         DISPLAY_FRAME();
     }
-    
+
     private void DISPLAY_FRAME() {
         setIconImage(Memory.getIconImage());
         setLocationRelativeTo(null);
         this.setResizable(false);
         this.setVisible(true);
     }
-    
+
     private void UI_SETTINGS() {
         this.setTitle(Memory.title + " " + Memory.version);
         UI_SETTINGS_BUTTONS_AND_LABEL();
         UI_SETTINGS_MASTER_PASSWORD_BUTTON();
     }
-    
+
     private void UI_SETTINGS_BUTTONS_AND_LABEL() {
         if (!Memory.passwordsV3LinkedList.isEmpty()) {
             totalPw.setText("There is/are a total of " + Memory.passwordsV3LinkedList.size() + " password/s recorded.");
@@ -40,7 +40,7 @@ public class Start extends javax.swing.JFrame {
             DELETEALLDATA.setEnabled(false);
         }
     }
-    
+
     private void UI_SETTINGS_MASTER_PASSWORD_BUTTON() {
         if (Memory.userDataV3.getMasterPassword().equals("null")) {
             MASTER_PASSWORD_BUTTON.setText("ENABLE MASTER PASSWORD");
@@ -48,7 +48,7 @@ public class Start extends javax.swing.JFrame {
             MASTER_PASSWORD_BUTTON.setText("Edit Master Password");
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -113,9 +113,9 @@ public class Start extends javax.swing.JFrame {
         });
 
         printPasswords.setText("Print passwords");
-        printPasswords.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                printPasswordsMouseClicked(evt);
+        printPasswords.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                printPasswordsActionPerformed(evt);
             }
         });
 
@@ -234,10 +234,10 @@ public class Start extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void seePasswordsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seePasswordsMouseClicked
-    
-            Memory.run.openSeeP();
-            this.dispose();
-       
+
+        Memory.run.openSeeP();
+        this.dispose();
+
     }//GEN-LAST:event_seePasswordsMouseClicked
 
     private void EDITPasswordsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EDITPasswordsMouseClicked
@@ -246,13 +246,6 @@ public class Start extends javax.swing.JFrame {
             this.dispose();
         }
     }//GEN-LAST:event_EDITPasswordsMouseClicked
-
-    private void printPasswordsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_printPasswordsMouseClicked
-        if (!Memory.data.getUserData().getPasswordsList().isEmpty()) {
-            Memory.run.openPrintPasswords();
-            this.dispose();
-        }
-    }//GEN-LAST:event_printPasswordsMouseClicked
 
     private void changeLogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changeLogMouseClicked
         TextKeeper textKeeper = new TextKeeper();
@@ -268,7 +261,7 @@ public class Start extends javax.swing.JFrame {
 
     private void seePasswordsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seePasswordsMouseEntered
         //You are not supposed to be reading this.
-        System.out.println("?");
+//        System.out.println("?");
         int n = (int) (Math.random() * 100000);
         if (n < 1100) {
             System.out.println("???");
@@ -328,6 +321,13 @@ public class Start extends javax.swing.JFrame {
         Run.openDelete();
         dispose();
     }//GEN-LAST:event_DeletePasswordsActionPerformed
+
+    private void printPasswordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printPasswordsActionPerformed
+//        if (!Memory.data.getUserData().getPasswordsList().isEmpty()) {
+            Memory.run.openPrintPasswords();
+            this.dispose();
+//        }
+    }//GEN-LAST:event_printPasswordsActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

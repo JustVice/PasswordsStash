@@ -17,10 +17,14 @@ public class Run {
 
     public Run() {
         v3Run();
-        TESTS();
+//        TESTS();
     }
 
     private void TESTS() {
+        CHECK_IF_SQLITE_LIBRARY_EXISTS();
+        SQLITE_CREATE_DATABASE_AND_TABLES_IF_NOT_EXIST();
+        Memory.dataVSQL.loadData();
+        openDelete();
     }
 
     private void v3Run() {
@@ -181,6 +185,10 @@ public class Run {
 
     public void openEditMasterPassword() {
         MPSettings m = new MPSettings();
+    }
+    
+    public void openTrashCan(){
+        TrashCan trashCan = new TrashCan();
     }
 
     // </editor-fold>

@@ -1,14 +1,9 @@
 package UI;
 
-import Logic.StaticOld;
-
-import Logic.Passwordv2;
 import LogicV3.Memory;
-import Objects.Passwordv3;
 import LogicV3.Run;
+import Objects.Passwordv3;
 import javax.swing.DefaultListModel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
 
 public class Delete extends javax.swing.JFrame {
 
@@ -123,11 +118,10 @@ public class Delete extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 476, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(backBot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton_DeleteBOT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton_trashCan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton_DeleteBOT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton_trashCan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(backBot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -147,7 +141,7 @@ public class Delete extends javax.swing.JFrame {
 
 
     private void backBotMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBotMouseClicked
-        Memory.run.openStart();
+        Run.openStart();
         this.dispose();
     }//GEN-LAST:event_backBotMouseClicked
 
