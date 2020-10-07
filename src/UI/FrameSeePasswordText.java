@@ -1,7 +1,7 @@
 package UI;
 
-import Logic.Passwordv2;
-import LogicV2.Static;
+import OldLogic.Passwordv2;
+import Logic.Memory;
 
 public class FrameSeePasswordText extends javax.swing.JFrame {
 
@@ -10,10 +10,10 @@ public class FrameSeePasswordText extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         text.setEditable(false);
-        text.setText(password.getObjectForSeePasswords(Static.return_encoded));
-        this.setTitle(Static.title + " " + Static.version);
+        text.setText(password.getObjectForSeePasswords(Memory.return_encoded));
+        this.setTitle(Memory.title + " " + Memory.version);
         this.setResizable(false);
-        setIconImage(Static.getIconImage());
+        setIconImage(Memory.getIconImage());
     }
 
     @SuppressWarnings("unchecked")

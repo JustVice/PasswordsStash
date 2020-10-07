@@ -1,11 +1,11 @@
 package UI;
 
-import Logic.StaticOld;
-import Logic.Passwordv2;
+import OldLogic.StaticOld;
+import OldLogic.Passwordv2;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
-import Logic.ThreadClass_Message;
-import LogicV2.Static;
+import OldLogic.ThreadClass_Message;
+import Logic.Memory;
 import java.util.LinkedList;
 import javax.swing.DefaultListModel;
 
@@ -22,21 +22,21 @@ public class SeePasswords extends javax.swing.JFrame {
     }
 
     private void setPasswordsToJlist() {
-        j_list.setModel(Static.run.setModelAndGet());
+        j_list.setModel(Memory.tasks.setModelAndGet());
     }
 
     private void setComboBox() {
         LinkedList<String> items = new LinkedList<String>();
-        for (Passwordv2 password : Static.data.getUserData().getPasswordsList()) {
+        for (Passwordv2 password : Memory.data.getUserData().getPasswordsList()) {
             boolean repeated = false;
             for (String str : items) {
-                if (str.equals(password.getService(Static.return_encoded))) {
+                if (str.equals(password.getService(Memory.return_encoded))) {
                     repeated = true;
                     break;
                 }
             }
             if (!repeated) {
-                items.add(password.getService(Static.return_encoded));
+                items.add(password.getService(Memory.return_encoded));
             }
         }
         for (String str : items) {
@@ -247,7 +247,7 @@ public class SeePasswords extends javax.swing.JFrame {
         try {
             Clipboard clip = getToolkit().getSystemClipboard();
             Passwordv2 toClipBoardPassword = j_list.getSelectedValue();
-            StringSelection stringClip = new StringSelection(toClipBoardPassword.getPassword(Static.return_encoded));
+            StringSelection stringClip = new StringSelection(toClipBoardPassword.getPassword(Memory.return_encoded));
             clip.setContents(stringClip, stringClip);
             ThreadClass_Message threadClass = new ThreadClass_Message(timeThread, password);/*action 0 to change button text*/
             threadClass.start();
@@ -275,7 +275,7 @@ public class SeePasswords extends javax.swing.JFrame {
                 showFavoritesPerformed = true;
             }
         } else {
-            j_list.setModel(Static.modeloPasswords);
+            j_list.setModel(Memory.modeloPasswords);
             showFavButton.setText("Show favorite passwords");
             showFavoritesPerformed = false;
         }
@@ -284,7 +284,7 @@ public class SeePasswords extends javax.swing.JFrame {
     private boolean showFavorites() {
         boolean thereAreFavPasswords = true;
         DefaultListModel<Passwordv2> tempModel = new DefaultListModel();
-        for (Passwordv2 password : Static.data.getUserData().getPasswordsList()) {
+        for (Passwordv2 password : Memory.data.getUserData().getPasswordsList()) {
             if (password.isFavorite()) {
                 tempModel.addElement(password);
             }
@@ -292,7 +292,7 @@ public class SeePasswords extends javax.swing.JFrame {
         if (!tempModel.isEmpty()) {
             j_list.setModel(tempModel);
         } else {
-            Static.run.message("There are not any password setted as favorite", "No fav passwords", 1);
+            Memory.tasks.message("There are not any password setted as favorite", "No fav passwords", 1);
             thereAreFavPasswords = false;
         }
         return thereAreFavPasswords;
@@ -302,21 +302,21 @@ public class SeePasswords extends javax.swing.JFrame {
         Passwordv2 tempPassword = j_list.getSelectedValue();
         try {
             if (tempPassword != null) {
-                for (int i = 0; i < Static.data.getUserData().getPasswordsList().size(); i++) {
-                    if (Static.data.getUserData().getPasswordsList().get(i).getID() == tempPassword.getID()) {
-                        if (Static.data.getUserData().getPasswordsList().get(i).isFavorite()) {
-                            Static.data.getUserData().getPasswordsList().get(i).setFavorite(false);
+                for (int i = 0; i < Memory.data.getUserData().getPasswordsList().size(); i++) {
+                    if (Memory.data.getUserData().getPasswordsList().get(i).getID() == tempPassword.getID()) {
+                        if (Memory.data.getUserData().getPasswordsList().get(i).isFavorite()) {
+                            Memory.data.getUserData().getPasswordsList().get(i).setFavorite(false);
                             System.out.println("Password fav = false");
                             break;
                         } else {
-                            Static.data.getUserData().getPasswordsList().get(i).setFavorite(true);
+                            Memory.data.getUserData().getPasswordsList().get(i).setFavorite(true);
                             System.out.println("Password fav = true");
                             break;
                         }
                     }
                 }
-                Static.data.updateInfo();
-                j_list.setModel(Static.run.setModelAndGet());
+                Memory.data.updateInfo();
+                j_list.setModel(Memory.tasks.setModelAndGet());
             } else {
                 System.out.println("User does not selected any password.");
             }
@@ -331,7 +331,7 @@ public class SeePasswords extends javax.swing.JFrame {
             SEARCHBUTTON.setText("RESET VIEW");
             searchPerformed = true;
         } else {
-            j_list.setModel(Static.modeloPasswords);
+            j_list.setModel(Memory.modeloPasswords);
             SEARCHBUTTON.setText("SEARCH SERVICE");
             searchPerformed = false;
         }
@@ -349,12 +349,12 @@ public class SeePasswords extends javax.swing.JFrame {
             PASSWORD.setEnabled(true);
             saveFavB.setEnabled(true);
             seePasswordInfo.setEnabled(true);
-            if (!pass.getMail(Static.return_encoded).equals("")) {
+            if (!pass.getMail(Memory.return_encoded).equals("")) {
                 MAIL.setEnabled(true);
             } else {
                 MAIL.setEnabled(false);
             }
-            if (!pass.getUser(Static.return_encoded).equals("")) {
+            if (!pass.getUser(Memory.return_encoded).equals("")) {
                 User.setEnabled(true);
             } else {
                 User.setEnabled(false);
@@ -374,7 +374,7 @@ public class SeePasswords extends javax.swing.JFrame {
         try {
             Clipboard clip = getToolkit().getSystemClipboard();
             Passwordv2 toClipBoardPassword = j_list.getSelectedValue();
-            StringSelection stringClip = new StringSelection(toClipBoardPassword.getMail(Static.return_encoded));
+            StringSelection stringClip = new StringSelection(toClipBoardPassword.getMail(Memory.return_encoded));
             clip.setContents(stringClip, stringClip);
             ThreadClass_Message t = new ThreadClass_Message(timeThread, mail);
             t.start();
@@ -387,7 +387,7 @@ public class SeePasswords extends javax.swing.JFrame {
         try {
             Clipboard clip = getToolkit().getSystemClipboard();
             Passwordv2 toClipBoardPassword = j_list.getSelectedValue();
-            StringSelection stringClip = new StringSelection(toClipBoardPassword.getUser(Static.return_encoded));
+            StringSelection stringClip = new StringSelection(toClipBoardPassword.getUser(Memory.return_encoded));
             clip.setContents(stringClip, stringClip);
             ThreadClass_Message t = new ThreadClass_Message(timeThread, user);
             t.start();
@@ -398,8 +398,8 @@ public class SeePasswords extends javax.swing.JFrame {
     private void searchService() {
         if (!serviceTxt.getText().equals("")) {
             DefaultListModel<Passwordv2> tempModel = new DefaultListModel();
-            for (Passwordv2 password : Static.data.getUserData().getPasswordsList()) {
-                if (password.getService(Static.return_encoded).equals(serviceTxt.getText())) {
+            for (Passwordv2 password : Memory.data.getUserData().getPasswordsList()) {
+                if (password.getService(Memory.return_encoded).equals(serviceTxt.getText())) {
                     tempModel.addElement(password);
                 }
             }
@@ -407,7 +407,7 @@ public class SeePasswords extends javax.swing.JFrame {
                 j_list.setModel(tempModel);
 
             } else {
-                Static.run.message("There is not any password associated with the service name \"" + serviceTxt.getText() + "\"", "Not found", 0);
+                Memory.tasks.message("There is not any password associated with the service name \"" + serviceTxt.getText() + "\"", "Not found", 0);
             }
         } else {
             System.out.println("Empty field");
@@ -425,7 +425,7 @@ public class SeePasswords extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JList<Logic.Passwordv2> j_list;
+    private javax.swing.JList<OldLogic.Passwordv2> j_list;
     private javax.swing.JButton saveFavB;
     private javax.swing.JButton seePasswordInfo;
     private javax.swing.JComboBox<String> serviceCombo;
@@ -437,10 +437,10 @@ public class SeePasswords extends javax.swing.JFrame {
         setPasswordsToJlist();
         setComboBox();
         SearchEnganched = false;
-        this.setTitle(Static.title + " " + Static.version);
+        this.setTitle(Memory.title + " " + Memory.version);
         this.setResizable(false);
         saveFavB.setEnabled(false);
-        setIconImage(Static.getIconImage());
+        setIconImage(Memory.getIconImage());
         PASSWORD.setEnabled(false);
         User.setEnabled(false);
         MAIL.setEnabled(false);

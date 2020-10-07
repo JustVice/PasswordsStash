@@ -1,6 +1,6 @@
 package UI.MasterPassword;
 
-import LogicV2.Static;
+import Logic.Memory;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 public class SetMP extends javax.swing.JFrame implements Runnable {
 
     public SetMP() {
-        setIconImage(Static.getIconImage());
+        setIconImage(Memory.getIconImage());
         initComponents();
         settings();
     }
@@ -25,8 +25,8 @@ public class SetMP extends javax.swing.JFrame implements Runnable {
                 if (!jTextField1_master1.getText().equals("null")) {
                     PROCEED_MP();
                     PROCEED_MPA();
-                    Static.data.updateInfo();
-                    Static.run.openStart_and_show_message("MASTER PASSWORD SAVED!");
+                    Memory.data.updateInfo();
+                    //Memory.tasks.openStart_and_show_message("MASTER PASSWORD SAVED!");
                     this.dispose();
                 } else {
                     JOptionPane.showMessageDialog(null, "The world \"null\" is not allowed as a Master Password.", "NOT ALLOWED WORD", 0);
@@ -40,21 +40,21 @@ public class SetMP extends javax.swing.JFrame implements Runnable {
     }
 
     private void PROCEED_MP() {
-        Static.data.getUserData().setMp(jTextField1_master1.getText());
+        Memory.data.getUserData().setMp(jTextField1_master1.getText());
     }
 
     private void PROCEED_MPA() {
         if (jRadioButton1_limit_attempts.isSelected()) {
-            Static.data.getUserData().setMpa(("" + ((int) jSpinner1.getValue())));
-            Static.data.getUserData().setMpa_original(("" + ((int) jSpinner1.getValue())));
+            Memory.data.getUserData().setMpa(("" + ((int) jSpinner1.getValue())));
+            Memory.data.getUserData().setMpa_original(("" + ((int) jSpinner1.getValue())));
         } else {
-            Static.data.getUserData().setMpa("null");
-            Static.data.getUserData().setMpa_original("null");
+            Memory.data.getUserData().setMpa("null");
+            Memory.data.getUserData().setMpa_original("null");
         }
     }
 
     private void settings() {
-        this.setTitle(Static.title + " " + Static.version);
+        this.setTitle(Memory.title + " " + Memory.version);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
@@ -248,7 +248,7 @@ public class SetMP extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_jRadioButton1_limit_attemptsActionPerformed
 
     private void jButton1_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1_backActionPerformed
-        Static.run.openStart();
+        //Memory.tasks.openStart();
         this.dispose();
     }//GEN-LAST:event_jButton1_backActionPerformed
 

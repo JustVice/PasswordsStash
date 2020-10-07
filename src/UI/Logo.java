@@ -1,6 +1,6 @@
 package UI;
 
-import LogicV2.Static;
+import Logic.Memory;
 import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -12,7 +12,7 @@ public class Logo extends javax.swing.JFrame implements Runnable {
         initComponents();
         setLocationRelativeTo(null);
         setBackground(new Color(0, 0, 0, 0));
-        setIconImage(Static.getIconImage());
+        setIconImage(Memory.getIconImage());
         Start();
     }
 

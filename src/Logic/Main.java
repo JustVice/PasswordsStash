@@ -1,11 +1,14 @@
 package Logic;
 
-import LogicV2.Run;
-import LogicV2.Static;
+import Data.SQLite;
 
 public class Main {
 
     public static void main(String[] args) {
-        Static.run = new Run(); 
+        Memory.tasks.v3Run();
+        
+        SQLite sqLite = new SQLite(Memory.database_uri);
+        sqLite.create_database();
+        sqLite.create_database_tables();
     }
 }

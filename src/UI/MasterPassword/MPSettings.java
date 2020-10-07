@@ -1,6 +1,6 @@
 package UI.MasterPassword;
 
-import LogicV2.Static;
+import Logic.Memory;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
@@ -8,13 +8,13 @@ import javax.swing.JOptionPane;
 public class MPSettings extends javax.swing.JFrame {
 
     public MPSettings() {
-        setIconImage(Static.getIconImage());
+        setIconImage(Memory.getIconImage());
         initComponents();
         settings();
     }
 
     private void settings() {
-        this.setTitle(Static.title + " " + Static.version);
+        this.setTitle(Memory.title + " " + Memory.version);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
@@ -42,10 +42,10 @@ public class MPSettings extends javax.swing.JFrame {
     }
 
     private void attempts_settings() {
-        String mpa = Static.data.getUserData().getMpa();
+        String mpa = Memory.data.getUserData().getMpa();
         if (!mpa.equals("null")) {
             jRadioButton1_change_mpa.setSelected(true);
-            jSpinner1_attempts.setValue(Integer.parseInt(Static.data.getUserData().getMpa()));
+            jSpinner1_attempts.setValue(Integer.parseInt(Memory.data.getUserData().getMpa()));
         } else {
             jRadioButton1_change_mpa.setSelected(false);
             jLabel8_attempts_label.setVisible(false);
@@ -307,14 +307,14 @@ public class MPSettings extends javax.swing.JFrame {
     private void jButton1_delete_master_passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1_delete_master_passwordActionPerformed
         labelmps_status_set("", "red");
         String c_mp = JOptionPane.showInputDialog("Type the current master password first");
-        if (c_mp.equals(Static.data.getUserData().getMp())) {
-            int option = Static.run.askMessage("Are you sure you want to disable the Master Password?", "Delete Master Password", 0, 3);
+        if (c_mp.equals(Memory.data.getUserData().getMp())) {
+            int option = Memory.tasks.askMessage("Are you sure you want to disable the Master Password?", "Delete Master Password", 0, 3);
             if (option == 0) {
-                Static.data.getUserData().setMp("null");
-                Static.data.getUserData().setMpa("null");
-                Static.data.getUserData().setMpa_original("null");
-                Static.data.updateInfo();
-                Static.run.openStart();
+                Memory.data.getUserData().setMp("null");
+                Memory.data.getUserData().setMpa("null");
+                Memory.data.getUserData().setMpa_original("null");
+                Memory.data.updateInfo();
+                //Memory.tasks.openStart();
                 this.dispose();
             }
         } else {
@@ -331,21 +331,21 @@ public class MPSettings extends javax.swing.JFrame {
             labelmps_status_set("You must type the current Master Password to save changes!", "red");
 //            Static.run.message("You must type the current Master Password to save changes!", "Enter Current Master Password", 2);
         } else {
-            if (jTextField1_curret_mp.getText().equals(Static.data.getUserData().getMp())) {
+            if (jTextField1_curret_mp.getText().equals(Memory.data.getUserData().getMp())) {
                 if (jTextField1_new_mp.getText().equals(jTextField1_repeat_new_mp.getText())) {
                     //Static.data.getUserData().setMp(jTextField1_new_mp.getText());
                     if(jRadioButton1_change_mp.isSelected()){
-                        Static.data.getUserData().setMp(jTextField1_new_mp.getText());
+                        Memory.data.getUserData().setMp(jTextField1_new_mp.getText());
                     }
                     if(jRadioButton1_change_mpa.isSelected()){
-                        Static.data.getUserData().setMpa(("" + ((int) jSpinner1_attempts.getValue())));
-                        Static.data.getUserData().setMpa_original(("" + ((int) jSpinner1_attempts.getValue())));
+                        Memory.data.getUserData().setMpa(("" + ((int) jSpinner1_attempts.getValue())));
+                        Memory.data.getUserData().setMpa_original(("" + ((int) jSpinner1_attempts.getValue())));
                     }else{
-                        Static.data.getUserData().setMpa("null");
-                        Static.data.getUserData().setMpa_original("null");
+                        Memory.data.getUserData().setMpa("null");
+                        Memory.data.getUserData().setMpa_original("null");
                     }
-                    Static.data.updateInfo();
-                    Static.run.openStart_and_show_message("MASTER PASSWORD EDITED");
+                    Memory.data.updateInfo();
+                    //Memory.tasks.openStart_and_show_message("MASTER PASSWORD EDITED");
                     this.dispose();
                     //System.out.println("save changes");
                 } else {
@@ -358,12 +358,12 @@ public class MPSettings extends javax.swing.JFrame {
     }
     
     private void jButton1_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1_backActionPerformed
-        Static.run.openStart();
+        //Memory.tasks.openStart();
         this.dispose();
     }//GEN-LAST:event_jButton1_backActionPerformed
 
     private void jTextField1_curret_mpFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1_curret_mpFocusLost
-        if (!jTextField1_curret_mp.getText().equals(Static.data.getUserData().getMp())) {
+        if (!jTextField1_curret_mp.getText().equals(Memory.data.getUserData().getMp())) {
             labelmps_status_set("Incorrect master password!", "red");
         }
     }//GEN-LAST:event_jTextField1_curret_mpFocusLost

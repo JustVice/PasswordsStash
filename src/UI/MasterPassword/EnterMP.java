@@ -1,7 +1,7 @@
 package UI.MasterPassword;
 
-import LogicV2.Static;
-import LogicV2.UserData;
+import Logic.Memory;
+import OldLogicV2.UserData;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 
@@ -12,13 +12,13 @@ public class EnterMP extends javax.swing.JFrame {
     private boolean attempts_active = false;
 
     public EnterMP() {
-        setIconImage(Static.getIconImage());
+        setIconImage(Memory.getIconImage());
         initComponents();
         settings();
     }
 
     private void settings() {
-        this.setTitle(Static.title + " " + Static.version);
+        this.setTitle(Memory.title + " " + Memory.version);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
@@ -26,10 +26,10 @@ public class EnterMP extends javax.swing.JFrame {
     }
 
     private void set_attemps() {
-        String mpa = Static.data.getUserData().getMpa();
+        String mpa = Memory.data.getUserData().getMpa();
         if (!mpa.equals("null")) {
             this.attempts_active = true;
-            this.attempts = Integer.parseInt(Static.data.getUserData().getMpa());
+            this.attempts = Integer.parseInt(Memory.data.getUserData().getMpa());
             set_label_status("Attempts left: " + this.attempts, "black");
         }
 
@@ -123,28 +123,28 @@ public class EnterMP extends javax.swing.JFrame {
 
     private void verify() {
         if (!get_jPasswordField_value().equals("")) {
-            if (!get_jPasswordField_value().equals(Static.data.getUserData().getMp())) {
+            if (!get_jPasswordField_value().equals(Memory.data.getUserData().getMp())) {
                 set_label_status("Incorrect", "red");
                 jPasswordField1_password.setText("");
                 if (this.attempts_active) {
                     this.attempts--;
-                    Static.data.getUserData().setMpa("" + this.attempts);
-                    Static.data.updateInfo();
+                    Memory.data.getUserData().setMpa("" + this.attempts);
+                    Memory.data.updateInfo();
                     set_label_status("Incorrect. Attempts left: " + this.attempts, "red");
                 }
                 if (this.attempts == 0) {
                     System.out.println("DELETE DATA");
-                    Static.data.setUserData(new UserData());
-                    Static.data.getUserData().setFirstRun(false);
-                    Static.data.updateInfo();
-                    Static.run.openStart();
+                    Memory.data.setUserData(new UserData());
+                    Memory.data.getUserData().setFirstRun(false);
+                    Memory.data.updateInfo();
+                    //Memory.tasks.openStart();
                     this.dispose();
                 }
             } else {
                 set_label_status("CORRECT", "green");
-                Static.data.getUserData().setMpa(Static.data.getUserData().getMpa_original());
-                Static.data.updateInfo();
-                Static.run.openStart();
+                Memory.data.getUserData().setMpa(Memory.data.getUserData().getMpa_original());
+                Memory.data.updateInfo();
+                //Memory.tasks.openStart();
                 this.dispose();
             }
 
